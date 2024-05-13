@@ -1,0 +1,48 @@
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PTMobile.MainPage">
+
+    <ScrollView>
+        <Grid VerticalOptions="FillAndExpand">
+
+            <!-- Fondo de la página -->
+            <Image Source="Resources/Images/fondo.jpg"
+                   Aspect="AspectFill"
+                   VerticalOptions="FillAndExpand"
+                   HorizontalOptions="FillAndExpand"
+                   Grid.RowSpan="2" />
+
+            <!-- Contenido de la página -->
+            <StackLayout Padding="30"
+                         VerticalOptions="Center"
+                         Grid.Row="0">
+
+                <Entry x:Name="usernameEntry"
+                       Placeholder="Username"
+                       HorizontalOptions="FillAndExpand"
+                       Margin="0,0,0,10" />
+
+                <Entry x:Name="passwordEntry"
+                       Placeholder="Password"
+                       IsPassword="True"
+                       HorizontalOptions="FillAndExpand"
+                       Margin="0,0,0,10" />
+
+                <Button Text="Log In"
+                        Clicked="LoginButton_Clicked"
+                        HorizontalOptions="FillAndExpand"
+                        BackgroundColor="DodgerBlue"
+                        TextColor="White"
+                        Margin="0,0,0,10" />
+
+                <Label x:Name="loginResultLabel"
+                       FontSize="10"
+                       TextColor="Red"
+                       HorizontalOptions="Center"
+                       IsVisible="False" />
+
+            </StackLayout>
+        </Grid>
+    </ScrollView>
+
+</ContentPage>
