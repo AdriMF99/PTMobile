@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PTMobile.CodeVerification"
+             Title="CodeVerification">
+    <VerticalStackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                         Padding="20" Spacing="20">
+        <!-- Campo de entrada de texto para introducir el código -->
+        <Entry x:Name="codeEntry" Placeholder="Introduce el código" />
+
+        <!-- Botón para verificar el código -->
+        <Button Text="Verify Code" Clicked="OnVerifyCodeClicked" />
+    </VerticalStackLayout>
+</ContentPage>

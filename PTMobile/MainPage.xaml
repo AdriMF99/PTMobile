@@ -35,6 +35,13 @@
                         TextColor="White"
                         Margin="0,0,0,10" />
 
+                <Button Text="NO Log In"
+                    Clicked="DirectoNoLog"
+                    HorizontalOptions="FillAndExpand"
+                    BackgroundColor="DodgerBlue"
+                    TextColor="White"
+                    Margin="0,0,0,10" />
+
                 <Label x:Name="loginResultLabel"
                        FontSize="10"
                        TextColor="Red"
