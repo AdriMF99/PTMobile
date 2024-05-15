@@ -2,17 +2,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PTMobile.MainPage">
 
-    <ScrollView>
+    <!--<ScrollView>
         <Grid VerticalOptions="FillAndExpand">
 
-            <!-- Fondo de la página -->
+            --><!-- Fondo de la página --><!--
             <Image Source="Resources/Images/fondo.jpg"
                    Aspect="AspectFill"
                    VerticalOptions="FillAndExpand"
                    HorizontalOptions="FillAndExpand"
                    Grid.RowSpan="2" />
 
-            <!-- Contenido de la página -->
+            --><!-- Contenido de la página --><!--
             <StackLayout Padding="30"
                          VerticalOptions="Center"
                          Grid.Row="0">
@@ -43,6 +43,6 @@
 
             </StackLayout>
         </Grid>
-    </ScrollView>
+    </ScrollView>-->
 
 </ContentPage>

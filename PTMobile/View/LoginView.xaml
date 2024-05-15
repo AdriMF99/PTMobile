@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8" ?>
+    
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="PTMobile.View.LoginView"
+             Title="Login">
+    <Grid RowDefinitions=".3*,.7*">
+        <Image Aspect="AspectFill" Source="background.jpg"/>
+        <Grid BackgroundColor="#6f9f9b" Opacity=".3"/>
+        <Grid >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Image Grid.Column="1" 
+               Aspect="AspectFit"
+               WidthRequest="120" 
+               HeightRequest="120"
+               Source="Resources/Images/logo.png"
+               VerticalOptions="Center"
+               Margin="0,0,20,0"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <RoundRectangle Margin="-5,-30,-5,-2"
+                         CornerRadius="30,30,0,0"
+                         Fill="#e5ecee"/>
+            <VerticalStackLayout Margin="30,0,30,0">
+                <Label FontAttributes="Bold"
+                    FontFamily="bold"
+                    FontSize="Medium"
+                    Text="Welcome!"
+                    TextColor="#3d3d3f"/>
+                <Label FontFamily="medium"
+                    Text="Login"
+                    TextColor="#a3a3a4"/>
+                <Grid Margin="0,30,0,0" ColumnDefinitions=".2*,.8*">
+                    <RoundRectangle
+                        BackgroundColor="Transparent"
+                        CornerRadius="10"
+                        HeightRequest="60"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        WidthRequest="60"/>
+
+                    <Image 
+                           HorizontalOptions="Center"
+                           Source="user_solid.svg"
+                           HeightRequest="40">
+                        
+                        <Image.Behaviors>
+                            <toolkit:IconTintColorBehavior TintColor="#4f3f9B" />
+                        </Image.Behaviors>
+                    </Image>
+                  
+                    <Entry
+                        x:Name="usernameEntry"
+                        Grid.Column="1"
+                        Placeholder="Username"
+                        VerticalOptions="Center"/>
+                </Grid>
+
+                <Grid Margin="0,30,0,0" ColumnDefinitions=".2*,.8*">
+                    <RoundRectangle
+                        BackgroundColor="Transparent"
+                        CornerRadius="10"
+                        HeightRequest="60"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        WidthRequest="60"/>
+
+                    <Image 
+                        HorizontalOptions="Center"
+                         Source="password.svg"
+                         HeightRequest="40">
+
+                        <Image.Behaviors>
+                            <toolkit:IconTintColorBehavior TintColor="#4f3f9B" />
+                        </Image.Behaviors>
+                    </Image>
+                    <Entry
+                        x:Name="passwordEntry"
+                        Grid.Column="1"
+                        Placeholder="Password"
+                        IsPassword="True"
+                        VerticalOptions="Center"/>
+                    
+                    <Button x:Name="TogglePasswordButton"
+                    Text="👁"
+                    WidthRequest="60"
+                    HeightRequest="60"
+                    BackgroundColor="Transparent"
+                    Clicked="TogglePasswordVisibility"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center"
+                    Grid.Column="1"/>
+
+                </Grid>
+                <Button
+                    Margin="0, 20, 0, 0"
+                    HeightRequest="60"
+                    Text="Log in"
+                    TextColor="#FBF6FD"
+                    BackgroundColor="#6f9f9b"
+                    Clicked="LoginButton_Clicked"/>
+
+                <Label Text="Forgot your password?"
+               TextColor="#4f3f9B"
+               TextDecorations="Underline"
+               HorizontalOptions="Center"
+               Margin="0,20,0,-10">
+
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="ForgotPassword_Clicked" />
+                    </Label.GestureRecognizers>
+                </Label>
+
+                <Button Margin="0,30, 0,0"
+                        BackgroundColor="#Fbf6fd"
+                        HeightRequest="60"
+                        Text="Create your Account"
+                        TextColor="#4f3f9B"/>
+
+                <Label x:Name="loginResultLabel"
+                 FontSize="10"
+                 TextColor="Red"
+                 HorizontalOptions="Center"
+                 IsVisible="False" />
+            </VerticalStackLayout>
+        </Grid>
+    </Grid>
+
+</ContentPage>
