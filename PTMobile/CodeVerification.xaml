@@ -1,14 +1,31 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cv="clr-namespace:Camera.MAUI;assembly=Camera.MAUI"
+             xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"
              x:Class="PTMobile.CodeVerification"
              Title="CodeVerification">
-    <VerticalStackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
-                         Padding="20" Spacing="20">
-        <!-- Campo de entrada de texto para introducir el código -->
-        <Entry x:Name="codeEntry" Placeholder="Introduce el código" />
+    <ContentPage.BackgroundImageSource>
+        <FileImageSource File="Resources/Images/fondillo.jpg" />
+    </ContentPage.BackgroundImageSource>
+    <Frame CornerRadius="10" HasShadow="True" BackgroundColor="#FFFFFF" Padding="20" HorizontalOptions="Center" VerticalOptions="Center">
+        <StackLayout Spacing="20">
+            <!-- Título -->
+            <Label Text="Verificación de Código" FontSize="Large" HorizontalOptions="Center" />
 
-        <!-- Botón para verificar el código -->
-        <Button Text="Verify Code" Clicked="OnVerifyCodeClicked" />
-    </VerticalStackLayout>
+            <!-- Campo de entrada de texto para introducir el código -->
+            <Entry x:Name="codeEntry" Placeholder="Introduce el código" />
+
+            <!-- Botón para verificar el código -->
+            <Button Text="Verificar Código" Clicked="OnVerifyCodeClicked" HorizontalOptions="Center" />
+            <Button Text="Verificar QR" Clicked="OnQRClicked" HorizontalOptions="Center" />
+
+            <!-- Verificar con QR -->
+            <zxing:CameraBarcodeReaderView
+                x:Name="barcodeReader"
+                BarcodesDetected="barcodeReader_BarcodesDetected"
+                IsVisible="False"/>
+        </StackLayout>
+    </Frame>
 </ContentPage>
+

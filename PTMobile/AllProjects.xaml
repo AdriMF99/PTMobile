@@ -5,47 +5,38 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
+                <SearchBar Grid.Row="0" Placeholder="Search projects..." TextChanged="OnSearchTextChanged" />
                 <Label Text="Projects" FontSize="Large" HorizontalOptions="Center" Margin="0,20,0,10" />
+                <Image Source="Resources/Images/fondillo.jpg"
+                       Aspect="AspectFill"
+                       VerticalOptions="FillAndExpand"
+                       HorizontalOptions="FillAndExpand"
+                       Grid.RowSpan="2" />
 
-                <CollectionView x:Name="projectsList" ItemsSource="{Binding Projects}">
+                <CollectionView x:Name="projectsList" ItemsSource="{Binding FilteredProjects}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <StackLayout Margin="10" Padding="10" BackgroundColor="#F0F0F0" >
-                                <Label Text="{Binding ProjectName}" 
-                                       FontSize="Medium" 
-                                       FontAttributes="Bold" />
-                                <Label Text="{Binding Description}" 
-                                       TextColor="Gray" 
-                                       LineBreakMode="WordWrap" MaxLines="2" />
-                                <Label Text="{Binding CreatedAt}" 
-                                       TextColor="Gray" 
-                                       LineBreakMode="TailTruncation" 
-                                       VerticalOptions="End" />
-
-                                <!-- posicionar la imagen -->
-                                <AbsoluteLayout VerticalOptions="FillAndExpand" 
-                                                HorizontalOptions="FillAndExpand">
-                                    <!-- Contenido del proyecto -->
-                                    <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" 
-                                                 AbsoluteLayout.LayoutFlags="All">
-                                        <!-- Contenido del proyecto -->
-                                    </StackLayout>
-
-                                    <!-- Imagen -->
-                                    <Image Source="Resources/Images/sending.png" 
-                                           WidthRequest="40" 
-                                           HeightRequest="40" 
-                                           Aspect="AspectFit" 
-                                           AbsoluteLayout.LayoutBounds="1,1,-1,-1" 
-                                           AbsoluteLayout.LayoutFlags="PositionProportional" >
+                            <StackLayout Margin="10" Padding="10" BackgroundColor="#F0F0F0">
+                                <Label Text="{Binding ProjectName}" FontSize="Medium" FontAttributes="Bold" />
+                                <Label Text="{Binding Description}" TextColor="Gray" LineBreakMode="WordWrap" MaxLines="2" />
+                                <Label Text="{Binding CreatedAt}" TextColor="Gray" LineBreakMode="TailTruncation" VerticalOptions="End" />
+                                <!-- Botones de imagen -->
+                                <Grid>
+                                    <Image Source="Resources/Images/sending.png" WidthRequest="40" HeightRequest="40" Aspect="AspectFit" HorizontalOptions="End" VerticalOptions="Center">
                                         <Image.GestureRecognizers>
                                             <TapGestureRecognizer Tapped="OnShowConfirmation" />
                                         </Image.GestureRecognizers>
                                     </Image>
-                                </AbsoluteLayout>
+                                    <Image Source="Resources/Images/delete.png" WidthRequest="40" HeightRequest="40" Aspect="AspectFit" HorizontalOptions="End" VerticalOptions="Center" Margin="0,0,50,0">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="OnUpdateButtonTapped" />
+                                        </Image.GestureRecognizers>
+                                    </Image>
+                                </Grid>
                             </StackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
+
                 </CollectionView>
                 
             </StackLayout>
