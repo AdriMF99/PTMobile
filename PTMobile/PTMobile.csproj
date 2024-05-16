@@ -59,6 +59,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Camera.MAUI" Version="1.5.1" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="6.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="ZXing.Net.Maui.Controls" Version="0.4.0" />
@@ -67,6 +68,9 @@
 	<ItemGroup>
 	  <Compile Update="AllProjects.xaml.cs">
 	    <DependentUpon>AllProjects.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="View\ForgotPasswordView.xaml.cs">
+	    <DependentUpon>ForgotPasswordView.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
