@@ -17,7 +17,7 @@ namespace PTMobile
             {
                 var code = codeEntry.Text;
                 var token = TokenManager.Token;
-                string url = $"{DevTunnel.UrlFran}/api/Code/VerifyCodeMobile?code={code}&token={token}";
+                string url = $"{DevTunnel.UrlAdri}/api/Code/VerifyCodeMobile?code={code}&token={token}";
 
                 HttpResponseMessage response = await httpClient.GetAsync(url);
 
