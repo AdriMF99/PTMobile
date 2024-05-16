@@ -15,7 +15,7 @@ namespace PTMobile
         {
             string username = usernameEntry.Text;
             string password = passwordEntry.Text;
-            string url = $"https://dkhgf4x3-5250.uks1.devtunnels.ms/User/login?username={Uri.EscapeDataString(username)}&password={Uri.EscapeDataString(password)}";
+            string url = $"{DevTunnel.UrlAdri}/User/login?username={Uri.EscapeDataString(username)}&password={Uri.EscapeDataString(password)}";
 
             try
             {
@@ -32,7 +32,7 @@ namespace PTMobile
                     // Guardar el token generado
                     TokenManager.Token = token;
 
-                    loginResultLabel.Text = token;
+                    //loginResultLabel.Text = token;
 
                     // Esperar dos segundos
                     //await Task.Delay(2000);
@@ -56,6 +56,18 @@ namespace PTMobile
         private async void DirectoNoLog(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new CodeVerification());
+        }
+
+        private async void ForgotPassword_Clicked(object sender, TappedEventArgs e)
+        {
+            await Navigation.PushAsync(new ForgotPassword());
+        }
+        private void TogglePasswordVisibility(object sender, EventArgs e)
+        {
+            if (passwordEntry != null)
+            {
+                passwordEntry.IsPassword = !passwordEntry.IsPassword;
+            }
         }
     }
 

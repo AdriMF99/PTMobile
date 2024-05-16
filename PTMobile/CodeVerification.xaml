@@ -18,14 +18,11 @@
 
             <!-- Botón para verificar el código -->
             <Button Text="Verificar Código" Clicked="OnVerifyCodeClicked" HorizontalOptions="Center" />
-            <Button Text="Verificar QR" Clicked="OnQRClicked" HorizontalOptions="Center" />
 
             <!-- Verificar con QR -->
             <zxing:CameraBarcodeReaderView
                 x:Name="barcodeReader"
-                BarcodesDetected="barcodeReader_BarcodesDetected"
-                IsVisible="False"/>
+                BarcodesDetected="barcodeReader_BarcodesDetected" />
         </StackLayout>
     </Frame>
 </ContentPage>
-

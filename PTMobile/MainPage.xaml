@@ -1,55 +1,130 @@
-﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="PTMobile.MainPage">
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="PTMobile.MainPage"
+             Title="Login">
+    <Grid RowDefinitions=".3*,.7*">
+        <Image Aspect="AspectFill" Source="fondo.jpg"/>
+        <Grid BackgroundColor="#6f9f9b" Opacity=".3"/>
+        <Grid >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
 
-    <ScrollView>
-        <Grid VerticalOptions="FillAndExpand">
+            <Image Grid.Column="1" 
+               Aspect="AspectFit"
+               WidthRequest="120" 
+               HeightRequest="120"
+               Source="Resources/Images/logo.png"
+               VerticalOptions="Center"
+               Margin="0,0,20,0"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <RoundRectangle Margin="-5,-30,-5,-2"
+                         CornerRadius="30,30,0,0"
+                         Fill="#e5ecee"/>
+            <VerticalStackLayout Margin="30,0,30,0">
+                <Label FontAttributes="Bold"
+                    FontFamily="bold"
+                    FontSize="Medium"
+                    Text="Welcome!"
+                    TextColor="#3d3d3f"/>
+                <Label FontFamily="medium"
+                    Text="Login"
+                    TextColor="#a3a3a4"/>
+                <Grid Margin="0,30,0,0" ColumnDefinitions=".2*,.8*">
+                    <RoundRectangle
+                        BackgroundColor="Transparent"
+                        CornerRadius="10"
+                        HeightRequest="60"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        WidthRequest="60"/>
 
-            <!-- Fondo de la página -->
-            <Image Source="Resources/Images/fondo.jpg"
-                   Aspect="AspectFill"
-                   VerticalOptions="FillAndExpand"
-                   HorizontalOptions="FillAndExpand"
-                   Grid.RowSpan="2" />
+                    <Image 
+                           HorizontalOptions="Center"
+                           Source="user_solid.svg"
+                           HeightRequest="40">
+                        <Image.Behaviors>
+                            <toolkit:IconTintColorBehavior TintColor="#4f3f9B" />
+                        </Image.Behaviors>
+                    </Image>
+                    <Entry
+                        x:Name="usernameEntry"
+                        Grid.Column="1"
+                        Placeholder="Username"
+                        VerticalOptions="Center"/>
+                </Grid>
 
-            <!-- Contenido de la página -->
-            <StackLayout Padding="30"
-                         VerticalOptions="Center"
-                         Grid.Row="0">
+                <Grid Margin="0,30,0,0" ColumnDefinitions=".2*,.8*">
+                    <RoundRectangle
+                        BackgroundColor="Transparent"
+                        CornerRadius="10"
+                        HeightRequest="60"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        WidthRequest="60"/>
 
-                <Entry x:Name="usernameEntry"
-                       Placeholder="Username"
-                       HorizontalOptions="FillAndExpand"
-                       Margin="0,0,0,10" />
+                    <Image 
+                        HorizontalOptions="Center"
+                         Source="password.svg"
+                         HeightRequest="40">
 
-                <Entry x:Name="passwordEntry"
-                       Placeholder="Password"
-                       IsPassword="True"
-                       HorizontalOptions="FillAndExpand"
-                       Margin="0,0,0,10" />
+                        <Image.Behaviors>
+                            <toolkit:IconTintColorBehavior TintColor="#4f3f9B" />
+                        </Image.Behaviors>
+                    </Image>
+                    <Entry
+                        x:Name="passwordEntry"
+                        Grid.Column="1"
+                        Placeholder="Password"
+                        IsPassword="True"
+                        VerticalOptions="Center"/>
+                    <Button x:Name="TogglePasswordButton"
+                    Text="👁"
+                    WidthRequest="60"
+                    HeightRequest="60"
+                    BackgroundColor="Transparent"
+                    Clicked="TogglePasswordVisibility"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center"
+                    Grid.Column="1"/>
 
-                <Button Text="Log In"
-                        Clicked="LoginButton_Clicked"
-                        HorizontalOptions="FillAndExpand"
-                        BackgroundColor="DodgerBlue"
-                        TextColor="White"
-                        Margin="0,0,0,10" />
+                </Grid>
+                    <Button
+                        Margin="0, 20, 0, 0"
+                        HeightRequest="60"
+                        Text="Log in"
+                        TextColor="#FBF6FD"
+                        BackgroundColor="#6f9f9b"
+                        Clicked="LoginButton_Clicked"/>
 
-                <Button Text="NO Log In"
-                    Clicked="DirectoNoLog"
-                    HorizontalOptions="FillAndExpand"
-                    BackgroundColor="DodgerBlue"
-                    TextColor="White"
-                    Margin="0,0,0,10" />
+                    <Label Text="Forgot your password?"
+                           TextColor="#4f3f9B"
+                           TextDecorations="Underline"
+                           HorizontalOptions="Center"
+                           Margin="0,20,0,-10">
+
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="ForgotPassword_Clicked" />
+                    </Label.GestureRecognizers>
+                </Label>
+
+                <Button Margin="0,30, 0,0"
+                        BackgroundColor="#Fbf6fd"
+                        HeightRequest="60"
+                        Text="Create your Account"
+                        TextColor="#4f3f9B"/>
 
                 <Label x:Name="loginResultLabel"
-                       FontSize="10"
-                       TextColor="Red"
-                       HorizontalOptions="Center"
-                       IsVisible="False" />
-
-            </StackLayout>
+                 FontSize="10"
+                 TextColor="Red"
+                 HorizontalOptions="Center"
+                 IsVisible="False" />
+            </VerticalStackLayout>
         </Grid>
-    </ScrollView>
+    </Grid>
 
 </ContentPage>
