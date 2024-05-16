@@ -62,7 +62,7 @@ public partial class LoginView : ContentPage
     //Console.WriteLine( result );
 
 
-
+     
 
 
     private async void LoginButton_Clicked(object sender, EventArgs e)
