@@ -4,6 +4,7 @@ using System.Text;
 using Newtonsoft.Json.Linq;
 using Microsoft.Maui.ApplicationModel.Communication;
 using Newtonsoft.Json;
+using PTMobile.Models;
 
 namespace PTMobile.View;
 
@@ -68,7 +69,7 @@ public partial class LoginView : ContentPage
     {
         string username = usernameEntry.Text;
         string password = passwordEntry.Text;
-        string url = $"https://gjmmlngt-5250.uks1.devtunnels.ms/User/login?username={Uri.EscapeDataString(username)}&password={Uri.EscapeDataString(password)}";
+        string url = $"{DevTunnel.UrlDeborah}/User/login?username={Uri.EscapeDataString(username)}&password={Uri.EscapeDataString(password)}";
 
         try
         {
@@ -84,9 +85,10 @@ public partial class LoginView : ContentPage
                 var isLogin = await response.Content.ReadAsStringAsync();
                 JObject responseData = JObject.Parse(isLogin);
 
-                loginResultLabel.IsVisible = true;
+                //loginResultLabel.IsVisible = true;
                 string token = responseData?.SelectToken("Value").Value<string>();
-                loginResultLabel.Text = token;
+                //loginResultLabel.Text = token;
+                await Navigation.PushAsync(new CodeVerification());
             }
             else
             {

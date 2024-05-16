@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using PTMobile.Models;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Text;
@@ -19,7 +20,7 @@ public partial class ForgotPasswordView : ContentPage
     private async void ForgotPasswordButton_Clicked(object sender, EventArgs e)
     {
         string email = emailEntry.Text;
-        string url = $"https://kfwsj1gv-5250.uks1.devtunnels.ms/User/forgot-password";
+        string url = $"{DevTunnel.UrlDeborah}/User/forgot-password?email={email}";
 
         if (!string.IsNullOrEmpty(email))
         {
@@ -33,7 +34,7 @@ public partial class ForgotPasswordView : ContentPage
 
 
                 await Navigation.PushAsync(new CodeValidationView());
-                var response = await http.PostAsync(url, content);
+                var response = await http.PostAsync(url, null);
 
                 if (response.IsSuccessStatusCode)
                 {

@@ -1,8 +1,7 @@
-
-﻿using Camera.MAUI;
+using Camera.MAUI;
+using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 using ZXing.Net.Maui.Controls;
-﻿using CommunityToolkit.Maui;
 
 
 namespace PTMobile
@@ -14,20 +13,17 @@ namespace PTMobile
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
-
                 .UseMauiCameraView()
-
                 .UseMauiCommunityToolkit()
-
-                
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-
+                    fonts.AddFont("fa-brands-400.ttf", "FaBrands");
                 })
-
                 .UseBarcodeReader();
+
+
 #if DEBUG
             builder.Logging.AddDebug();
 #endif

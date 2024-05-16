@@ -31,7 +31,7 @@ public partial class AllProjects : ContentPage
     {
         using (var httpClient = new HttpClient())
         {
-            string apiUrl = "https://4c1kzvwr-5250.uks1.devtunnels.ms/api/Project/getProjects";
+            string apiUrl = $"{DevTunnel.UrlFran}/api/Project/getProjects";
 
             HttpResponseMessage response = await httpClient.GetAsync(apiUrl);
 
@@ -61,7 +61,7 @@ public partial class AllProjects : ContentPage
                 using (var httpClient = new HttpClient())
                 {
                     // Acción si se pulsa "SÍ"
-                    string url = $"https://4c1kzvwr-5250.uks1.devtunnels.ms/api/Project/select-project?projectData={project.ProjectName}&tvCode={TokenManager.TvCode}";
+                    string url = $"{DevTunnel.UrlFran}/api/Project/select-project?projectData={project.ProjectName}&tvCode={TokenManager.TvCode}";
                     HttpResponseMessage response = await httpClient.GetAsync(url);
                     if (response.IsSuccessStatusCode)
                     {
@@ -97,7 +97,7 @@ public partial class AllProjects : ContentPage
             {
                 using(var httpClient = new HttpClient())
                 {
-                    string urlDelete = $"https://4c1kzvwr-5250.uks1.devtunnels.ms/api/Project/deleteProject?projectId={project.Id}";
+                    string urlDelete = $"{DevTunnel.UrlFran}/api/Project/deleteProject?projectId={project.Id}";
                     HttpResponseMessage response = await httpClient.DeleteAsync(urlDelete);
                     if (response.IsSuccessStatusCode)
                     {
