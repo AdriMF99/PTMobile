@@ -87,6 +87,7 @@ public partial class LoginView : ContentPage
 
                 //loginResultLabel.IsVisible = true;
                 string token = responseData?.SelectToken("Value").Value<string>();
+                TokenManager.Token = token;
                 //loginResultLabel.Text = token;
                 await Navigation.PushAsync(new CodeVerification());
             }
