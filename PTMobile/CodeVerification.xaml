@@ -17,12 +17,17 @@
             <Entry x:Name="codeEntry" Placeholder="Introduce el código" />
 
             <!-- Botón para verificar el código -->
-            <Button Text="Verificar Código" Clicked="OnVerifyCodeClicked" HorizontalOptions="Center" />
+            <Button Text="Verify code" Clicked="OnVerifyCodeClicked" HorizontalOptions="Center" />
+
+			<!-- Botón para que salga la camara -->
+            <Button Text="Scan Code with cam" Clicked="Click_camera" HorizontalOptions="Center" />
 
             <!-- Verificar con QR -->
             <zxing:CameraBarcodeReaderView
                 x:Name="barcodeReader"
                 BarcodesDetected="barcodeReader_BarcodesDetected" />
+				<!--IsVisible="False"-->
+               
         </StackLayout>
     </Frame>
 </ContentPage>

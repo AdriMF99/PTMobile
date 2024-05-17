@@ -20,49 +20,21 @@ public partial class LoginView : ContentPage
         InitializeComponent();
 	}
 
+    private void OnInputTextChanged(object sender, TextChangedEventArgs e)
+    {
+        CheckForm();
+    }
 
-    //private async void OnLoginClicked(object sender, EventArgs e)
-    //{
-    //    string username = usernameEntry.Text;
-    //    string password = passwordEntry.Text;
+    private void CheckForm()
+    {
+        bool isUsernameComplete = !string.IsNullOrEmpty(usernameEntry.Text);
+        bool isPasswordComplete = !string.IsNullOrEmpty(passwordEntry.Text);
 
-    //    try
-    //    {
-    //        var formData = new Dictionary<string, string>
-    //    {
-    //        { "UserName", "AAA" },
-    //        { "Password", "12345678Aa" }
-    //    };
+        bool isFormComplete = isUsernameComplete && isPasswordComplete;
 
-    //        var jsonContent = new StringContent(JsonSerializer.Serialize(formData), Encoding.UTF8, "application/json");
-
-    //       var response = await _httpClient.PostAsync($"{BaseAddress}/User/login", jsonContent);
-    //        //var response = await _httpClient.GetAsync($"{BaseAddress}/User/all-users");
-
-    //        if (response.IsSuccessStatusCode)
-    //        {
-    //            var responseBody = await response.Content.ReadAsStringAsync();
-    //            Console.WriteLine(responseBody);
-    //        }
-    //        else
-    //        {
-
-    //            Console.WriteLine($"Error: {response.StatusCode}");
-    //        }
-    //    }
-    //    catch (Exception ex)
-    //    {
-
-    //        Console.WriteLine($"Error: {ex.Message}");
-    //    }
-
-    // var result = await _httpClient.PostAsync($"{BaseAddress}/User/login");
-    //var result = await _httpClient.GetStringAsync(" https://bgm8xsbd-5250.uks1.devtunnels.ms/User/all-users");
-
-    //Console.WriteLine( result );
-
-
-     
+        loginButton.IsEnabled = isFormComplete;
+        loginButton.Opacity = isFormComplete ? 1.0 : 0.5;
+    }
 
 
     private async void LoginButton_Clicked(object sender, EventArgs e)
@@ -116,5 +88,10 @@ public partial class LoginView : ContentPage
         {
             passwordEntry.IsPassword = !passwordEntry.IsPassword;
         }
+    }
+
+    private async void CreateAccountButton_Clicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new CreateAccountView());
     }
 }

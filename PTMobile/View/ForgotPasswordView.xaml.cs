@@ -40,7 +40,7 @@ public partial class ForgotPasswordView : ContentPage
                 {
                     var isSend = await response.Content.ReadAsStringAsync();
 
-
+                    await Navigation.PushAsync(new EntryCodeForgotPassword());
                 }
                 else
                 {
