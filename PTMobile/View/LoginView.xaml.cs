@@ -1,10 +1,7 @@
-using System.Net.Http;
-using System.Text.Json;
-using System.Text;
-using Newtonsoft.Json.Linq;
-using Microsoft.Maui.ApplicationModel.Communication;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using PTMobile.Models;
+using System.Text;
 
 namespace PTMobile.View;
 
@@ -12,13 +9,11 @@ public partial class LoginView : ContentPage
 {
 
     private readonly HttpClient _httpClient = new();
-    private const string BaseAddress = "https://7z9w9942-5250-inspect.uks1.devtunnels.ms";
-
-
     public LoginView()
-	{
+    {
         InitializeComponent();
-	}
+        currentUser.Text = TokenManager.currentUser;
+    }
 
 
     //private async void OnLoginClicked(object sender, EventArgs e)
@@ -62,47 +57,57 @@ public partial class LoginView : ContentPage
     //Console.WriteLine( result );
 
 
-     
+
 
 
     private async void LoginButton_Clicked(object sender, EventArgs e)
     {
         string username = usernameEntry.Text;
         string password = passwordEntry.Text;
-        string url = $"{DevTunnel.UrlDeborah}/User/login?username={Uri.EscapeDataString(username)}&password={Uri.EscapeDataString(password)}";
+        string url = $"{DevTunnel.UrlAdri}/User/login?username={Uri.EscapeDataString(username)}&password={Uri.EscapeDataString(password)}";
 
-        try
+        if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))
         {
-            var requestData = new { UserName = username,
-                Password = password
-            };
-            var json = JsonConvert.SerializeObject(requestData);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-            var response = await _httpClient.PostAsync(url, content);
-
-            if (response.IsSuccessStatusCode)
+            try
             {
-                var isLogin = await response.Content.ReadAsStringAsync();
-                JObject responseData = JObject.Parse(isLogin);
+                var requestData = new
+                {
+                    UserName = username,
+                    Password = password
+                };
+                var json = JsonConvert.SerializeObject(requestData);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await _httpClient.PostAsync(url, content);
 
-                //loginResultLabel.IsVisible = true;
-                string token = responseData?.SelectToken("Value").Value<string>();
-                TokenManager.Token = token;
-                //loginResultLabel.Text = token;
-                await Navigation.PushAsync(new CodeVerification());
+                if (response.IsSuccessStatusCode)
+                {
+                    var isLogin = await response.Content.ReadAsStringAsync();
+                    JObject responseData = JObject.Parse(isLogin);
+
+                    //loginResultLabel.IsVisible = true;
+                    string token = responseData?.SelectToken("Value").Value<string>();
+                    TokenManager.Token = token;
+                    TokenManager.currentUser = username;
+                    //loginResultLabel.Text = token;
+                    await Navigation.PushAsync(new CodeVerification());
+                }
+                else
+                {
+                    loginResultLabel.IsVisible = true;
+                    loginResultLabel.Text = "Error en la autenticación. Por favor, inténtalo de nuevo.";
+                }
             }
-            else
+            catch (Exception ex)
             {
                 loginResultLabel.IsVisible = true;
-                loginResultLabel.Text = "Error en la autenticación. Por favor, inténtalo de nuevo.";
+                loginResultLabel.Text = $"Error: {ex.Message}";
             }
         }
-        catch (Exception ex)
+        else
         {
             loginResultLabel.IsVisible = true;
-            loginResultLabel.Text = $"Error: {ex.Message}";
+            loginResultLabel.Text = "Error: Debes rellenar los dos campos.";
         }
-
     }
 
     private async void ForgotPassword_Clicked(object sender, TappedEventArgs e)

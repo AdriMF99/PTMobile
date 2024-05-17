@@ -9,6 +9,7 @@ namespace PTMobile
         public CodeVerification()
         {
             InitializeComponent();
+            currentUser.Text = TokenManager.currentUser;
         }
 
         public async void OnVerifyCodeClicked(object sender, EventArgs e)

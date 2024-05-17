@@ -4,8 +4,8 @@
     {
         public static string Token { get; set; }
         public static List<Project> Allprojects { get; set; }
-
         public static string TvCode { get; set; }
+        public static string currentUser { get; set; }
     }
 
 }

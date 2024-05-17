@@ -1,17 +1,21 @@
 using Newtonsoft.Json;
 using PTMobile.Models;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
+using System.Linq;
 
 namespace PTMobile;
 
 public partial class AllProjects : ContentPage
 {
     public List<Project> projectitos;
+    private readonly GridItemsLayout _oneColumnLayout = new GridItemsLayout(ItemsLayoutOrientation.Vertical) { Span = 1 };
+    private readonly GridItemsLayout _twoColumnLayout = new GridItemsLayout(ItemsLayoutOrientation.Vertical) { Span = 2 };
+    private bool _isOneColumn = true;
 
     public AllProjects()
     {
         InitializeComponent();
+        currentUser.Text = TokenManager.currentUser;
+        projectsList.ItemsLayout = _oneColumnLayout;
     }
 
     protected override async void OnAppearing()
@@ -24,6 +28,8 @@ public partial class AllProjects : ContentPage
         {
             projectsList.ItemsSource = projects;
         }
+
+        ShowSwipeAnimation();
     }
 
 
@@ -50,7 +56,7 @@ public partial class AllProjects : ContentPage
 
     public async void OnShowConfirmation(object sender, EventArgs e)
     {
-        var button = sender as Image;
+        var button = sender as SwipeItem;
         var project = button?.BindingContext as Project;
 
         if (project != null)
@@ -86,7 +92,7 @@ public partial class AllProjects : ContentPage
 
     public async void OnUpdateButtonTapped(object sender, EventArgs e)
     {
-        var button = sender as Image;
+        var button = sender as SwipeItem;
         var project = button?.BindingContext as Project;
 
         if (project != null)
@@ -95,7 +101,7 @@ public partial class AllProjects : ContentPage
 
             if (answer)
             {
-                using(var httpClient = new HttpClient())
+                using (var httpClient = new HttpClient())
                 {
                     string urlDelete = $"{DevTunnel.UrlFran}/api/Project/deleteProject?projectId={project.Id}";
                     HttpResponseMessage response = await httpClient.DeleteAsync(urlDelete);
@@ -128,7 +134,7 @@ public partial class AllProjects : ContentPage
 
     private async void OnSearchTextChanged(object sender, TextChangedEventArgs e)
     {
-        var searchTerm = e.NewTextValue?.ToLower().ToString();
+        var searchTerm = e.NewTextValue?.ToLower();
 
         if (string.IsNullOrEmpty(searchTerm))
         {
@@ -146,6 +152,37 @@ public partial class AllProjects : ContentPage
                 var filteredProjects = allProjects.Where(p => p.ProjectName.ToLower().Contains(searchTerm)).ToList();
                 projectsList.ItemsSource = filteredProjects;
             }
+        }
+    }
+
+    private void OnChangeViewButtonClicked(object sender, EventArgs e)
+    {
+        if (_isOneColumn)
+        {
+            projectsList.ItemsLayout = _twoColumnLayout;
+        }
+        else
+        {
+            projectsList.ItemsLayout = _oneColumnLayout;
+        }
+
+        _isOneColumn = !_isOneColumn;
+    }
+
+    private async void ShowSwipeAnimation()
+    {
+        var firstProject = projectsList?.ItemsSource?.Cast<Project>().FirstOrDefault();
+
+        if (firstProject != null)
+        {
+            await Task.Delay(1000);
+
+            await projectsList.TranslateTo(-50, 0, 250, Easing.SinInOut);
+            await projectsList.TranslateTo(0, 0, 250, Easing.SinInOut);
+            await Task.Delay(500);
+
+            await projectsList.TranslateTo(50, 0, 250, Easing.SinInOut);
+            await projectsList.TranslateTo(0, 0, 250, Easing.SinInOut);
         }
     }
 }
