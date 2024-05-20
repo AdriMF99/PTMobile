@@ -4,14 +4,13 @@ using System.Text;
 
 namespace PTMobile.View;
 
-public partial class EntryCodeForgotPassword : ContentPage
+public partial class VerifyAccount : ContentPage
 {
-	public EntryCodeForgotPassword()
+	public VerifyAccount()
 	{
 		InitializeComponent();
         CheckForm();
     }
-
 
 
     private void OnInputTextChanged(object sender, TextChangedEventArgs e)
@@ -21,31 +20,33 @@ public partial class EntryCodeForgotPassword : ContentPage
 
     private void CheckForm()
     {
-        bool isEmailComplete = !string.IsNullOrEmpty(codeEntry.Text);
+        bool isCodeComplete = !string.IsNullOrEmpty(codeEntry.Text);
+        bool isEmailComplete = !string.IsNullOrEmpty(emailEntry.Text);
 
+        bool isFormComplete = isCodeComplete && isEmailComplete;
 
-        ChangePasswordButton.IsEnabled = isEmailComplete;
-        ChangePasswordButton.Opacity = isEmailComplete ? 1.0 : 0.5;
+        verifyAccountButton.IsEnabled = isFormComplete;
+        verifyAccountButton.Opacity = isFormComplete ? 1.0 : 0.5;
     }
 
 
-    private async void ChangePasswordButton_Clicked(object sender, EventArgs e)
-    {
-        string username = usernameEntry.Text;
-        string password = passwordEntry.Text;
-        string code = codeEntry.Text;
-        string url = $"{DevTunnel.UrlDeborah}/User/change-password";
 
-        if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password) && !string.IsNullOrEmpty(code))
-        {
+    private async void VerifyAccountButton_Clicked(object sender, EventArgs e)
+    {
+        string code = codeEntry.Text;
+        string email = emailEntry.Text;
+        string url = $"{DevTunnel.UrlDeborah}/User/verify-account?code={code}&email={email}";
+
+        if (!string.IsNullOrEmpty(code) && !string.IsNullOrEmpty(email))
+        { 
 
             try
             {
                 HttpClient http = new HttpClient();
-                var requestData = new {
-                    Username = username,
-                    newPassword = password,
-                    Code = code
+                var requestData = new
+                {
+                    Code = code,
+                    Email = email
                 };
 
                 var json = JsonConvert.SerializeObject(requestData);
@@ -59,9 +60,9 @@ public partial class EntryCodeForgotPassword : ContentPage
 
                     await Navigation.PushAsync(new LoginView());
                 }
-                else 
+                else
                 {
-                    await DisplayAlert("Error", "Failed to save the new password. Please try again later.", "OK");
+                    await DisplayAlert("Error", "Failed to verify your account. Please try again later.", "OK");
                 }
             }
             catch (Exception ex)
@@ -72,7 +73,7 @@ public partial class EntryCodeForgotPassword : ContentPage
         }
         else
         {
-            await DisplayAlert("Error", "Please enter username, email and the code send to your mail", "OK");
+            await DisplayAlert("Error", "Please entry an email and the code send to your mail", "OK");
         }
     }
 }

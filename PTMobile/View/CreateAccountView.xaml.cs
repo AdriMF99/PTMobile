@@ -13,7 +13,9 @@ public partial class CreateAccountView : ContentPage
     public CreateAccountView()
 	{
 		InitializeComponent();
-	}
+        CheckForm();
+
+    }
 
     private void TogglePasswordVisibility1(object sender, EventArgs e)
     {
@@ -80,8 +82,9 @@ public partial class CreateAccountView : ContentPage
                 var isCreated = await response.Content.ReadAsStringAsync();
                 JObject responseData = JObject.Parse(isCreated);
           
-                createAccountResultLabel.Text = "Cuenta creada con éxito.";
                 accountCreationRequested = true;
+
+                await Navigation.PushAsync(new VerifyAccount());
             }
            
 

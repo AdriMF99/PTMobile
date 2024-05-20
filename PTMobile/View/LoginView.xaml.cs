@@ -1,10 +1,7 @@
-using System.Net.Http;
-using System.Text.Json;
-using System.Text;
-using Newtonsoft.Json.Linq;
-using Microsoft.Maui.ApplicationModel.Communication;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using PTMobile.Models;
+using System.Text;
 
 namespace PTMobile.View;
 
@@ -16,14 +13,17 @@ public partial class LoginView : ContentPage
 
 
     public LoginView()
-	{
+    {
         InitializeComponent();
-	}
+        CheckForm();
+    }
+
 
     private void OnInputTextChanged(object sender, TextChangedEventArgs e)
     {
         CheckForm();
     }
+
 
     private void CheckForm()
     {
@@ -45,7 +45,9 @@ public partial class LoginView : ContentPage
 
         try
         {
-            var requestData = new { UserName = username,
+            var requestData = new
+            {
+                UserName = username,
                 Password = password
             };
             var json = JsonConvert.SerializeObject(requestData);
