@@ -64,7 +64,7 @@ public partial class LoginView : ContentPage
     {
         string username = usernameEntry.Text;
         string password = passwordEntry.Text;
-        string url = $"{DevTunnel.UrlAdri}/User/login?username={Uri.EscapeDataString(username)}&password={Uri.EscapeDataString(password)}";
+        string url = $"{DevTunnel.UrlFran}/User/login?username={Uri.EscapeDataString(username)}&password={Uri.EscapeDataString(password)}";
 
         if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))
         {

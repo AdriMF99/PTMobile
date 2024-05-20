@@ -1,17 +1,16 @@
 using Newtonsoft.Json;
 using PTMobile.Models;
-using System.Linq;
 
 namespace PTMobile;
 
-public partial class AllProjects : ContentPage
+public partial class AllProjectsToAdd : ContentPage
 {
     public List<Project> projectitos;
     private readonly GridItemsLayout _oneColumnLayout = new GridItemsLayout(ItemsLayoutOrientation.Vertical) { Span = 1 };
     private readonly GridItemsLayout _twoColumnLayout = new GridItemsLayout(ItemsLayoutOrientation.Vertical) { Span = 2 };
     private bool _isOneColumn = true;
 
-    public AllProjects()
+    public AllProjectsToAdd()
     {
         InitializeComponent();
         currentUser.Text = TokenManager.currentUser;
@@ -61,21 +60,21 @@ public partial class AllProjects : ContentPage
 
         if (project != null)
         {
-            bool answer = await DisplayAlert("Cast", $"¿Quieres conectar '{project.ProjectName}'?", "SÍ", "NO");
+            bool answer = await DisplayAlert("Add", $"¿Quieres añadir '{project.ProjectName}' a tus proyectos?", "SÍ", "NO");
             if (answer)
             {
                 using (var httpClient = new HttpClient())
                 {
                     // Acción si se pulsa "SÍ"
-                    string url = $"{DevTunnel.UrlFran}/api/Project/select-project?projectData={project.ProjectName}&tvCode={TokenManager.TvCode}";
-                    HttpResponseMessage response = await httpClient.GetAsync(url);
+                    string urlAdd = $"{DevTunnel.UrlFran}/Project/add-project-user?projectName={project.ProjectName}&userName={TokenManager.currentUser}";
+                    HttpResponseMessage response = await httpClient.PutAsync(urlAdd, null);
                     if (response.IsSuccessStatusCode)
                     {
-                        await DisplayAlert("Info", $"¡{project.ProjectName}' está conectado!", "OK!");
+                        await DisplayAlert("Info", $"¡{project.ProjectName}' añadido!", "OK!");
                     }
                     else
                     {
-                        await DisplayAlert("Info", $"¡{project.ProjectName}' tuvo problemas al conectar!", "OK!");
+                        await DisplayAlert("Info", $"¡{project.ProjectName}' tuvo problemas al añadirse!", "OK!");
                     }
                 }
             }
