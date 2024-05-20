@@ -36,7 +36,7 @@ public partial class ForgotPasswordView : ContentPage
     private async void ForgotPasswordButton_Clicked(object sender, EventArgs e)
     {
         string email = emailEntry.Text;
-        string url = $"{DevTunnel.UrlAdri}/User/forgot-password?email={email}";
+        string url = $"{DevTunnel.UrlFran}/User/forgot-password?email={email}";
 
 
         if (!string.IsNullOrEmpty(email))
