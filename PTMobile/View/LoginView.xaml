@@ -64,7 +64,8 @@
                         x:Name="usernameEntry"
                         Grid.Column="1"
                         Placeholder="Username"
-                        VerticalOptions="Center"/>
+                        VerticalOptions="Center"
+                         TextChanged="OnInputTextChanged"/>
                 </Grid>
 
                 <Grid Margin="0,30,0,0" ColumnDefinitions=".2*,.8*">
@@ -90,7 +91,8 @@
                         Grid.Column="1"
                         Placeholder="Password"
                         IsPassword="True"
-                        VerticalOptions="Center"/>
+                        VerticalOptions="Center"
+                         TextChanged="OnInputTextChanged"/>
                     
                     <Button x:Name="TogglePasswordButton"
                     Text="👁"
@@ -104,12 +106,14 @@
 
                 </Grid>
                 <Button
+                    x:Name="loginButton"
                     Margin="0, 20, 0, 0"
                     HeightRequest="60"
                     Text="Log in"
                     TextColor="#FBF6FD"
                     BackgroundColor="#6f9f9b"
-                    Clicked="LoginButton_Clicked"/>
+                    Clicked="LoginButton_Clicked"
+                    Opacity=".5"/>
 
                 <Label Text="Forgot your password?"
                TextColor="#4f3f9B"
@@ -126,7 +130,8 @@
                         BackgroundColor="#Fbf6fd"
                         HeightRequest="60"
                         Text="Create your Account"
-                        TextColor="#4f3f9B"/>
+                        TextColor="#4f3f9B"
+                        Clicked="CreateAccountButton_Clicked"/>
 
                 <Label x:Name="loginResultLabel"
                  FontSize="10"

@@ -48,6 +48,7 @@ namespace PTMobile
 
                     if (first == null)
                     {
+                        barcodeReader.IsVisible = false;
                         return;
                     }
 
@@ -62,8 +63,19 @@ namespace PTMobile
                         await Navigation.PushAsync(new AllProjects());
                     }
                 }
+
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    barcodeReader.IsVisible = false;
+                });
+
             });
         }
 
+        private void Click_camera(object sender, EventArgs e)
+        {
+            barcodeReader.IsVisible = true;
+        }
+        
     }
 }
