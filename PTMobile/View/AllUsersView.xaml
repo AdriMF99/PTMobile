@@ -73,7 +73,7 @@
                                 </Image>
                                 <Image Source="{Binding IsAdmin, Converter={StaticResource AdminImageConverter}}"
                                        WidthRequest="34" 
-                                       HeightRequest="34" 
+                                       HeightRequest="34"
                                        VerticalOptions="Center" 
                                        HorizontalOptions="End">
                                     <Image.GestureRecognizers>
