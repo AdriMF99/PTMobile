@@ -12,6 +12,7 @@ public partial class AllUsersView : ContentPage
         InitializeComponent();
         currentUser.Text = TokenManager.currentUser;
         LoadUsers();
+
     }
 
     private async void LoadUsers()
