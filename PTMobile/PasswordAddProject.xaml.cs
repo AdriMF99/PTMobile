@@ -1,3 +1,5 @@
+using PTMobile.Models;
+
 namespace PTMobile;
 
 public partial class PasswordAddProject : ContentPage
@@ -5,7 +7,8 @@ public partial class PasswordAddProject : ContentPage
 	public PasswordAddProject()
 	{
 		InitializeComponent();
-	}
+        currentUser.Text = TokenManager.currentUser;
+    }
 
 	private async void checkButtonClicked(object sender, EventArgs e)
 	{

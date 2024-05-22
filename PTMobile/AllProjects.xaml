@@ -20,6 +20,7 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <SearchBar Grid.Column="0" Placeholder="Search projects..." TextChanged="OnSearchTextChanged" />
                 <Image
@@ -44,6 +45,19 @@
                     Margin="10">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Tapped="OnAddProjectButtonClicked" />
+                    </Image.GestureRecognizers>
+                </Image>
+                <Image
+                    Grid.Column="3"
+                    Source="Resources/Images/adminmode.png"
+                    WidthRequest="30"
+                    HeightRequest="30"
+                    x:Name="adminbutton"
+                    VerticalOptions="Center"
+                    HorizontalOptions="End"
+                    Margin="10">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnAdminClicked" />
                     </Image.GestureRecognizers>
                 </Image>
             </Grid>

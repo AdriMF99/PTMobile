@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using PTMobile.Models;
+using PTMobile.View;
 using System.Linq;
 
 namespace PTMobile;
@@ -22,8 +23,17 @@ public partial class AllProjects : ContentPage
     {
         base.OnAppearing();
 
-        List<Project> projects = await GetProjectsAsync();
-        TokenManager.Allprojects = await GetProjectsAsync();
+        if (TokenManager.isAdmin == true)
+        {
+            adminbutton.IsVisible = true;
+        }
+        else
+        {
+            adminbutton.IsVisible = false;
+        }
+
+        List<Project> projects = await GetProjectsAsync(TokenManager.currentUser);
+        TokenManager.Allprojects = await GetProjectsAsync(TokenManager.currentUser);
         if (projects != null)
         {
             projectsList.ItemsSource = projects;
@@ -33,11 +43,11 @@ public partial class AllProjects : ContentPage
     }
 
 
-    private async Task<List<Project>> GetProjectsAsync()
+    private async Task<List<Project>> GetProjectsAsync(string username)
     {
         using (var httpClient = new HttpClient())
         {
-            string apiUrl = $"{DevTunnel.UrlFran}/api/Project/getProjects";
+            string apiUrl = $"{DevTunnel.UrlAdri}/api/Project/get-user-projects?userName={username}";
 
             HttpResponseMessage response = await httpClient.GetAsync(apiUrl);
 
@@ -108,7 +118,7 @@ public partial class AllProjects : ContentPage
                     if (response.IsSuccessStatusCode)
                     {
                         await DisplayAlert("Info", $"¡{project.ProjectName}' está borrado!", "OK!");
-                        List<Project> projects = await GetProjectsAsync();
+                        List<Project> projects = await GetProjectsAsync(TokenManager.currentUser);
                         TokenManager.Allprojects = projects;
                         if (projects != null)
                         {
@@ -138,7 +148,7 @@ public partial class AllProjects : ContentPage
 
         if (string.IsNullOrEmpty(searchTerm))
         {
-            List<Project> projects = await GetProjectsAsync();
+            List<Project> projects = await GetProjectsAsync(TokenManager.currentUser);
             if (projects != null)
             {
                 projectsList.ItemsSource = projects;
@@ -171,7 +181,14 @@ public partial class AllProjects : ContentPage
 
     private async void OnAddProjectButtonClicked(object sender, EventArgs e)
     {
+        TokenManager.isFromAdmin = false;
         await Navigation.PushAsync(new PasswordAddProject());
+    }
+
+    private async void OnAdminClicked(object sender, EventArgs e)
+    {
+        TokenManager.isFromAdmin = true;
+        await Navigation.PushAsync(new AllUsersView());
     }
 
     private async void ShowSwipeAnimation()

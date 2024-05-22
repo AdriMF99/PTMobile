@@ -37,14 +37,14 @@
                 </Image>
                 <Image
                     Grid.Column="2"
-                    Source="Resources/Images/addp.png"
+                    Source="Resources/Images/backtoprojects.png"
                     WidthRequest="30"
                     HeightRequest="30"
                     VerticalOptions="Center"
                     HorizontalOptions="End"
                     Margin="10">
                     <Image.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="OnAddProjectButtonClicked" />
+                        <TapGestureRecognizer Tapped="OnBackButtonClicked" />
                     </Image.GestureRecognizers>
                 </Image>
             </Grid>

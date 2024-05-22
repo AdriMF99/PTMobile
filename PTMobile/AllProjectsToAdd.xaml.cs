@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using PTMobile.Models;
+using System.Text;
 
 namespace PTMobile;
 
@@ -36,7 +37,7 @@ public partial class AllProjectsToAdd : ContentPage
     {
         using (var httpClient = new HttpClient())
         {
-            string apiUrl = $"{DevTunnel.UrlFran}/api/Project/getProjects";
+            string apiUrl = $"{DevTunnel.UrlAdri}/api/Project/getProjects";
 
             HttpResponseMessage response = await httpClient.GetAsync(apiUrl);
 
@@ -60,21 +61,41 @@ public partial class AllProjectsToAdd : ContentPage
 
         if (project != null)
         {
-            bool answer = await DisplayAlert("Add", $"¿Quieres añadir '{project.ProjectName}' a tus proyectos?", "SÍ", "NO");
+            bool answer = await DisplayAlert("Add", $"¿Quieres añadir '{project.ProjectName}' a los proyectos?", "SÍ", "NO");
             if (answer)
             {
                 using (var httpClient = new HttpClient())
                 {
                     // Acción si se pulsa "SÍ"
-                    string urlAdd = $"{DevTunnel.UrlFran}/Project/add-project-user?projectName={project.ProjectName}&userName={TokenManager.currentUser}";
-                    HttpResponseMessage response = await httpClient.PutAsync(urlAdd, null);
-                    if (response.IsSuccessStatusCode)
+                    string projectName = project.ProjectName.ToString();
+                    string usuarcillo = TokenManager.currentUser.ToString();
+                    string userAdmin = TokenManager.selectedUserAdmin.ToString();
+                    string urlAdd = $"{DevTunnel.UrlAdri}/api/Project/add-project-user?projectName={Uri.EscapeDataString(projectName)}&userName={Uri.EscapeDataString(usuarcillo)}";
+                    string urlAddAdmin = $"{DevTunnel.UrlAdri}/api/Project/add-project-user?projectName={Uri.EscapeDataString(projectName)}&userName={Uri.EscapeDataString(userAdmin)}";
+
+                    if (TokenManager.isFromAdmin == true)
                     {
-                        await DisplayAlert("Info", $"¡{project.ProjectName}' añadido!", "OK!");
+                        HttpResponseMessage response = await httpClient.PutAsync(urlAddAdmin, null);
+                        if (response.IsSuccessStatusCode)
+                        {
+                            await DisplayAlert("Info", $"¡{project.ProjectName}' añadido a '{userAdmin}'!", "OK!");
+                        }
+                        else
+                        {
+                            await DisplayAlert("Info", $"¡{project.ProjectName}' tuvo problemas al añadirse!", "OK!");
+                        }
                     }
                     else
                     {
-                        await DisplayAlert("Info", $"¡{project.ProjectName}' tuvo problemas al añadirse!", "OK!");
+                        HttpResponseMessage response = await httpClient.PutAsync(urlAdd, null);
+                        if (response.IsSuccessStatusCode)
+                        {
+                            await DisplayAlert("Info", $"¡{project.ProjectName}' añadido a '{usuarcillo}'!", "OK!");
+                        }
+                        else
+                        {
+                            await DisplayAlert("Info", $"¡{project.ProjectName}' tuvo problemas al añadirse!", "OK!");
+                        }
                     }
                 }
             }
@@ -89,6 +110,11 @@ public partial class AllProjectsToAdd : ContentPage
         }
     }
 
+    public async void OnBackButtonClicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new AllProjects());
+    }
+
     public async void OnUpdateButtonTapped(object sender, EventArgs e)
     {
         var button = sender as SwipeItem;
@@ -96,28 +122,53 @@ public partial class AllProjectsToAdd : ContentPage
 
         if (project != null)
         {
-            bool answer = await DisplayAlert("Delete", $"¿Quieres borrar '{project.ProjectName}'?", "SÍ", "NO");
+            bool answer = await DisplayAlert("Delete", $"¿Quieres borrar '{project.ProjectName}' de los proyectos?", "SÍ", "NO");
 
             if (answer)
             {
                 using (var httpClient = new HttpClient())
                 {
-                    string urlDelete = $"{DevTunnel.UrlFran}/api/Project/deleteProject?projectId={project.Id}";
-                    HttpResponseMessage response = await httpClient.DeleteAsync(urlDelete);
-                    if (response.IsSuccessStatusCode)
+                    string urlDelete = $"{DevTunnel.UrlAdri}/api/Project/delete-project-user?projectName={project.ProjectName}&userName={TokenManager.currentUser}";
+                    string urlDeleteAdmin = $"{DevTunnel.UrlAdri}/api/Project/delete-project-user?projectName={project.ProjectName}&userName={TokenManager.selectedUserAdmin}";
+
+                    if (TokenManager.isFromAdmin == true)
                     {
-                        await DisplayAlert("Info", $"¡{project.ProjectName}' está borrado!", "OK!");
-                        List<Project> projects = await GetProjectsAsync();
-                        TokenManager.Allprojects = projects;
-                        if (projects != null)
+                        HttpResponseMessage response = await httpClient.DeleteAsync(urlDeleteAdmin);
+                        if (response.IsSuccessStatusCode)
                         {
-                            projectsList.ItemsSource = projects;
+                            await DisplayAlert("Info", $"¡{project.ProjectName}' se ha borrado de los proyectos de '{TokenManager.selectedUserAdmin}'!", "OK!");
+                            List<Project> projects = await GetProjectsAsync();
+                            TokenManager.Allprojects = projects;
+                            if (projects != null)
+                            {
+                                projectsList.ItemsSource = projects;
+                            }
+                        }
+                        else
+                        {
+                            await DisplayAlert("Info", $"¡{project.ProjectName}' tuvo problemas al borrar!", "OK!");
                         }
                     }
                     else
                     {
-                        await DisplayAlert("Info", $"¡{project.ProjectName}' tuvo problemas al borrar!", "OK!");
+                        HttpResponseMessage response = await httpClient.DeleteAsync(urlDelete);
+                        if (response.IsSuccessStatusCode)
+                        {
+                            await DisplayAlert("Info", $"¡{project.ProjectName}' se ha borrado de los proyectos de '{TokenManager.currentUser}'!", "OK!");
+                            List<Project> projects = await GetProjectsAsync();
+                            TokenManager.Allprojects = projects;
+                            if (projects != null)
+                            {
+                                projectsList.ItemsSource = projects;
+                            }
+                        }
+                        else
+                        {
+                            await DisplayAlert("Info", $"¡{project.ProjectName}' tuvo problemas al borrar!", "OK!");
+                        }
                     }
+
+                    
                 }
             }
             else
@@ -166,11 +217,6 @@ public partial class AllProjectsToAdd : ContentPage
         }
 
         _isOneColumn = !_isOneColumn;
-    }
-
-    private async void OnAddProjectButtonClicked(object sender, EventArgs e)
-    {
-        await Navigation.PushAsync(new PasswordAddProject());
     }
 
     private async void ShowSwipeAnimation()
