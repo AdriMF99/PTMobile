@@ -128,7 +128,7 @@ public partial class AllUsersView : ContentPage
     private async void OnImageTapped(object sender, EventArgs e)
     {
         string userName = (string)((TappedEventArgs)e).Parameter;
-        bool answer = await DisplayAlert("Cambiar Rol", $"¿Deseas que '{userName}'cambie de Rol?", "Sí", "No");
+        bool answer = await DisplayAlert("Cambiar Rol", $"¿Deseas que '{userName}' cambie de Rol?", "Sí", "No");
 
         if (answer)
         {
@@ -137,20 +137,28 @@ public partial class AllUsersView : ContentPage
 
             if (response.IsSuccessStatusCode)
             {
-                await DisplayAlert("Info", $"¡Has cambiado el rol de '{userName}'!", "OK!");
-                LoadUsers();
+                var userToUpdate = usersList.ItemsSource.Cast<User>().FirstOrDefault(u => u.UserName == userName);
+                if (userToUpdate != null)
+                {
+                    userToUpdate.IsAdmin = !userToUpdate.IsAdmin;
+                    userToUpdate.IsGod = false;
+
+                    OnPropertyChanged(nameof(User.IsAdmin));
+                    OnPropertyChanged(nameof(User.IsGod));
+                }
             }
             else
             {
-                await DisplayAlert("Info", $"¡{userName} tuvo problemas al cambiar de rol :( !", "OK!");
+                await DisplayAlert("Info", $"¡{userName} tuvo problemas al cambiar de rol :(", "OK!");
             }
         }
     }
 
+
     private async void OnGodTapped(object sender, EventArgs e)
     {
         string userName = (string)((TappedEventArgs)e).Parameter;
-        bool answer = await DisplayAlert("Cambiar Rol", $"¿Deseas que '{userName}'cambie de Rol? (SP)", "Sí", "No");
+        bool answer = await DisplayAlert("Cambiar Rol", $"¿Deseas que '{userName}' cambie de Rol? (SP)", "Sí", "No");
 
         if (answer)
         {
@@ -159,8 +167,22 @@ public partial class AllUsersView : ContentPage
 
             if (response.IsSuccessStatusCode)
             {
-                await DisplayAlert("Info", $"¡Has cambiado el rol de '{userName}' (SP)!", "OK!");
-                LoadUsers();
+                var userToUpdate = usersList.ItemsSource.Cast<User>().FirstOrDefault(u => u.UserName == userName);
+                if (userToUpdate != null)
+                {
+                    if (userToUpdate.IsAdmin)
+                    {
+                        userToUpdate.IsGod = !userToUpdate.IsGod;
+                    }
+                    else
+                    {
+                        userToUpdate.IsGod = true;
+                        userToUpdate.IsAdmin = true;
+                    }
+
+                    OnPropertyChanged(nameof(User.IsGod));
+                    OnPropertyChanged(nameof(User.IsAdmin));
+                }
             }
             else
             {
