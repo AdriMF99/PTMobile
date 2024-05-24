@@ -17,7 +17,7 @@ public partial class AllUsersView : ContentPage
 
     private async void LoadUsers()
     {
-        string apiUrl = $"{DevTunnel.UrlAdri}/User/all-users";
+        string apiUrl = $"{DevTunnel.urlDeborah}/User/all-users";
         var response = await _httpClient.GetAsync(apiUrl);
 
         if (response.IsSuccessStatusCode)
@@ -39,8 +39,8 @@ public partial class AllUsersView : ContentPage
 
         foreach (var user in users)
         {
-            string isAdminUrl = $"{DevTunnel.UrlAdri}/User/is-admin?username={user.UserName}";
-            string isGodUrl = $"{DevTunnel.UrlAdri}/User/is-god?username={user.UserName}";
+            string isAdminUrl = $"{DevTunnel.urlDeborah}/User/is-admin?username={user.UserName}";
+            string isGodUrl = $"{DevTunnel.urlDeborah}/User/is-god?username={user.UserName}";
 
             tasks.Add(SetUserAdminStatus(user, isAdminUrl, isGodUrl));
         }
@@ -96,7 +96,7 @@ public partial class AllUsersView : ContentPage
 
     private async void PdfClicked(object sender, EventArgs e)
     {
-        string urlPdf = $"{DevTunnel.UrlAdri}/reportPdfQuest";
+        string urlPdf = $"{DevTunnel.urlDeborah}/reportPdfQuest";
         var response = await _httpClient.GetAsync(urlPdf);
 
         if (response.IsSuccessStatusCode)
@@ -139,7 +139,7 @@ public partial class AllUsersView : ContentPage
 
         if (answer)
         {
-            string urlSetAdmin = $"{DevTunnel.UrlAdri}/User/set-admin?username={userName}";
+            string urlSetAdmin = $"{DevTunnel.urlDeborah}/User/set-admin?username={userName}";
             var response = await _httpClient.PutAsync(urlSetAdmin, null);
 
             if (response.IsSuccessStatusCode)
@@ -169,7 +169,7 @@ public partial class AllUsersView : ContentPage
 
         if (answer)
         {
-            string urlSetAdmin = $"{DevTunnel.UrlAdri}/User/set-god?username={userName}";
+            string urlSetAdmin = $"{DevTunnel.urlDeborah}/User/set-god?username={userName}";
             var response = await _httpClient.PutAsync(urlSetAdmin, null);
 
             if (response.IsSuccessStatusCode)

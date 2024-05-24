@@ -40,7 +40,7 @@ public partial class LoginView : ContentPage
     {
         string username = usernameEntry.Text;
         string password = passwordEntry.Text;
-        string url = $"{DevTunnel.UrlAdri}/User/login?username={Uri.EscapeDataString(username)}&password={Uri.EscapeDataString(password)}";
+        string url = $"{DevTunnel.urlDeborah}/User/login?username={Uri.EscapeDataString(username)}&password={Uri.EscapeDataString(password)}";
 
         if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))
         {
@@ -64,7 +64,7 @@ public partial class LoginView : ContentPage
                     TokenManager.Token = token;
                     TokenManager.currentUser = username;
 
-                    string urlAdmin = $"{DevTunnel.UrlAdri}/User/is-admin?username={username}";
+                    string urlAdmin = $"{DevTunnel.urlDeborah}/User/is-admin?username={username}";
                     var responseAdmin = await _httpClient.GetAsync(urlAdmin);
                     if (responseAdmin.IsSuccessStatusCode)
                     {
@@ -87,7 +87,7 @@ public partial class LoginView : ContentPage
                         } 
                         else
                         {
-                            string urlGod = $"{DevTunnel.UrlAdri}/User/is-god?username={username}";
+                            string urlGod = $"{DevTunnel.urlDeborah}/User/is-god?username={username}";
                             var responseGod = await _httpClient.GetAsync(urlGod);
                             if (responseGod.IsSuccessStatusCode)
                             {
