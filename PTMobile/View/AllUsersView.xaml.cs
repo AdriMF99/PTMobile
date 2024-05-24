@@ -35,38 +35,45 @@ public partial class AllUsersView : ContentPage
 
     private async Task SetAdminStatus(List<User> users)
     {
+        List<Task> tasks = new List<Task>();
+
         foreach (var user in users)
         {
-            string apiUrl = $"{DevTunnel.UrlAdri}/User/is-admin?username={user.UserName}";
-            string apiUrlGod = $"{DevTunnel.UrlAdri}/User/is-god?username={user.UserName}";
-            var response = await _httpClient.GetAsync(apiUrl);
-            var response2 = await _httpClient.GetAsync(apiUrlGod);
-            var content = await response.Content.ReadAsStringAsync();
+            string isAdminUrl = $"{DevTunnel.UrlAdri}/User/is-admin?username={user.UserName}";
+            string isGodUrl = $"{DevTunnel.UrlAdri}/User/is-god?username={user.UserName}";
 
-            if (JsonConvert.DeserializeObject<bool>(content))
-            {
-                user.IsAdmin = true;
-                user.IsGod = false;
-            }
-            else
-            {
-                if (response2.IsSuccessStatusCode)
-                {
-                    var content2 = await response2.Content.ReadAsStringAsync();
-                    if (JsonConvert.DeserializeObject<bool>(content2))
-                    {
-                        user.IsGod = true;
-                        user.IsAdmin = true;
-                    }
-                    else
-                    {
-                        user.IsGod = false;
-                        user.IsAdmin = false;
-                    }
-                }
-            }
+            tasks.Add(SetUserAdminStatus(user, isAdminUrl, isGodUrl));
+        }
+
+        await Task.WhenAll(tasks);
+    }
+
+    private async Task SetUserAdminStatus(User user, string isAdminUrl, string isGodUrl)
+    {
+        var isAdminTask = _httpClient.GetAsync(isAdminUrl);
+        var isGodTask = _httpClient.GetAsync(isGodUrl);
+
+        await Task.WhenAll(isAdminTask, isGodTask);
+
+        if (isAdminTask.Result.IsSuccessStatusCode && isGodTask.Result.IsSuccessStatusCode)
+        {
+            var isAdminContent = await isAdminTask.Result.Content.ReadAsStringAsync();
+            var isGodContent = await isGodTask.Result.Content.ReadAsStringAsync();
+
+            bool isAdmin = JsonConvert.DeserializeObject<bool>(isAdminContent);
+            bool isGod = JsonConvert.DeserializeObject<bool>(isGodContent);
+
+            user.IsAdmin = isAdmin || isGod;
+
+            user.IsGod = isGod;
+        }
+        else
+        {
+            user.IsAdmin = false;
+            user.IsGod = false;
         }
     }
+
 
     private async void OnUserTapped(object sender, EventArgs e)
     {
