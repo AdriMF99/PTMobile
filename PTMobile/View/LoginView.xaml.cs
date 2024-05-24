@@ -84,7 +84,7 @@ public partial class LoginView : ContentPage
                             {
                                 await Navigation.PushAsync(new CodeVerification());
                             }
-                        }
+                        } 
                         else
                         {
                             string urlGod = $"{DevTunnel.UrlAdri}/User/is-god?username={username}";
