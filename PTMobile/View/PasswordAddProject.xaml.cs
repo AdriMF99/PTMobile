@@ -1,6 +1,6 @@
 using PTMobile.Models;
 
-namespace PTMobile;
+namespace PTMobile.View;
 
 public partial class PasswordAddProject : ContentPage
 {

@@ -35,7 +35,7 @@ public partial class VerifyAccount : ContentPage
     {
         string code = codeEntry.Text;
         string email = emailEntry.Text;
-        string url = $"{DevTunnel.UrlAdri}/User/verify-account?code={code}&email={email}";
+        string url = $"{DevTunnel.UrlDeborah}/User/verify-account?code={code}&email={email}";
 
         if (!string.IsNullOrEmpty(code) && !string.IsNullOrEmpty(email))
         { 

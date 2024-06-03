@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using PTMobile.Models;
 using System.Text;
 
-namespace PTMobile;
+namespace PTMobile.View;
 
 public partial class AllProjectsToAdd : ContentPage
 {
@@ -37,7 +37,7 @@ public partial class AllProjectsToAdd : ContentPage
     {
         using (var httpClient = new HttpClient())
         {
-            string apiUrl = $"{DevTunnel.UrlAdri}/api/Project/getProjects";
+            string apiUrl = $"{DevTunnel.UrlDeborah}/api/Project/getProjects";
 
             HttpResponseMessage response = await httpClient.GetAsync(apiUrl);
 
@@ -70,8 +70,8 @@ public partial class AllProjectsToAdd : ContentPage
                     string projectName = project.ProjectName.ToString();
                     string usuarcillo = TokenManager.currentUser.ToString();
                     string userAdmin = TokenManager.selectedUserAdmin.ToString();
-                    string urlAdd = $"{DevTunnel.UrlAdri}/api/Project/add-project-user?projectName={Uri.EscapeDataString(projectName)}&userName={Uri.EscapeDataString(usuarcillo)}";
-                    string urlAddAdmin = $"{DevTunnel.UrlAdri}/api/Project/add-project-user?projectName={Uri.EscapeDataString(projectName)}&userName={Uri.EscapeDataString(userAdmin)}";
+                    string urlAdd = $"{DevTunnel.UrlDeborah}/api/Project/add-project-user?projectName={Uri.EscapeDataString(projectName)}&userName={Uri.EscapeDataString(usuarcillo)}";
+                    string urlAddAdmin = $"{DevTunnel.UrlDeborah}/api/Project/add-project-user?projectName={Uri.EscapeDataString(projectName)}&userName={Uri.EscapeDataString(userAdmin)}";
 
                     if (TokenManager.isFromAdmin == true)
                     {
@@ -128,8 +128,8 @@ public partial class AllProjectsToAdd : ContentPage
             {
                 using (var httpClient = new HttpClient())
                 {
-                    string urlDelete = $"{DevTunnel.UrlAdri}/api/Project/delete-project-user?projectName={project.ProjectName}&userName={TokenManager.currentUser}";
-                    string urlDeleteAdmin = $"{DevTunnel.UrlAdri}/api/Project/delete-project-user?projectName={project.ProjectName}&userName={TokenManager.selectedUserAdmin}";
+                    string urlDelete = $"{DevTunnel.UrlDeborah}/api/Project/delete-project-user?projectName={project.ProjectName}&userName={TokenManager.currentUser}";
+                    string urlDeleteAdmin = $"{DevTunnel.UrlDeborah}/api/Project/delete-project-user?projectName={project.ProjectName}&userName={TokenManager.selectedUserAdmin}";
 
                     if (TokenManager.isFromAdmin == true)
                     {

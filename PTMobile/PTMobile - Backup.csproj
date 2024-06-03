@@ -50,25 +50,25 @@
 
 	<ItemGroup>
 	  <None Remove="Platforms\Android\Resources\xml\network_security_config.xml" />
-<<<<<<< HEAD
+
 	  <None Remove="Resources\Images\code.svg" />
-=======
+
 	  <None Remove="Resources\Images\addp.png" />
 	  <None Remove="Resources\Images\change_view.png" />
->>>>>>> jijijiAMF
+
 	  <None Remove="Resources\Images\delete.svg" />
 	  <None Remove="Resources\Images\email.svg" />
-	  <None Remove="Resources\Images\fondillo.jpg" />
+	  <None Remove="Resources\Images\background.jpg" />
 	  <None Remove="Resources\Images\fondo.jpg" />
-<<<<<<< HEAD
+
 	  <None Remove="Resources\Images\logo.png" />
 	  <None Remove="Resources\Images\password.svg" />
-=======
-	  <None Remove="Resources\Images\left_arrow.png" />
+
+	  <None Remove="Resources\Images\arrow_left.svg" />
 	  <None Remove="Resources\Images\logo.png" />
 	  <None Remove="Resources\Images\password.svg" />
-	  <None Remove="Resources\Images\right_arrow.png" />
->>>>>>> jijijiAMF
+	  <None Remove="Resources\Images\arrow_right.svg" />
+
 	  <None Remove="Resources\Images\sending.png" />
 	  <None Remove="Resources\Images\user_solid.svg" />
 	  <None Remove="Resources\Splash\splashicon.svg" />
@@ -79,10 +79,9 @@
 		<PackageReference Include="CommunityToolkit.Maui" Version="6.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-<<<<<<< HEAD
+
 		<PackageReference Include="VisualStateManager" Version="1.0.2" />
-=======
->>>>>>> jijijiAMF
+
 		<PackageReference Include="Xamarin.Essentials" Version="1.8.1" />
 		<PackageReference Include="ZXing.Net.Maui.Controls" Version="0.4.0" />
 	</ItemGroup>
@@ -103,15 +102,15 @@
 	  <MauiXaml Update="AllProjects.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-<<<<<<< HEAD
+
 	  <MauiXaml Update="CodeVerification.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\CreateAccountView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\EntryCodeForgotPassword.xaml">
-=======
+		<MauiXaml Update="View\EntryCodeForgotPassword.xaml">
+		</MauiXaml>
 	  <MauiXaml Update="AllProjectsToAdd.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -119,7 +118,6 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="PasswordAddProject.xaml">
->>>>>>> jijijiAMF
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

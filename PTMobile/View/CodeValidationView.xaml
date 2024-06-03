@@ -5,7 +5,7 @@
              x:Class="PTMobile.View.CodeValidationView"
              Title="Change Password">
     <ContentPage.BackgroundImageSource>
-        <FileImageSource File="Resources/Images/fondillo.jpg" />
+        <FileImageSource File="Resources/Images/background.jpg" />
     </ContentPage.BackgroundImageSource>
     <NavigationPage.TitleView>
         <StackLayout Orientation="Horizontal" HorizontalOptions="End">

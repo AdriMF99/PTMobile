@@ -14,10 +14,22 @@ public partial class AllUsersView : ContentPage
         LoadUsers();
 
     }
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+
+        // Inicializa la posición fuera de la pantalla a la izquierda
+        usersListLabel.TranslationX = -this.Width;
+
+        // Anima la etiqueta para deslizarse desde la izquierda
+        await usersListLabel.TranslateTo(0, 0, 1000, Easing.Linear);
+    }
+
+
 
     private async void LoadUsers()
     {
-        string apiUrl = $"{DevTunnel.UrlAdri}/User/all-users";
+        string apiUrl = $"{DevTunnel.UrlDeborah}/User/all-users";
         var response = await _httpClient.GetAsync(apiUrl);
 
         if (response.IsSuccessStatusCode)
@@ -39,8 +51,8 @@ public partial class AllUsersView : ContentPage
 
         foreach (var user in users)
         {
-            string isAdminUrl = $"{DevTunnel.UrlAdri}/User/is-admin?username={user.UserName}";
-            string isGodUrl = $"{DevTunnel.UrlAdri}/User/is-god?username={user.UserName}";
+            string isAdminUrl = $"{DevTunnel.UrlDeborah}/User/is-admin?username={user.UserName}";
+            string isGodUrl = $"{DevTunnel.UrlDeborah}/User/is-god?username={user.UserName}";
 
             tasks.Add(SetUserAdminStatus(user, isAdminUrl, isGodUrl));
         }
@@ -96,7 +108,7 @@ public partial class AllUsersView : ContentPage
 
     private async void PdfClicked(object sender, EventArgs e)
     {
-        string urlPdf = $"{DevTunnel.UrlAdri}/reportPdfQuest";
+        string urlPdf = $"{DevTunnel.UrlDeborah}/reportPdfQuest";
         var response = await _httpClient.GetAsync(urlPdf);
 
         if (response.IsSuccessStatusCode)
@@ -139,7 +151,7 @@ public partial class AllUsersView : ContentPage
 
         if (answer)
         {
-            string urlSetAdmin = $"{DevTunnel.UrlAdri}/User/set-admin?username={userName}";
+            string urlSetAdmin = $"{DevTunnel.UrlDeborah}/User/set-admin?username={userName}";
             var response = await _httpClient.PutAsync(urlSetAdmin, null);
 
             if (response.IsSuccessStatusCode)
@@ -169,7 +181,7 @@ public partial class AllUsersView : ContentPage
 
         if (answer)
         {
-            string urlSetAdmin = $"{DevTunnel.UrlAdri}/User/set-god?username={userName}";
+            string urlSetAdmin = $"{DevTunnel.UrlDeborah}/User/set-god?username={userName}";
             var response = await _httpClient.PutAsync(urlSetAdmin, null);
 
             if (response.IsSuccessStatusCode)

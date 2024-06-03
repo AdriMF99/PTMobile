@@ -2,7 +2,7 @@ using PTMobile.Models;
 using Microsoft.Maui.Graphics;
 using Xamarin.Essentials;
 
-namespace PTMobile
+namespace PTMobile.View
 {
     public partial class CodeVerification : ContentPage
     {
@@ -18,7 +18,7 @@ namespace PTMobile
             {
                 var code = codeEntry.Text;
                 var token = TokenManager.Token;
-                string url = $"{DevTunnel.UrlAdri}/api/Code/VerifyCodeMobile?code={code}&token={token}";
+                string url = $"{DevTunnel.UrlDeborah}/api/Code/VerifyCodeMobile?code={code}&token={token}";
 
                 HttpResponseMessage response = await httpClient.GetAsync(url);
 
@@ -53,7 +53,7 @@ namespace PTMobile
                     }
 
                     var token = TokenManager.Token;
-                    string url = $"{DevTunnel.UrlAdri}/api/Code/VerifyCodeMobile?code={first.Value}&token={token}";
+                    string url = $"{DevTunnel.UrlDeborah}/api/Code/VerifyCodeMobile?code={first.Value}&token={token}";
 
                     HttpResponseMessage response = await httpClient.GetAsync(url);
 

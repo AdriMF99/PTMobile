@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="PTMobile.AllProjectsToAdd"
-             Title="AllProjectsToAdd">
+             x:Class="PTMobile.View.AllProjects">
     <NavigationPage.TitleView>
         <StackLayout Orientation="Horizontal" HorizontalOptions="End">
             <Image Source="logo.png" WidthRequest="40" HeightRequest="40" Margin="10" />
@@ -21,6 +20,7 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <SearchBar Grid.Column="0" Placeholder="Search projects..." TextChanged="OnSearchTextChanged" />
                 <Image
@@ -37,14 +37,27 @@
                 </Image>
                 <Image
                     Grid.Column="2"
-                    Source="Resources/Images/backtoprojects.png"
+                    Source="Resources/Images/addp.png"
                     WidthRequest="30"
                     HeightRequest="30"
                     VerticalOptions="Center"
                     HorizontalOptions="End"
                     Margin="10">
                     <Image.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="OnBackButtonClicked" />
+                        <TapGestureRecognizer Tapped="OnAddProjectButtonClicked" />
+                    </Image.GestureRecognizers>
+                </Image>
+                <Image
+                    Grid.Column="3"
+                    Source="Resources/Images/adminmode.png"
+                    WidthRequest="30"
+                    HeightRequest="30"
+                    x:Name="adminbutton"
+                    VerticalOptions="Center"
+                    HorizontalOptions="End"
+                    Margin="10">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnAdminClicked" />
                     </Image.GestureRecognizers>
                 </Image>
             </Grid>
@@ -59,12 +72,12 @@
                         <SwipeView>
                             <SwipeView.LeftItems>
                                 <SwipeItems>
-                                    <SwipeItem Text="Delete" BackgroundColor="Red" IconImageSource="delete.png" Clicked="OnUpdateButtonTapped" CommandParameter="{Binding .}" />
+                                    <SwipeItem Text="Delete" BackgroundColor="PaleVioletRed" IconImageSource="delete.svg" Clicked="OnUpdateButtonTapped" CommandParameter="{Binding .}" />
                                 </SwipeItems>
                             </SwipeView.LeftItems>
                             <SwipeView.RightItems>
                                 <SwipeItems>
-                                    <SwipeItem Text="Cast" BackgroundColor="Green" IconImageSource="addp.svg" Clicked="OnShowConfirmation" CommandParameter="{Binding .}" />
+                                    <SwipeItem Text="Cast" BackgroundColor="LightGreen" IconImageSource="sending.png" Clicked="OnShowConfirmation" CommandParameter="{Binding .}" />
                                 </SwipeItems>
                             </SwipeView.RightItems>
                             <SwipeView.Content>

@@ -57,7 +57,7 @@ public partial class CreateAccountView : ContentPage
         string username = usernameEntry.Text;
         string email = emailEntry.Text;
         string password = passwordEntry.Text;
-        string url = $"{DevTunnel.UrlAdri}/User/create-user";
+        string url = $"{DevTunnel.UrlDeborah}/User/create-user";
 
         if (accountCreationRequested)
         {
