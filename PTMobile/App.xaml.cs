@@ -1,5 +1,4 @@
-﻿using PTMobile.View;
-
+﻿
 namespace PTMobile
 {
     public partial class App : Application
@@ -8,8 +7,7 @@ namespace PTMobile
         public App()
         {
             InitializeComponent();
-
-            MainPage = new NavigationPage(new LoginView());
+            MainPage = new AppShell();
         }
     }
 }

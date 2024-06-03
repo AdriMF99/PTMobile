@@ -1,6 +1,7 @@
 using PTMobile.Models;
 using Microsoft.Maui.Graphics;
 using Xamarin.Essentials;
+using PTMobile.Views;
 
 namespace PTMobile
 {
@@ -18,7 +19,7 @@ namespace PTMobile
             {
                 var code = codeEntry.Text;
                 var token = TokenManager.Token;
-                string url = $"{DevTunnel.urlDeborah}/api/Code/VerifyCodeMobile?code={code}&token={token}";
+                string url = $"{DevTunnel.UrlDeborah}/api/Code/VerifyCodeMobile?code={code}&token={token}";
 
                 HttpResponseMessage response = await httpClient.GetAsync(url);
 
@@ -53,7 +54,7 @@ namespace PTMobile
                     }
 
                     var token = TokenManager.Token;
-                    string url = $"{DevTunnel.urlDeborah}/api/Code/VerifyCodeMobile?code={first.Value}&token={token}";
+                    string url = $"{DevTunnel.UrlDeborah}/api/Code/VerifyCodeMobile?code={first.Value}&token={token}";
 
                     HttpResponseMessage response = await httpClient.GetAsync(url);
 

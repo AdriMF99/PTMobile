@@ -7,7 +7,7 @@ namespace PTMobile.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             bool isAdmin = (bool)value;
-            return isAdmin ? "Resources/Images/zeusconrelleno.png" : "Resources/Images/zeussinrelleno.png";
+            return isAdmin ? "Resources/Images/superadmin_conrelleno.svg" : "Resources/Images/superadmin.svg";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -6,7 +6,7 @@
              x:Class="PTMobile.CodeVerification"
              Title="CodeVerification">
     <ContentPage.BackgroundImageSource>
-        <FileImageSource File="Resources/Images/fondillo.jpg" />
+        <FileImageSource File="Resources/Images/fondo.jpg" />
     </ContentPage.BackgroundImageSource>
     <NavigationPage.TitleView>
         <StackLayout Orientation="Horizontal" HorizontalOptions="End">

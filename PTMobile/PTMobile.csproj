@@ -53,20 +53,20 @@
 	  <None Remove="Resources\Images\adminmode.png" />
 	  <None Remove="Resources\Images\backtoprojects.png" />
 	  <None Remove="Resources\Images\change_view.png" />
-	  <None Remove="Resources\Images\coronaconrelleno.png" />
-	  <None Remove="Resources\Images\coronasinrelleno.png" />
-	  <None Remove="Resources\Images\delete.svg" />
+	  <None Remove="Resources\Images\corona_conrelleno.svg" />
+	  <None Remove="Resources\Images\corona.svg" />
 	  <None Remove="Resources\Images\email.svg" />
-	  <None Remove="Resources\Images\fondillo.jpg" />
 	  <None Remove="Resources\Images\fondo.jpg" />
-	  <None Remove="Resources\Images\left_arrow.png" />
+	  <None Remove="Resources\Images\left_arrow.svg" />
 	  <None Remove="Resources\Images\logo.png" />
 	  <None Remove="Resources\Images\password.svg" />
-	  <None Remove="Resources\Images\right_arrow.png" />
+	  <None Remove="Resources\Images\right_arrow.svg" />
 	  <None Remove="Resources\Images\sending.png" />
+	  <None Remove="Resources\Images\sliders.svg" />
+	  <None Remove="Resources\Images\trash.svg" />
 	  <None Remove="Resources\Images\user_solid.svg" />
-	  <None Remove="Resources\Images\zeusconrelleno.png" />
-	  <None Remove="Resources\Images\zeussinrelleno.png" />
+	  <None Remove="Resources\Images\superadmin_conrelleno.svg" />
+	  <None Remove="Resources\Images\superadmin.svg" />
 	  <None Remove="Resources\Splash\splashicon.svg" />
 	</ItemGroup>
 
@@ -97,6 +97,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="CodeVerification.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\UpdateFields.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\AllUsersView.xaml">

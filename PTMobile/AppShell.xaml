@@ -4,13 +4,39 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:PTMobile"
-    xmlns:views="clr-namespace:PTMobile.View"
-    Shell.FlyoutBehavior="Disabled"
+    xmlns:views="clr-namespace:PTMobile.Views"
     Title="PTMobile">
+    <!--Shell.FlyoutBehavior="Disabled"  (esto es para que el menu este disabled)-->
 
+
+    <FlyoutItem Title="Settings" Icon="config.svg">
+        <ShellContent Title="Update Fields" ContentTemplate="{DataTemplate local:UpdateFields}" />
+    </FlyoutItem>
+    
     <ShellContent
         Title="Login"
         ContentTemplate="{DataTemplate views:LoginView}"
         Route="MainPage" />
+
+    <!--<ShellContent Title="Main Page" ContentTemplate="{DataTemplate views:MainPage}" />-->
+
+    <ShellContent Title="All Projects" ContentTemplate="{DataTemplate local:AllProjects}" Route="AllProjects" />
+
+
+    <ShellContent Title="All Projects" ContentTemplate="{DataTemplate local:AllProjectsToAdd}" Route="AllProjectsToAdd" />
+
+    <ShellContent Title="All Projects" ContentTemplate="{DataTemplate local:AllUsersView}" Route="AllUsersView" />
+
+    <ShellContent Title="All Projects" ContentTemplate="{DataTemplate local:CodeValidationView}" Route="CodeValidationView" />
+
+    <ShellContent Title="All Projects" ContentTemplate="{DataTemplate local:CreateAccountView}" Route="CreateAccountView" />
+
+    <ShellContent Title="All Projects" ContentTemplate="{DataTemplate local:EntryCodeForgotPassword}" Route="EntryCodeForgotPassword" />
+
+    <ShellContent Title="All Projects" ContentTemplate="{DataTemplate local:ForgotPasswordView}" Route="ForgotPasswordView" />
+
+    <ShellContent Title="All Projects" ContentTemplate="{DataTemplate local:PasswordAddProject}" Route="PasswordAddProject" />
+
+    <ShellContent Title="All Projects" ContentTemplate="{DataTemplate local:VerifyAccount}" Route="VerifyAccount" />
 
 </Shell>
