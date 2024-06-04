@@ -45,7 +45,7 @@ public partial class AllProjects : ContentPage
     {
         using (var httpClient = new HttpClient())
         {
-            string apiUrl = $"{DevTunnel.UrlDeborah}/api/Project/get-user-projects?userName={username}";
+            string apiUrl = $"{DevTunnel.UrlFran}/api/Project/get-user-projects?userName={username}";
 
             HttpResponseMessage response = await httpClient.GetAsync(apiUrl);
 
@@ -75,7 +75,7 @@ public partial class AllProjects : ContentPage
                 using (var httpClient = new HttpClient())
                 {
                     // Acción si se pulsa "SÍ"
-                    string url = $"{DevTunnel.UrlDeborah}/api/Project/select-project?projectData={project.ProjectName}&tvCode={TokenManager.TvCode}";
+                    string url = $"{DevTunnel.UrlFran}/api/Project/select-project?projectData={project.ProjectName}&tvCode={TokenManager.TvCode}";
                     HttpResponseMessage response = await httpClient.GetAsync(url);
                     if (response.IsSuccessStatusCode)
                     {
@@ -111,7 +111,7 @@ public partial class AllProjects : ContentPage
             {
                 using (var httpClient = new HttpClient())
                 {
-                    string urlDelete = $"{DevTunnel.UrlDeborah}/api/Project/deleteProject?projectId={project.Id}";
+                    string urlDelete = $"{DevTunnel.UrlFran}/api/Project/deleteProject?projectId={project.Id}";
                     HttpResponseMessage response = await httpClient.DeleteAsync(urlDelete);
                     if (response.IsSuccessStatusCode)
                     {

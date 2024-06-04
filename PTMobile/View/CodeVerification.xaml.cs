@@ -18,7 +18,7 @@ namespace PTMobile.View
             {
                 var code = codeEntry.Text;
                 var token = TokenManager.Token;
-                string url = $"{DevTunnel.UrlDeborah}/api/Code/VerifyCodeMobile?code={code}&token={token}";
+                string url = $"{DevTunnel.UrlFran}/api/Code/VerifyCodeMobile?code={code}&token={token}";
 
                 HttpResponseMessage response = await httpClient.GetAsync(url);
 
@@ -53,7 +53,7 @@ namespace PTMobile.View
                     }
 
                     var token = TokenManager.Token;
-                    string url = $"{DevTunnel.UrlDeborah}/api/Code/VerifyCodeMobile?code={first.Value}&token={token}";
+                    string url = $"{DevTunnel.UrlFran}/api/Code/VerifyCodeMobile?code={first.Value}&token={token}";
 
                     HttpResponseMessage response = await httpClient.GetAsync(url);
 

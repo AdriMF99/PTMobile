@@ -34,7 +34,7 @@ public partial class EntryCodeForgotPassword : ContentPage
         string username = usernameEntry.Text;
         string password = passwordEntry.Text;
         string code = codeEntry.Text;
-        string url = $"{DevTunnel.UrlDeborah}/User/change-password";
+        string url = $"{DevTunnel.UrlFran}/User/change-password";
 
         if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password) && !string.IsNullOrEmpty(code))
         {
