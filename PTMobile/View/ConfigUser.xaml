@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             x:Class="PTMobile.View.CreateAccountView"
-             Title="CreateAccountView">
+              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="PTMobile.View.ConfigUser"
+             Title="Config User">
     <Grid Grid.Row="1">
         <Image Aspect="AspectFill" Source="background.jpg"/>
         <VerticalStackLayout Margin="60,160,60,0">
             <Label FontAttributes="Bold"
      FontFamily="bold"
      FontSize="Large"
-     Text="Create your account"
+     Text="Update fields"
      HorizontalOptions="Center"
-     TextColor="Gray"/>
+       TextColor="Gray"/>
             <Grid Margin="0,30,0,0" ColumnDefinitions=".2*,.8*">
                 <RoundRectangle
                      BackgroundColor="Transparent"
@@ -33,12 +33,12 @@
                 </Image>
 
                 <Entry
-                    x:Name="usernameEntry"
+                    x:Name="currentUser"
                     Grid.Column="1"
-                    Placeholder="Username"
+                    Placeholder="Change your username"
                     PlaceholderColor="#706e6d"
-                    VerticalOptions="Center"
-                    TextChanged="OnInputTextChanged"/>
+                    VerticalOptions="Center"/>
+                    <!--TextChanged="OnInputTextChanged"-->
             </Grid>
 
             <Grid Margin="0,20,0,0" ColumnDefinitions=".2*,.8*">
@@ -61,12 +61,13 @@
                 </Image>
 
                 <Entry
-                x:Name="emailEntry"
+                x:Name="currentEmail"
                 Grid.Column="1"
-                Placeholder="Email"
+                Placeholder="Change your email"
                 PlaceholderColor="#706e6d"
-                VerticalOptions="Center"
-                TextChanged="OnInputTextChanged"/>
+                VerticalOptions="Center"/>
+                <!--TextChanged="OnInputTextChanged"-->
+                    
             </Grid>
 
 
@@ -93,11 +94,12 @@
                 <Entry
                      x:Name="passwordEntry"
                      Grid.Column="1"
-                     Placeholder="Password"
+                     Placeholder="Change your Password"
                      IsPassword="True"
                      PlaceholderColor="#706e6d"
-                     VerticalOptions="Center"
-					 TextChanged="OnInputTextChanged" />
+                     VerticalOptions="Center" />
+					 <!--TextChanged="OnInputTextChanged"-->
+                   
 
                 <Button x:Name="TogglePasswordButton1"
                     Text="👁"
@@ -135,10 +137,10 @@
                     x:Name="repeatPasswordEntry"
                     IsPassword="True"
                     Grid.Column="1"
-                    Placeholder="Repeat Password"
+                    Placeholder="Repeat your new password"
                     PlaceholderColor="#706e6d"
-                    VerticalOptions="Center"
-				    TextChanged="OnInputTextChanged" />
+                    VerticalOptions="Center"/>
+				    <!--TextChanged="OnInputTextChanged"--> 
 
                 <Button x:Name="TogglePasswordButton2"
                     Text="👁"
@@ -152,25 +154,25 @@
    />
             </Grid>
             <Button
-                 x:Name="createAccountButton"
+                 x:Name="updateButton"
                   Margin="0, 30, 0, 0"
                   HeightRequest="60"
-                  Text="Create Account"
+                  Text="Update changes"
                   TextColor="#FBF6FD"
                   BackgroundColor="#6f9f9b"
                   Opacity=".5"
-                  Clicked="CreateAccountButton_Clicked"
-				  IsEnabled="False" 
-              />
+                  Clicked="UpdateButton_Clicked"/>
+				  <!--IsEnabled="False"--> 
+              
 
 
-            <Label x:Name="createAccountResultLabel"
+            <Label x:Name="errortResultLabel"
                 FontSize="14"
                 TextColor="DarkRed"
                 HorizontalOptions="Center"
                 IsVisible="True" />
-            
-         
+
+
         </VerticalStackLayout>
     </Grid>
 </ContentPage>

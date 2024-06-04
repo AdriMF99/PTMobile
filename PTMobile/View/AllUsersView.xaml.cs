@@ -209,4 +209,11 @@ public partial class AllUsersView : ContentPage
             }
         }
     }
+
+
+
+    private void ConfigUserClicked(object sender, EventArgs e)
+    {
+        Navigation.PushAsync(new ConfigUser());
+    }
 }

@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using PTMobile.Models;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace PTMobile.View;
 
@@ -23,7 +24,7 @@ public partial class ForgotPasswordView : ContentPage
 
     private void CheckForm()
     {
-        bool isEmailComplete = !string.IsNullOrEmpty(emailEntry.Text);
+        bool isEmailComplete = !string.IsNullOrEmpty(emailEntry.Text) && Regex.IsMatch(emailEntry.Text, @"^\w+@\w+\.\w+$"); ;
 
         forgotPasswordButton.IsEnabled = isEmailComplete;
         forgotPasswordButton.Opacity = isEmailComplete ? 1.0 : 0.5;
@@ -32,6 +33,7 @@ public partial class ForgotPasswordView : ContentPage
 
     private async void ForgotPasswordButton_Clicked(object sender, EventArgs e)
     {
+
         string email = emailEntry.Text;
         string url = $"{DevTunnel.UrlFran}/User/forgot-password?email={email}";
 

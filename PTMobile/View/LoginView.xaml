@@ -37,7 +37,7 @@
                     FontFamily="bold"
                     FontSize="Medium"
                     Text="Welcome!"
-                    TextColor="#3d3d3f"/>
+                    TextColor="Gray"/>
                 <Label FontFamily="medium"
                     Text="Login"
                     TextColor="#a3a3a4"/>

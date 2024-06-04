@@ -13,6 +13,22 @@ public partial class EntryCodeForgotPassword : ContentPage
     }
 
 
+    private void TogglePasswordVisibility(object sender, EventArgs e)
+    {
+        if (passwordEntry != null)
+        {
+            passwordEntry.IsPassword = !passwordEntry.IsPassword;
+        }
+    }
+
+    private void TogglePasswordVisibility2(object sender, EventArgs e)
+    {
+        if (repeatPasswordEntry != null)
+        {
+            repeatPasswordEntry.IsPassword = !repeatPasswordEntry.IsPassword;
+        }
+    }
+
 
     private void OnInputTextChanged(object sender, TextChangedEventArgs e)
     {
@@ -21,11 +37,14 @@ public partial class EntryCodeForgotPassword : ContentPage
 
     private void CheckForm()
     {
-        bool isEmailComplete = !string.IsNullOrEmpty(codeEntry.Text);
+        bool isUserComplete = !string.IsNullOrEmpty(usernameEntry.Text);
+        bool passwordsMatch = passwordEntry.Text == repeatPasswordEntry.Text;
+        bool isCodeComplete = !string.IsNullOrEmpty(codeEntry.Text);
 
+        bool isFormComplete = isUserComplete && passwordsMatch && isCodeComplete;
 
-        ChangePasswordButton.IsEnabled = isEmailComplete;
-        ChangePasswordButton.Opacity = isEmailComplete ? 1.0 : 0.5;
+        ChangePasswordButton.IsEnabled = isFormComplete;
+        ChangePasswordButton.Opacity = isFormComplete ? 1.0 : 0.5;
     }
 
 
