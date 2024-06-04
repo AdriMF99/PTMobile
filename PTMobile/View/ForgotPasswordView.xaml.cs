@@ -11,8 +11,24 @@ public partial class ForgotPasswordView : ContentPage
     public ForgotPasswordView()
     {
         InitializeComponent();
+        CheckForm();
         currentUser.Text = TokenManager.currentUser;
     }
+
+
+    private void OnInputTextChanged(object sender, TextChangedEventArgs e)
+    {
+        CheckForm();
+    }
+
+    private void CheckForm()
+    {
+        bool isEmailComplete = !string.IsNullOrEmpty(emailEntry.Text);
+
+        forgotPasswordButton.IsEnabled = isEmailComplete;
+        forgotPasswordButton.Opacity = isEmailComplete ? 1.0 : 0.5;
+    }
+
 
     private async void ForgotPasswordButton_Clicked(object sender, EventArgs e)
     {
@@ -34,7 +50,7 @@ public partial class ForgotPasswordView : ContentPage
                 if (response.IsSuccessStatusCode)
                 {
                     var isSend = await response.Content.ReadAsStringAsync();
-                    await Navigation.PushAsync(new CodeValidationView());
+                    await Navigation.PushAsync(new EntryCodeForgotPassword());
                 }
                 else
                 {
