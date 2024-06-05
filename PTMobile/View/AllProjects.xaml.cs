@@ -205,4 +205,10 @@ public partial class AllProjects : ContentPage
             await projectsList.TranslateTo(0, 0, 250, Easing.SinInOut);
         }
     }
+
+    private void ConfigUserClicked(object sender, EventArgs e)
+    {
+        Navigation.PushAsync(new ConfigUser());
+    }
+
 }

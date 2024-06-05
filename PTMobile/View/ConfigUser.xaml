@@ -160,10 +160,11 @@
                   Text="Update changes"
                   TextColor="#FBF6FD"
                   BackgroundColor="#6f9f9b"
-                  Opacity=".5"
-                  Clicked="UpdateButton_Clicked"/>
-				  <!--IsEnabled="False"--> 
-              
+                  
+                  Clicked="UpdateButton_Clicked"
+                 />
+				  <!--IsEnabled="False"
+             Opacity="0.5"-->
 
 
             <Label x:Name="errortResultLabel"
