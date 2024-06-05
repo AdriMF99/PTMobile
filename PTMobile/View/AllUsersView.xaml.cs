@@ -29,7 +29,7 @@ public partial class AllUsersView : ContentPage
 
     private async void LoadUsers()
     {
-        string apiUrl = $"{DevTunnel.UrlAdri}/User/all-users";
+        string apiUrl = $"{DevTunnel.UrlDeborah}/User/all-users";
         var response = await _httpClient.GetAsync(apiUrl);
 
         if (response.IsSuccessStatusCode)
@@ -51,8 +51,8 @@ public partial class AllUsersView : ContentPage
 
         foreach (var user in users)
         {
-            string isAdminUrl = $"{DevTunnel.UrlAdri}/User/is-admin?username={user.UserName}";
-            string isGodUrl = $"{DevTunnel.UrlAdri}/User/is-god?username={user.UserName}";
+            string isAdminUrl = $"{DevTunnel.UrlDeborah}/User/is-admin?username={user.UserName}";
+            string isGodUrl = $"{DevTunnel.UrlDeborah}/User/is-god?username={user.UserName}";
 
             tasks.Add(SetUserAdminStatus(user, isAdminUrl, isGodUrl));
         }
@@ -108,7 +108,7 @@ public partial class AllUsersView : ContentPage
 
     private async void PdfClicked(object sender, EventArgs e)
     {
-        string urlPdf = $"{DevTunnel.UrlAdri}/reportPdfQuest";
+        string urlPdf = $"{DevTunnel.UrlDeborah}/reportPdfQuest";
         var response = await _httpClient.GetAsync(urlPdf);
 
         if (response.IsSuccessStatusCode)
@@ -151,7 +151,7 @@ public partial class AllUsersView : ContentPage
 
         if (answer)
         {
-            string urlSetAdmin = $"{DevTunnel.UrlAdri}/User/set-admin?username={userName}&userLoged={TokenManager.currentUser}";
+            string urlSetAdmin = $"{DevTunnel.UrlDeborah}/User/set-admin?username={userName}&userLoged={TokenManager.currentUser}";
             var response = await _httpClient.PutAsync(urlSetAdmin, null);
 
             if (response.IsSuccessStatusCode)
@@ -181,7 +181,7 @@ public partial class AllUsersView : ContentPage
 
         if (answer)
         {
-            string urlSetAdmin = $"{DevTunnel.UrlAdri}/User/set-admin?username={userName}&userLoged={TokenManager.currentUser}";
+            string urlSetAdmin = $"{DevTunnel.UrlDeborah}/User/set-admin?username={userName}&userLoged={TokenManager.currentUser}";
             var response = await _httpClient.PutAsync(urlSetAdmin, null);
 
             if (response.IsSuccessStatusCode)

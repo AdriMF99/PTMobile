@@ -20,7 +20,7 @@
                 VerticalOptions="Center"
                  BackgroundColor="black"
                  TextColor="#FBF6FD"
-                Opacity="0.5"
+                Opacity="0.9"
                 Margin="20" 
                 Clicked="ConfigUserClicked"
                 />
