@@ -1,6 +1,7 @@
 using PTMobile.Models;
 using Microsoft.Maui.Graphics;
 using Xamarin.Essentials;
+using Newtonsoft.Json;
 
 namespace PTMobile.View
 {
@@ -18,18 +19,45 @@ namespace PTMobile.View
             {
                 var code = codeEntry.Text;
                 var token = TokenManager.Token;
-                string url = $"{DevTunnel.UrlDeborah}/api/Code/VerifyCodeMobile?code={code}&token={token}";
+                string url = $"{DevTunnel.UrlFran}/api/Code/VerifyCodeMobile?code={Uri.EscapeDataString(code)}&token={Uri.EscapeDataString(token)}";
 
-                HttpResponseMessage response = await httpClient.GetAsync(url);
-
-                if (response.IsSuccessStatusCode)
+                try
                 {
-                    TokenManager.TvCode = code;
-                    await Navigation.PushAsync(new AllProjects());
+                    HttpResponseMessage response = await httpClient.GetAsync(url);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var content = await response.Content.ReadAsStringAsync();
+                        var result = JsonConvert.DeserializeObject<dynamic>(content);
+
+                        if (result.success == true)
+                        {
+                            TokenManager.TvCode = code;
+                            await Navigation.PushAsync(new AllProjects());
+                        }
+                        else
+                        {
+                            await DisplayAlert("Error", "Código incorrecto. Por favor, inténtalo de nuevo.", "OK");
+                        }
+                    }
+                    else
+                    {
+                        await DisplayAlert("Error", "Error al verificar el código. Por favor, inténtalo de nuevo.", "OK");
+                    }
+                }
+                catch (HttpRequestException ex)
+                {
+                    await DisplayAlert("Error de red", $"No se pudo conectar con el servidor: {ex.Message}", "OK");
+                }
+                catch (JsonException ex)
+                {
+                    await DisplayAlert("Error", $"Error al procesar la respuesta del servidor: {ex.Message}", "OK");
+                }
+                catch (Exception ex)
+                {
+                    await DisplayAlert("Error", $"Error inesperado: {ex.Message}", "OK");
                 }
             }
-
-            //await DisplayAlert("Code", $"Código introducido: '{code}'", "OK!");       
         }
 
         /*public void OnQRClicked(object sender, EventArgs e)

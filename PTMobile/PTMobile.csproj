@@ -61,6 +61,7 @@
 	  <None Remove="Resources\Images\fondo.jpg" />
 	  <None Remove="Resources\Images\arrow_left.svg" />
 	  <None Remove="Resources\Images\logo.png" />
+	  <None Remove="Resources\Images\logout.png" />
 	  <None Remove="Resources\Images\password.svg" />
 	  <None Remove="Resources\Images\arrow_right.svg" />
 	  <None Remove="Resources\Images\sending.png" />

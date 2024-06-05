@@ -177,11 +177,11 @@ public partial class AllProjects : ContentPage
         _isOneColumn = !_isOneColumn;
     }
 
-    private async void OnAddProjectButtonClicked(object sender, EventArgs e)
-    {
-        TokenManager.isFromAdmin = false;
-        await Navigation.PushAsync(new PasswordAddProject());
-    }
+    //private async void OnAddProjectButtonClicked(object sender, EventArgs e)
+    //{
+    //    TokenManager.isFromAdmin = false;
+    //    await Navigation.PushAsync(new PasswordAddProject());
+    //}
 
     private async void OnAdminClicked(object sender, EventArgs e)
     {
@@ -211,4 +211,11 @@ public partial class AllProjects : ContentPage
         Navigation.PushAsync(new ConfigUser());
     }
 
+
+    private async void OnLogoutButtonClicked(object sender, EventArgs e)
+    {
+        TokenManager.Token = "";
+        TokenManager.currentUser = "";
+        await Navigation.PushAsync(new LoginView());
+    }
 }

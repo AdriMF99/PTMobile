@@ -45,7 +45,7 @@
                         <TapGestureRecognizer Tapped="OnChangeViewButtonClicked" />
                     </Image.GestureRecognizers>
                 </Image>
-                <Image
+                <!--<Image
                     Grid.Column="2"
                     Source="Resources/Images/addp.png"
                     WidthRequest="30"
@@ -56,9 +56,10 @@
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Tapped="OnAddProjectButtonClicked" />
                     </Image.GestureRecognizers>
-                </Image>
+                </Image>-->
+                
                 <Image
-                    Grid.Column="3"
+                    Grid.Column="2"
                     Source="Resources/Images/adminmode.png"
                     WidthRequest="30"
                     HeightRequest="30"
@@ -70,6 +71,20 @@
                         <TapGestureRecognizer Tapped="OnAdminClicked" />
                     </Image.GestureRecognizers>
                 </Image>
+
+                <Image
+    Grid.Column="3"
+    Source="Resources/Images/logout.png"
+    WidthRequest="30"
+    HeightRequest="30"
+    VerticalOptions="Center"
+    HorizontalOptions="End"
+    Margin="10">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnLogoutButtonClicked" />
+                    </Image.GestureRecognizers>
+                </Image>
+                
             </Grid>
 
             <!-- Row 1: Projects list -->
