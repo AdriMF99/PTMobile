@@ -117,8 +117,7 @@
                     Opacity="{Binding ButtonLoginOpacity}"
                     IsEnabled="{Binding ButtonLoginIsEnabled}"
                     Command="{Binding LoginFormCommand}"/>
-                <Label Text="{Binding ErrorText}" IsEnabled="{Binding ErrorTextIsEnable}"
-                       ></Label>
+                <Label Text="{Binding ErrorText}" IsEnabled="{Binding ErrorTextIsEnable}"></Label>
 
 
                     <Label Text="Forgot your password?"
@@ -140,7 +139,7 @@
                         Clicked="CreateAccountButton_Clicked"
                         Command="{Binding CreateAccountButton}"/>
 
-                <Label x:Name="loginResultLabel"
+                <Label Text="{Binding ErrorTextLogin}" IsEnabled="{Binding ErrorTextLoginIsEnable}" x:Name="loginResultLabel"
                  FontSize="10"
                  TextColor="Red"
                  HorizontalOptions="Center"

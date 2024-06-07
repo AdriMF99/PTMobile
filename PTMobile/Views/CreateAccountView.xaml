@@ -33,7 +33,7 @@
                 </Image>
 
                 <Entry
-                    x:Name="usernameEntry"
+                    Text="{Binding Username}"
                     Grid.Column="1"
                     Placeholder="Username"
                     PlaceholderColor="#706e6d"
@@ -61,7 +61,7 @@
                 </Image>
 
                 <Entry
-                x:Name="emailEntry"
+                 Text="{Binding Email}"
                 Grid.Column="1"
                 Placeholder="Email"
                 PlaceholderColor="#706e6d"
@@ -91,10 +91,10 @@
                 </Image>
 
                 <Entry
-                     x:Name="passwordEntry"
+                       Text="{Binding Password}"
                      Grid.Column="1"
                      Placeholder="Password"
-                     IsPassword="True"
+                       IsPassword="{Binding PasswordIsEnabled}"
                      PlaceholderColor="#706e6d"
                      VerticalOptions="Center"
 					 TextChanged="OnInputTextChanged" />
@@ -104,7 +104,7 @@
                     WidthRequest="60"
                     HeightRequest="60"
                     BackgroundColor="Transparent"
-                    Clicked="TogglePasswordVisibility1"
+                     Command="{Binding TogglePasswordVisibilityCommand}"
                     HorizontalOptions="End"
                     VerticalOptions="Center"
                     Grid.Column="1"
@@ -132,8 +132,8 @@
                 </Image>
 
                 <Entry
-                    x:Name="repeatPasswordEntry"
-                    IsPassword="True"
+                     Text="{Binding RepeatPassword}"
+                     IsPassword="{Binding RepeatPasswordIsEnabled}"
                     Grid.Column="1"
                     Placeholder="Repeat Password"
                     PlaceholderColor="#706e6d"
@@ -145,7 +145,7 @@
                     WidthRequest="60"
                     HeightRequest="60"
                     BackgroundColor="Transparent"
-                    Clicked="TogglePasswordVisibility2"
+                    Command="{Binding ToggleRepeatPasswordVisibilityCommand}"
                     HorizontalOptions="End"
                     VerticalOptions="Center"
                     Grid.Column="1"
@@ -158,13 +158,16 @@
                   Text="Create Account"
                   TextColor="#FBF6FD"
                   BackgroundColor="#6f9f9b"
-                  Opacity=".5"
                   Clicked="CreateAccountButton_Clicked"
-				  IsEnabled="False" 
-              />
+				  Opacity="{Binding ButtonCreateAccountOpacity}"
+                  IsEnabled="{Binding ButtonCreateAccountIsEnabled}"
+                  Command="{Binding CreateAccountCommand}"/>
+            <Label Text="{Binding ErrorText}" IsEnabled="{Binding ErrorTextIsEnable}"></Label>
 
 
-            <Label x:Name="createAccountResultLabel"
+
+            <Label Text="{Binding ErrorTextCreateAccount}" IsEnabled="{Binding ErrorTextCreateAccountIsEnable}"
+                x:Name="createAccountResultLabel"
                 FontSize="14"
                 TextColor="DarkRed"
                 HorizontalOptions="Center"

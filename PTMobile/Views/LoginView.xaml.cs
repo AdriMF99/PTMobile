@@ -1,27 +1,27 @@
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using PTMobile.Interfaces;
 using PTMobile.Models;
 using PTMobile.ViewModels;
-using System.Text;
 
 namespace PTMobile.Views;
 
 public partial class LoginView : ContentPage
 {
 
-    public LoginView(HttpClient httpClient)
+    public LoginView(HttpClient httpClient, IDialogService dialogService)
     {
         InitializeComponent();
-        BindingContext = new LoginViewModel(httpClient);
+
+        BindingContext = new LoginViewModel(httpClient, dialogService);
+
         currentUser.Text = TokenManager.currentUser;
 
         //CheckForm();
     }
 
-    private void OnInputTextChanged(object sender, TextChangedEventArgs e)
-    {
-        //CheckForm();
-    }
+    //private void OnInputTextChanged(object sender, TextChangedEventArgs e)
+    //{
+    //CheckForm();
+    //}
 
     //private void CheckForm()
     //{
@@ -133,7 +133,7 @@ public partial class LoginView : ContentPage
     //        loginResultLabel.Text = "Error en la autenticación. Por favor, inténtalo de nuevo.";
     //    }
     //    }
-    
+
 
 
     //private async void ForgotPassword_Clicked(object sender, TappedEventArgs e)

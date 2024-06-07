@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using PTMobile.Interfaces;
 using PTMobile.Models;
 using PTMobile.Views;
 using System.Runtime.InteropServices;
@@ -9,7 +10,7 @@ using System.Text;
 
 namespace PTMobile.ViewModels
 {
-    public partial class LoginViewModel : ObservableObject
+    public partial class LoginViewModel : ObservableObject 
     {
         [ObservableProperty]
         private string password;
@@ -24,7 +25,7 @@ namespace PTMobile.ViewModels
         private bool errorTextIsEnable = false;
 
         [ObservableProperty]
-        private bool buttonLoginIsEnabled;
+        private bool buttonLoginIsEnabled = true;
 
         [ObservableProperty]
         private float buttonLoginOpacity = 0.5f;
@@ -32,12 +33,22 @@ namespace PTMobile.ViewModels
         [ObservableProperty]
         private bool passwordIsEnabled = true;
 
+        [ObservableProperty]
+        private string errorTextLogin;
+
+        [ObservableProperty]
+        private bool errorTextLoginIsEnable = false;
+
 
 
         private readonly HttpClient _httpClient = new();
-        public LoginViewModel(HttpClient httpClient)
+        private readonly IDialogService _dialogService;
+
+
+        public LoginViewModel(HttpClient httpClient, IDialogService dialogService)
         {
             _httpClient = httpClient;
+            _dialogService = dialogService;
         }
 
 
@@ -51,15 +62,15 @@ namespace PTMobile.ViewModels
             {
                 ButtonLoginIsEnabled = true;
                 ErrorText = "La contraseña no puede estar vacia";
-                ButtonLoginOpacity = 1;
+                ButtonLoginOpacity = 0.5f;
                 ErrorTextIsEnable = true;
             }
 
             if (Username == null)
                 ButtonLoginIsEnabled = true;
-            ErrorText = "El usuario no puede estar vacio";
-            ButtonLoginOpacity = 1;
-            ErrorTextIsEnable = true;
+                ErrorText = "El usuario no puede estar vacio";
+                ButtonLoginOpacity = 0.5f;
+                ErrorTextIsEnable = true;
 
             try
             {
@@ -67,7 +78,6 @@ namespace PTMobile.ViewModels
                 {
                     UserName = Username,
                     Password = Password
-
                 };
                 var json = JsonConvert.SerializeObject(requestData);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
@@ -111,44 +121,47 @@ namespace PTMobile.ViewModels
                             {
                                 var isGod = await responseGod.Content.ReadAsStringAsync();
                                 bool isGodUser = bool.Parse(isGod);
-                                //if (isGodUser)
-                                //{
-                                //    TokenManager.isGod = true;
-                                //    TokenManager.isAdmin = true;
-                                //   bool answer2 = await DisplayAlert("AdminSupremo", "Eres un Admin Supremo. ¿Qué quieres hacer?", "AdminMode", "VerCode");
-                                //    if (answer2)
-                                //    {
-                                //        await Shell.Current.GoToAsync(nameof(AllUsersView));
-                                //    }
-                                //    else
-                                //    {
-                                //        await Shell.Current.GoToAsync(nameof(CodeVerification));
-                                //    }
-                                //}
-                                //else
-                                //{
-                                //    TokenManager.isGod = false;
-                                //    TokenManager.isAdmin = false;
-                                //    await Shell.Current.GoToAsync(nameof(CodeVerification));
-                                //}
+                                if (isGodUser)
+                                {
+                                    TokenManager.isGod = true;
+                                    TokenManager.isAdmin = true;
+                                   bool answer2 = await _dialogService.DisplayAlert("AdminSupremo", "Eres un Admin Supremo. ¿Qué quieres hacer?", "AdminMode", "VerCode");
+                                    if (answer2)
+                                    {
+                                        await Shell.Current.GoToAsync(nameof(AllUsersView));
+                                    }
+                                    else
+                                   {
+                                       await Shell.Current.GoToAsync(nameof(CodeVerification));
+                                    }
+                                }
+                                else
+                                {
+                                    TokenManager.isGod = false;
+                                    TokenManager.isAdmin = false;
+                                    await Shell.Current.GoToAsync(nameof(CodeVerification));
+                                }
                             }
                         }
                     }
-                    //else
-                    //{
-                    //    await DisplayAlert("Error", "No se pudo verificar si el usuario es admin.", "OK");
-                    //}
+                    else
+                    {
+                        await _dialogService.DisplayAlert("Error", "No se pudo verificar si el usuario es admin.", null , "OK");
+                    }
                 }
-
+                else
+                {
+                    ErrorTextLoginIsEnable = true;
+                    ErrorTextLogin = "Authentication failed. Please try again";
+                }
             }
             catch (Exception ex)
             {
-                //await DisplayAlert("Error", $"Error: {ex.Message}", "OK");
-                Console.WriteLine(ex.Message);
+                await _dialogService.DisplayAlert("Error", $"Error: {ex.Message}", null, "OK");
             }
         }
 
-
+ 
         [RelayCommand]
         public async void ForgotPasswordCommand()
         {

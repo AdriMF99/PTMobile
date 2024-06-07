@@ -1,4 +1,7 @@
 ﻿
+using PTMobile.Interfaces;
+using PTMobile.Services;
+
 namespace PTMobile
 {
     public partial class App : Application
@@ -8,6 +11,8 @@ namespace PTMobile
         {
             InitializeComponent();
             MainPage = new AppShell();
+
+            DependencyService.Register<IDialogService, DialogService>();
         }
     }
 }
