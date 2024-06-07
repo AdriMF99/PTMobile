@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<!--<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
@@ -15,7 +15,7 @@
     </NavigationPage.TitleView>
     <Frame CornerRadius="10" HasShadow="True" BackgroundColor="#FFFFFF" Padding="20" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="350">
         <StackLayout Spacing="20">
-            <!-- Título -->
+            --><!-- Título --><!--
             <Label Text="Change Password" FontSize="Large" HorizontalOptions="Center" />
 
             <Grid Margin="0,30,0,0" ColumnDefinitions=".2*,.8*">
@@ -107,8 +107,8 @@
 
             </Grid>
 
-            <!-- Botón para verificar el código -->
+            --><!-- Botón para verificar el código --><!--
             <Button Text="Change" Clicked="OnChangeClicked" HorizontalOptions="Center" />
         </StackLayout>
     </Frame>
-</ContentPage>
+</ContentPage>-->

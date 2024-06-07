@@ -4,11 +4,7 @@ using Newtonsoft.Json;
 using PTMobile.Interfaces;
 using PTMobile.Models;
 using PTMobile.Views;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace PTMobile.ViewModels
 {
@@ -58,62 +54,62 @@ namespace PTMobile.ViewModels
 
             if (Username == null)
                 ButtonSendCodeIsEnabled = true;
-                ErrorText = "User cannot be empty.";
-                ButtonSendCodeOpacity = 0.5f;
-                ErrorTextIsEnable = true;
+            ErrorText = "User cannot be empty.";
+            ButtonSendCodeOpacity = 0.5f;
+            ErrorTextIsEnable = true;
 
             if (Password == null)
                 ButtonSendCodeIsEnabled = true;
-                ErrorText = "Password cannot be empty.";
-                ButtonSendCodeOpacity = 0.5f;
-                ErrorTextIsEnable = true;
+            ErrorText = "Password cannot be empty.";
+            ButtonSendCodeOpacity = 0.5f;
+            ErrorTextIsEnable = true;
 
             if (Code == null)
                 ButtonSendCodeIsEnabled = true;
-                ErrorText = "Code cannot be empty.";
-                ButtonSendCodeOpacity = 0.5f;
-                ErrorTextIsEnable = true;
+            ErrorText = "Code cannot be empty.";
+            ButtonSendCodeOpacity = 0.5f;
+            ErrorTextIsEnable = true;
 
 
-                try
+            try
+            {
+                var requestData = new
                 {
-                    var requestData = new
-                    {
-                        username = Username,
-                        newPassword = Password,
-                        code = Code
-                    };
+                    username = Username,
+                    newPassword = Password,
+                    code = Code
+                };
 
-                    var json = JsonConvert.SerializeObject(requestData);
-                    var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var json = JsonConvert.SerializeObject(requestData);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                    var response = await _httpClient.PostAsync(url, content);
+                var response = await _httpClient.PostAsync(url, content);
 
-                    if (response.IsSuccessStatusCode)
-                    {
-                        var isSend = await response.Content.ReadAsStringAsync();
-
-                        await Shell.Current.GoToAsync(nameof(LoginView));
-                    }
-                    else
-                    {
-                     await _dialogService.DisplayAlert("Error", "Failed to save the new password. Please try again later.", null, "OK");
-                    }
-                }
-                catch (Exception ex)
+                if (response.IsSuccessStatusCode)
                 {
-                    await App.Current.MainPage.DisplayAlert("Error" + ex.Message, "An error occurred while processing your request. Please try again later.", "OK");
+                    var isSend = await response.Content.ReadAsStringAsync();
 
+                    await Shell.Current.GoToAsync(nameof(LoginView));
                 }
+                else
+                {
+                    await _dialogService.DisplayAlert("Error", "Failed to save the new password. Please try again later.", null, "OK");
+                }
+            }
+            catch (Exception ex)
+            {
+                await App.Current.MainPage.DisplayAlert("Error" + ex.Message, "An error occurred while processing your request. Please try again later.", "OK");
+
+            }
 
         }
-            //else
-            //{
-            //                await _dialogService.DisplayAlert("Error", "Please enter username, email and the code send to your mail.", null, "OK");
+        // else
+        //{
+        //                await _dialogService.DisplayAlert("Error", "Please enter username, email and the code send to your mail.", null, "OK");
 
-            //}
+        // }
 
 
     }
-    
+
 }
