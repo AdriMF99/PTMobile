@@ -57,7 +57,7 @@
                     Placeholder="Enter the code send to your mail"
                     VerticalOptions="Center"
                     WidthRequest="200"
-                       TextChanged="OnInputTextChanged"/>
+                       />
             </Grid>
 
             <Grid Margin="0,30,0,0" ColumnDefinitions=".2*,.8*">
@@ -85,7 +85,7 @@
                     Placeholder="Enter your email"
                     VerticalOptions="Center"
                     WidthRequest="200"
-                       TextChanged="OnInputTextChanged"/>
+                      />
             </Grid>
 
 
@@ -98,7 +98,7 @@
                     BackgroundColor="#6f9f9b"
                     HorizontalOptions="Center"
                     VerticalOptions="CenterAndExpand"
-                    Clicked="VerifyAccountButton_Clicked"
+                   
                     Opacity="{Binding ButtonSendCodeOpacity}"
                     IsEnabled="{Binding ButtonSendCodeIsEnabled}"
                     Command="{Binding SendCodeCommand}"/>

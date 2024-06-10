@@ -26,7 +26,7 @@
             <StackLayout Grid.Row="0" Grid.Column="0">
                 <Label 
                     x:Name="usersListLabel"
-                    Text="USER LIST" 
+                    Text="{Binding UserListLabel}"
                        FontSize="Large" 
                        HorizontalOptions="Center" 
                           Margin="0,60,0,20"
@@ -41,9 +41,10 @@
                       Opacity=".7"
                      TextColor="#FBF6FD"
                     Margin="10"
-                    Clicked="PdfClicked"
+                      Command="{Binding CreatePDFCommand}"
                     />
                 <CollectionView x:Name="usersList" 
+                                  ItemsSource="{Binding Users}"
                                 VerticalOptions="FillAndExpand">
                     <CollectionView.ItemsLayout>
                         <LinearItemsLayout Orientation="Vertical" />
@@ -69,8 +70,12 @@
                                                VerticalOptions="End"
                                                FontSize="Small" 
                                                HorizontalOptions="Center">
-                                            <Label.GestureRecognizers>
+                                            <!--<Label.GestureRecognizers>
                                                 <TapGestureRecognizer Tapped="OnUserTapped"/>
+                                            </Label.GestureRecognizers>-->
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Source={x:Reference usersList}, Path=BindingContext.UserTappedCommand}"
+                                                      CommandParameter="{Binding .}" />
                                             </Label.GestureRecognizers>
                                         </Label>
                                     </StackLayout>
@@ -81,8 +86,12 @@
                                            VerticalOptions="Center" 
                                            IsVisible="{x:Static models:TokenManager.isGod}"
                                            HorizontalOptions="End">
-                                        <Image.GestureRecognizers>
+                                        <!--<Image.GestureRecognizers>
                                             <TapGestureRecognizer Tapped="OnGodTapped" CommandParameter="{Binding UserName}" />
+                                        </Image.GestureRecognizers>-->
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={x:Reference usersList}, Path=BindingContext.GodTappedCommand}"
+                                                  CommandParameter="{Binding UserName}" />
                                         </Image.GestureRecognizers>
                                     </Image>
                                     <Image Source="{Binding IsAdmin, Converter={StaticResource AdminImageConverter}}"
@@ -90,8 +99,12 @@
                                            HeightRequest="34"
                                            VerticalOptions="Center" 
                                            HorizontalOptions="End">
-                                        <Image.GestureRecognizers>
+                                        <!--<Image.GestureRecognizers>
                                             <TapGestureRecognizer Tapped="OnImageTapped" CommandParameter="{Binding UserName}" />
+                                        </Image.GestureRecognizers>-->
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={x:Reference usersList}, Path=BindingContext.ImageTappedCommand}"
+                                                  CommandParameter="{Binding UserName}" />
                                         </Image.GestureRecognizers>
                                     </Image>
                                 </StackLayout>

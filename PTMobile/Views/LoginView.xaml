@@ -65,7 +65,7 @@
                         Grid.Column="1"
                         Placeholder="Username"
                         VerticalOptions="Center"
-                         TextChanged="OnInputTextChanged"
+                        
                         />
                 </Grid>
 
@@ -93,7 +93,7 @@
                         Placeholder="Password"
                         IsPassword="{Binding PasswordIsEnabled}"
                         VerticalOptions="Center"
-                         TextChanged="OnInputTextChanged"/>
+                         />
                     
                     <Button 
                     Text="👁"
@@ -113,7 +113,7 @@
                     Text="Log in"
                     TextColor="#FBF6FD"
                     BackgroundColor="#6f9f9b"
-                    Clicked="LoginButton_Clicked"
+                   
                     Opacity="{Binding ButtonLoginOpacity}"
                     IsEnabled="{Binding ButtonLoginIsEnabled}"
                     Command="{Binding LoginFormCommand}"/>
@@ -127,7 +127,7 @@
                Margin="0,20,0,-10">
 
                     <Label.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="ForgotPassword_Clicked"  Command="{Binding ForgotPasswordCommand}" />
+                        <TapGestureRecognizer  Command="{Binding ForgotPasswordCommand}" />
                     </Label.GestureRecognizers>
                 </Label>
 
@@ -136,7 +136,6 @@
                         HeightRequest="60"
                         Text="Create your Account"
                         TextColor="#4f3f9B"
-                        Clicked="CreateAccountButton_Clicked"
                         Command="{Binding CreateAccountButton}"/>
 
                 <Label Text="{Binding ErrorTextLogin}" IsEnabled="{Binding ErrorTextLoginIsEnable}" x:Name="loginResultLabel"
