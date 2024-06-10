@@ -68,7 +68,7 @@ namespace PTMobile.ViewModels
 
         private async Task LoadUsersAsync()
         {
-            string apiUrl = $"{DevTunnel.UrlDeborah}/User/all-users";
+            string apiUrl = $"{DevTunnel.UrlFran}/User/all-users";
             var response = await _httpClient.GetAsync(apiUrl);
 
             if (response.IsSuccessStatusCode)

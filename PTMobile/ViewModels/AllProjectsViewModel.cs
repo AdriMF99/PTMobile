@@ -96,7 +96,7 @@ namespace PTMobile.ViewModels
                 bool answer = await Shell.Current.DisplayAlert("Cast", $"¿Quieres conectar '{project.ProjectName}'?", "SÍ", "NO");
                 if (answer)
                 {
-                    string url = $"{DevTunnel.UrlFran}/api/Project/select-project?projectData={Uri.EscapeDataString(project.ProjectName)}&tvCode={Uri.EscapeDataString(TokenManager.TvCode)}";
+                    string url = $"{DevTunnel.UrlFran}/api/Project/select-project?projectData={project.ProjectName}&tvCode={TokenManager.TvCode}";
                     HttpResponseMessage response = await _httpClient.GetAsync(url);
                     if (response.IsSuccessStatusCode)
                     {
