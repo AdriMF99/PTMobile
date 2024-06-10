@@ -11,13 +11,10 @@
 
 
     <FlyoutItem Title="Settings" Icon="config.svg">
-        <ShellContent Title="Update Fields" ContentTemplate="{DataTemplate local:SettingsUpdateFields}" />
+        <ShellContent Title="Update Fields" ContentTemplate="{DataTemplate views:AllProjects}" />
     </FlyoutItem>
     
-    <ShellContent
-        Title="Login"
-        ContentTemplate="{DataTemplate views:LoginView}"
-        Route="MainPage" />
+    <ShellContent Title="Login" ContentTemplate="{DataTemplate views:LoginView}" Route="MainPage" />
 
     <!--<ShellContent Title="Main Page" ContentTemplate="{DataTemplate views:MainPage}" />-->
 
