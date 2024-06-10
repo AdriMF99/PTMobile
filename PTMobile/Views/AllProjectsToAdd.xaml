@@ -27,6 +27,7 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
+                    
                 </Grid.ColumnDefinitions>
                 <SearchBar Grid.Column="0" Placeholder="Search projects..." TextColor="#4f3f9B" PlaceholderColor="#4f3f9B" TextChanged="OnSearchTextChanged" />
                 <Image
