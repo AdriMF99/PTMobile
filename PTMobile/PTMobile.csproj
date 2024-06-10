@@ -86,6 +86,9 @@
 	  <Compile Update="CodeVerification.xaml.cs">
 	    <DependentUpon>CodeVerification.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\SettingsUpdateFields.xaml.cs">
+	    <DependentUpon>SettingsUpdateFields.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="View\ForgotPasswordView.xaml.cs">
 	    <DependentUpon>ForgotPasswordView.xaml</DependentUpon>
 	  </Compile>
@@ -96,6 +99,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="CodeVerification.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\SettingsUpdateFields.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\UpdateFields.xaml">

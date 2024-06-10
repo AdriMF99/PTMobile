@@ -50,7 +50,7 @@ namespace PTMobile.ViewModels
         {
             using (var httpClient = new HttpClient())
             {
-                string apiUrl = $"{DevTunnel.UrlDeborah}/api/Project/getProjects";
+                string apiUrl = $"{DevTunnel.UrlFran}/api/Project/getProjects";
                 HttpResponseMessage response = await httpClient.GetAsync(apiUrl);
 
                 if (response.IsSuccessStatusCode)
@@ -75,6 +75,8 @@ namespace PTMobile.ViewModels
             await Application.Current.MainPage.Navigation.PushAsync(new AllProjects());
         }
 
+
+        [RelayCommand]
         private async Task AddProject(Project project)
         {
             if (project != null)
@@ -87,8 +89,8 @@ namespace PTMobile.ViewModels
                         string projectName = project.ProjectName;
                         string usuarcillo = TokenManager.currentUser;
                         string userAdmin = TokenManager.selectedUserAdmin;
-                        string urlAdd = $"{DevTunnel.UrlDeborah}/api/Project/add-project-user?projectName={Uri.EscapeDataString(projectName)}&userName={Uri.EscapeDataString(usuarcillo)}";
-                        string urlAddAdmin = $"{DevTunnel.UrlDeborah}/api/Project/add-project-user?projectName={Uri.EscapeDataString(projectName)}&userName={Uri.EscapeDataString(userAdmin)}";
+                        string urlAdd = $"{DevTunnel.UrlFran}/api/Project/add-project-user?projectName={projectName}&userName={usuarcillo}";
+                        string urlAddAdmin = $"{DevTunnel.UrlFran}/api/Project/add-project-user?projectName={projectName}&userName={usuarcillo}";
 
                         HttpResponseMessage response = TokenManager.isFromAdmin ? await httpClient.PutAsync(urlAddAdmin, null) : await httpClient.PutAsync(urlAdd, null);
                         if (response.IsSuccessStatusCode)
@@ -104,6 +106,7 @@ namespace PTMobile.ViewModels
             }
         }
 
+        [RelayCommand]
         private async Task DeleteProject(Project project)
         {
             if (project != null)
@@ -113,8 +116,8 @@ namespace PTMobile.ViewModels
                 {
                     using (var httpClient = new HttpClient())
                     {
-                        string urlDelete = $"{DevTunnel.UrlDeborah}/api/Project/delete-project-user?projectName={Uri.EscapeDataString(project.ProjectName)}&userName={Uri.EscapeDataString(TokenManager.currentUser)}";
-                        string urlDeleteAdmin = $"{DevTunnel.UrlDeborah}/api/Project/delete-project-user?projectName={Uri.EscapeDataString(project.ProjectName)}&userName={Uri.EscapeDataString(TokenManager.selectedUserAdmin)}";
+                        string urlDelete = $"{DevTunnel.UrlFran}/api/Project/delete-project-user?projectName={project.ProjectName}&userName={TokenManager.currentUser}";
+                        string urlDeleteAdmin = $"{DevTunnel.UrlFran}/api/Project/delete-project-user?projectName={project.ProjectName}&userName={TokenManager.selectedUserAdmin}";
 
                         HttpResponseMessage response = TokenManager.isFromAdmin ? await httpClient.DeleteAsync(urlDeleteAdmin) : await httpClient.DeleteAsync(urlDelete);
                         if (response.IsSuccessStatusCode)

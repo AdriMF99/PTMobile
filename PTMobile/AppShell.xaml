@@ -11,7 +11,7 @@
 
 
     <FlyoutItem Title="Settings" Icon="config.svg">
-        <ShellContent Title="Update Fields" ContentTemplate="{DataTemplate views:AllProjects}" />
+        <ShellContent Title="Update Fields" ContentTemplate="{DataTemplate local:SettingsUpdateFields}" />
     </FlyoutItem>
     
     <ShellContent
@@ -24,20 +24,20 @@
     <ShellContent Title="All Projects" ContentTemplate="{DataTemplate views:AllProjects}" Route="AllProjects" />
 
 
-    <ShellContent Title="All Projects" ContentTemplate="{DataTemplate local:AllProjectsToAdd}" Route="AllProjectsToAdd" />
+    <ShellContent Title="All Projects to add" ContentTemplate="{DataTemplate local:AllProjectsToAdd}" Route="AllProjectsToAdd" />
 
-    <ShellContent Title="All Projects" ContentTemplate="{DataTemplate local:AllUsersView}" Route="AllUsersView" />
+    <ShellContent Title="All Users" ContentTemplate="{DataTemplate local:AllUsersView}" Route="AllUsersView" />
 
-    <ShellContent Title="All Projects" ContentTemplate="{DataTemplate local:CodeValidationView}" Route="CodeValidationView" />
+    <ShellContent Title="Code Validation" ContentTemplate="{DataTemplate local:CodeValidationView}" Route="CodeValidationView" />
 
-    <ShellContent Title="All Projects" ContentTemplate="{DataTemplate local:CreateAccountView}" Route="CreateAccountView" />
+    <ShellContent Title="Create Account" ContentTemplate="{DataTemplate local:CreateAccountView}" Route="CreateAccountView" />
 
-    <ShellContent Title="All Projects" ContentTemplate="{DataTemplate local:EntryCodeForgotPassword}" Route="EntryCodeForgotPassword" />
+    <ShellContent Title="Entry Code Forgot Password" ContentTemplate="{DataTemplate local:EntryCodeForgotPassword}" Route="EntryCodeForgotPassword" />
 
-    <ShellContent Title="All Projects" ContentTemplate="{DataTemplate local:ForgotPasswordView}" Route="ForgotPasswordView" />
+    <ShellContent Title="Forgot Password" ContentTemplate="{DataTemplate local:ForgotPasswordView}" Route="ForgotPasswordView" />
 
-    <ShellContent Title="All Projects" ContentTemplate="{DataTemplate local:PasswordAddProject}" Route="PasswordAddProject" />
+    <ShellContent Title="Password Add Project" ContentTemplate="{DataTemplate local:PasswordAddProject}" Route="PasswordAddProject" />
 
-    <ShellContent Title="All Projects" ContentTemplate="{DataTemplate local:VerifyAccount}" Route="VerifyAccount" />
+    <ShellContent Title="Verify Account" ContentTemplate="{DataTemplate local:VerifyAccount}" Route="VerifyAccount" />
 
 </Shell>
