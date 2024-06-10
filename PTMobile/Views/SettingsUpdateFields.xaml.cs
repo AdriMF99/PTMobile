@@ -8,14 +8,14 @@ namespace PTMobile.View;
 
 public partial class SettingsUpdateFields : ContentPage
 {
-    //private readonly HttpClient _httpClient = new();
-    public SettingsUpdateFields(HttpClient httpClient, IDialogService dialogService)
+    private readonly HttpClient _httpClient = new();
+    public SettingsUpdateFields()
     {
         InitializeComponent();
 
         currentUser.Text = TokenManager.currentUser;
 
-        BindingContext = new SettingsUpdateFieldsViewModel(httpClient, dialogService);
+        BindingContext = new SettingsUpdateFieldsViewModel();
 
         // LoadDataUser();
     }

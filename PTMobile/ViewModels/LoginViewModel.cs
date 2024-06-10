@@ -41,14 +41,14 @@ namespace PTMobile.ViewModels
 
 
 
-        private readonly HttpClient _httpClient = new();
-        private readonly IDialogService _dialogService;
+        private readonly HttpClient _httpClient;
+        //private readonly IDialogService _dialogService;
 
 
-        public LoginViewModel(HttpClient httpClient, IDialogService dialogService)
+        public LoginViewModel()
         {
-            _httpClient = httpClient;
-            _dialogService = dialogService;
+            _httpClient = new HttpClient();
+            //_dialogService = new IDialogService();
         }
 
 
@@ -125,7 +125,7 @@ namespace PTMobile.ViewModels
                                 {
                                     TokenManager.isGod = true;
                                     TokenManager.isAdmin = true;
-                                   bool answer2 = await _dialogService.DisplayAlert("AdminSupremo", "Eres un Admin Supremo. ¿Qué quieres hacer?", "AdminMode", "VerCode");
+                                   bool answer2 = await Shell.Current.DisplayAlert("AdminSupremo", "Eres un Admin Supremo. ¿Qué quieres hacer?", "AdminMode", "VerCode");
                                     if (answer2)
                                     {
                                         await Shell.Current.GoToAsync(nameof(AllUsersView));
@@ -146,7 +146,7 @@ namespace PTMobile.ViewModels
                     }
                     else
                     {
-                        await _dialogService.DisplayAlert("Error", "No se pudo verificar si el usuario es admin.", null , "OK");
+                        await Shell.Current.DisplayAlert("Error", "No se pudo verificar si el usuario es admin.", null , "OK");
                     }
                 }
                 else
@@ -157,7 +157,7 @@ namespace PTMobile.ViewModels
             }
             catch (Exception ex)
             {
-                await _dialogService.DisplayAlert("Error", $"Error: {ex.Message}", null, "OK");
+                await Shell.Current.DisplayAlert("Error", $"Error: {ex.Message}", null, "OK");
             }
         }
 

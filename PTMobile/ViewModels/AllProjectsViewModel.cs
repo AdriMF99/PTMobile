@@ -2,6 +2,8 @@
 using CommunityToolkit.Mvvm.Input;
 using Newtonsoft.Json;
 using PTMobile.Models;
+using PTMobile.View;
+using PTMobile.Views;
 using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -84,9 +86,9 @@ namespace PTMobile.ViewModels
             }
         }
 
-        private void ChangeView()
+        private async void ChangeView()
         {
-            // Implementar la lógica para cambiar la vista si es necesario
+            await Shell.Current.GoToAsync(nameof(LoginView));
         }
 
         private async Task ShowConfirmationAsync(Project project)

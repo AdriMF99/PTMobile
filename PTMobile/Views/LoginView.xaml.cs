@@ -7,11 +7,11 @@ namespace PTMobile.Views;
 public partial class LoginView : ContentPage
 {
 
-    public LoginView(HttpClient httpClient, IDialogService dialogService)
+    public LoginView()
     {
         InitializeComponent();
 
-        BindingContext = new LoginViewModel(httpClient, dialogService);
+        BindingContext = new LoginViewModel();
 
         currentUser.Text = TokenManager.currentUser;
 

@@ -50,12 +50,12 @@ namespace PTMobile.ViewModels
 
 
         private readonly HttpClient _httpClient = new();
-        private readonly IDialogService _dialogService;
+        //private readonly IDialogService _dialogService;
 
-        public SettingsUpdateFieldsViewModel(HttpClient httpClient, IDialogService dialogService)
+        public SettingsUpdateFieldsViewModel()
         {
-            _httpClient = httpClient;
-            _dialogService = dialogService;
+            _httpClient = new HttpClient();
+            //_dialogService = dialogService;
         }
 
 
@@ -81,7 +81,7 @@ namespace PTMobile.ViewModels
 
             else
             {
-                await _dialogService.DisplayAlert("Error", "Unavailable user data.", null, "OK");
+                await Shell.Current.DisplayAlert("Error", "Unavailable user data.", null, "OK");
             }
         }
 
