@@ -6,11 +6,11 @@ public partial class CreateAccountView : ContentPage
 {
     //private readonly HttpClient _httpClient = new();
 
-    public CreateAccountView(HttpClient httpClient)
+    public CreateAccountView()
     {
         InitializeComponent();
 
-        BindingContext = new CreateAccountViewModel(httpClient);
+        BindingContext = new CreateAccountViewModel();
 
         // CheckForm();
 

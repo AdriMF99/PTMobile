@@ -11,7 +11,7 @@ namespace PTMobile
         {
             InitializeComponent();
             Routing.RegisterRoute(nameof(LoginView), typeof(LoginView));
-            Routing.RegisterRoute(nameof(LoginViewModel), typeof(LoginViewModel));
+            //Routing.RegisterRoute(nameof(LoginViewModel), typeof(LoginViewModel));
             Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
             Routing.RegisterRoute(nameof(SettingsUpdateFields), typeof(SettingsUpdateFields));
             Routing.RegisterRoute(nameof(AllProjects), typeof(AllProjects));

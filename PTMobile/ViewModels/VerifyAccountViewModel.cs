@@ -32,20 +32,21 @@ namespace PTMobile.ViewModels
         [ObservableProperty]
         private bool errorTextIsEnable = false;
 
-        private readonly HttpClient _httpClient = new();
-        private readonly IDialogService _dialogService;
+        private readonly HttpClient _httpClient;
+        //private readonly IDialogService _dialogService;
 
 
-        public VerifyAccountViewModel(HttpClient httpClient, IDialogService dialogService)
+        public VerifyAccountViewModel()
         {
-            _httpClient = httpClient;
-            _dialogService = dialogService;
+            _httpClient = new HttpClient();
+            //_dialogService = dialogService;
+            SendCodeCommand = new AsyncRelayCommand(SendCodeAsync);
         }
+        public IAsyncRelayCommand SendCodeCommand { get; }
 
 
-
-        [RelayCommand]
-        public async void SendCodeCommand()
+       // [RelayCommand]
+        public async Task SendCodeAsync()
         {
             string url = $"{DevTunnel.UrlDeborah}/User/verify-account?code={Code}&email={Email}";
 
@@ -82,12 +83,12 @@ namespace PTMobile.ViewModels
                 }
                 else
                 {
-                    await _dialogService.DisplayAlert("Error", "Failed to verify your account. Please try again later.", null, "OK");
+                    await Shell.Current.DisplayAlert("Error", "Failed to verify your account. Please try again later.", null, "OK");
                 }
             }
             catch (Exception ex)
             {
-                await _dialogService.DisplayAlert("Error", $"Error: {ex.Message}", null, "OK");
+                await Shell.Current.DisplayAlert("Error", $"Error: {ex.Message}", null, "OK");
             }
         }
 
