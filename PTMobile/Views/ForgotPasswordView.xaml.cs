@@ -8,12 +8,12 @@ public partial class ForgotPasswordView : ContentPage
 {
 
     //private readonly HttpClient _httpClient = new();
-    public ForgotPasswordView(HttpClient httpClient, IDialogService dialogService)
+    public ForgotPasswordView()
     {
         InitializeComponent();
         currentUser.Text = TokenManager.currentUser;
 
-        BindingContext = new ForgotPasswordViewModel(httpClient, dialogService);
+        BindingContext = new ForgotPasswordViewModel();
     }
 
     //private async void ForgotPasswordButton_Clicked(object sender, EventArgs e)

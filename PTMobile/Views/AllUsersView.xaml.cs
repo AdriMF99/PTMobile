@@ -7,36 +7,25 @@ namespace PTMobile.Views;
 
 public partial class AllUsersView : ContentPage
 {
-   // private HttpClient _httpClient = new HttpClient();
+    // private HttpClient _httpClient = new HttpClient();
 
-    public AllUsersView(HttpClient httpClient, IDialogService dialogService)
+    public AllUsersView()
     {
         InitializeComponent();
         currentUser.Text = TokenManager.currentUser;
-        //LoadUsers();
-
-        BindingContext = new AllUsersViewModel(httpClient, dialogService);
+        BindingContext = new AllUsersViewModel();
     }
-
 
     protected override async void OnAppearing()
     {
         base.OnAppearing();
 
-        //// Inicializa la posición fuera de la pantalla a la izquierda
-        //usersListLabel.TranslationX = -this.Width;
-
-        //// Anima la etiqueta para deslizarse desde la izquierda
-        //await usersListLabel.TranslateTo(0, 0, 1000, Easing.Linear);
-
         if (BindingContext is AllUsersViewModel viewModel)
         {
-            await viewModel.AnimateLabelCommand.ExecuteAsync(usersListLabel);
+            //await viewModel.AnimateLabelCommand.ExecuteAsync(usersListLabel);
             await viewModel.LoadUsersCommand.ExecuteAsync(null);
         }
     }
-
-
 
     //private async void LoadUsers()
     //{
@@ -117,16 +106,16 @@ public partial class AllUsersView : ContentPage
     //    }
     //}
 
-    private async void OnUserTapped(object sender, EventArgs e)
-    {
-        var label = sender as Label;
-        var user = label?.BindingContext as User;
+    //private async void OnUserTapped(object sender, EventArgs e)
+    //{
+    //    var label = sender as Label;
+    //    var user = label?.BindingContext as User;
 
-        if (user != null && BindingContext is AllUsersViewModel viewModel)
-        {
-            await viewModel.UserTappedCommand.ExecuteAsync(user);
-        }
-    }
+    //    if (user != null && BindingContext is AllUsersViewModel viewModel)
+    //    {
+    //        await viewModel.UserTappedCommand.ExecuteAsync(user);
+    //    }
+    //}
 
 
 

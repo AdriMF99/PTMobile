@@ -5,13 +5,16 @@ using Newtonsoft.Json.Linq;
 using PTMobile.Interfaces;
 using PTMobile.Models;
 using PTMobile.Views;
-using System.Runtime.InteropServices;
+using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace PTMobile.ViewModels
 {
-    public partial class LoginViewModel : ObservableObject 
+    public partial class LoginViewModel : ObservableObject
     {
+        private readonly HttpClient _httpClient;
+
         [ObservableProperty]
         private string password;
 
@@ -28,7 +31,7 @@ namespace PTMobile.ViewModels
         private bool buttonLoginIsEnabled = true;
 
         [ObservableProperty]
-        private float buttonLoginOpacity = 0.5f;
+        private float buttonLoginOpacity = 1.0f;
 
         [ObservableProperty]
         private bool passwordIsEnabled = true;
@@ -39,38 +42,39 @@ namespace PTMobile.ViewModels
         [ObservableProperty]
         private bool errorTextLoginIsEnable = false;
 
-
-
-        private readonly HttpClient _httpClient;
-        //private readonly IDialogService _dialogService;
-
-
         public LoginViewModel()
         {
             _httpClient = new HttpClient();
-            //_dialogService = new IDialogService();
+            LoginFormCommand = new AsyncRelayCommand(LoginFormAsync);
+            ForgotPasswordCommand = new AsyncRelayCommand(ForgotPasswordAsync);
+            TogglePasswordVisibilityCommand = new RelayCommand(TogglePasswordVisibility);
+            CreateAccountCommand = new AsyncRelayCommand(CreateAccountAsync);
         }
 
+        public IAsyncRelayCommand LoginFormCommand { get; }
+        public IAsyncRelayCommand ForgotPasswordCommand { get; }
+        public IRelayCommand TogglePasswordVisibilityCommand { get; }
+        public IAsyncRelayCommand CreateAccountCommand { get; }
 
-        [RelayCommand]
-        public async void LoginFormCommand()
+        private async Task LoginFormAsync()
         {
-            string url = $"{DevTunnel.UrlDeborah}/User/login?username={Uri.EscapeDataString(Username)}&password={Uri.EscapeDataString(Password)}";
-
-
-            if (Password == null)
+            if (string.IsNullOrEmpty(Username))
             {
-                ButtonLoginIsEnabled = true;
-                ErrorText = "La contraseña no puede estar vacia";
-                ButtonLoginOpacity = 0.5f;
+                ErrorText = "El usuario no puede estar vacío";
                 ErrorTextIsEnable = true;
+                ButtonLoginOpacity = 0.5f;
+                return;
             }
 
-            if (Username == null)
-                ButtonLoginIsEnabled = true;
-                ErrorText = "El usuario no puede estar vacio";
-                ButtonLoginOpacity = 0.5f;
+            if (string.IsNullOrEmpty(Password))
+            {
+                ErrorText = "La contraseña no puede estar vacía";
                 ErrorTextIsEnable = true;
+                ButtonLoginOpacity = 0.5f;
+                return;
+            }
+
+            string url = $"{DevTunnel.UrlFran}/User/login?username={Username}&password={Password}";
 
             try
             {
@@ -92,7 +96,7 @@ namespace PTMobile.ViewModels
                     TokenManager.Token = token;
                     TokenManager.currentUser = Username;
 
-                    string urlAdmin = $"{DevTunnel.UrlDeborah}/User/is-admin?username={Username}";
+                    string urlAdmin = $"{DevTunnel.UrlFran}/User/is-admin?username={Username}";
                     var responseAdmin = await _httpClient.GetAsync(urlAdmin);
                     if (responseAdmin.IsSuccessStatusCode)
                     {
@@ -110,12 +114,13 @@ namespace PTMobile.ViewModels
                             }
                             else
                             {
-                                await Shell.Current.GoToAsync(nameof(CodeVerification));
+                                //await Shell.Current.GoToAsync(nameof(CodeVerification));
+                                await Application.Current.MainPage.Navigation.PushAsync(new CodeVerification());
                             }
                         }
                         else
                         {
-                            string urlGod = $"{DevTunnel.UrlDeborah}/User/is-god?username={Username}";
+                            string urlGod = $"{DevTunnel.UrlFran}/User/is-god?username={Username}";
                             var responseGod = await _httpClient.GetAsync(urlGod);
                             if (responseGod.IsSuccessStatusCode)
                             {
@@ -125,14 +130,14 @@ namespace PTMobile.ViewModels
                                 {
                                     TokenManager.isGod = true;
                                     TokenManager.isAdmin = true;
-                                   bool answer2 = await Shell.Current.DisplayAlert("AdminSupremo", "Eres un Admin Supremo. ¿Qué quieres hacer?", "AdminMode", "VerCode");
+                                    bool answer2 = await Shell.Current.DisplayAlert("AdminSupremo", "Eres un Admin Supremo. ¿Qué quieres hacer?", "AdminMode", "VerCode");
                                     if (answer2)
                                     {
                                         await Shell.Current.GoToAsync(nameof(AllUsersView));
                                     }
                                     else
-                                   {
-                                       await Shell.Current.GoToAsync(nameof(CodeVerification));
+                                    {
+                                        await Application.Current.MainPage.Navigation.PushAsync(new CodeVerification());
                                     }
                                 }
                                 else
@@ -146,7 +151,7 @@ namespace PTMobile.ViewModels
                     }
                     else
                     {
-                        await Shell.Current.DisplayAlert("Error", "No se pudo verificar si el usuario es admin.", null , "OK");
+                        await Shell.Current.DisplayAlert("Error", "No se pudo verificar si el usuario es admin.", "OK");
                     }
                 }
                 else
@@ -157,35 +162,23 @@ namespace PTMobile.ViewModels
             }
             catch (Exception ex)
             {
-                await Shell.Current.DisplayAlert("Error", $"Error: {ex.Message}", null, "OK");
+                await Shell.Current.DisplayAlert("Error", $"Error: {ex.Message}", "OK");
             }
         }
 
- 
-        [RelayCommand]
-        public async void ForgotPasswordCommand()
+        private async Task ForgotPasswordAsync()
         {
             await Shell.Current.GoToAsync(nameof(ForgotPasswordView));
         }
 
-
-
-        [RelayCommand]
-        public async void TogglePasswordVisibilityCommand()
+        private void TogglePasswordVisibility()
         {
-            if (Password != null)
-            {
-                PasswordIsEnabled = !PasswordIsEnabled;
-            }
+            PasswordIsEnabled = !PasswordIsEnabled;
         }
 
-
-        [RelayCommand]
-        public async void CreateAccountButton()
+        private async Task CreateAccountAsync()
         {
             await Shell.Current.GoToAsync(nameof(CreateAccountView));
         }
-
-        
     }
 }

@@ -23,25 +23,28 @@ namespace PTMobile.ViewModels
         private bool buttonSendIsEnabled = true;
 
         [ObservableProperty]
-        private float buttonSendOpacity = 0.5f;
+        private float buttonSendOpacity = 1.0f;
 
 
-        private readonly HttpClient _httpClient = new();
-        private readonly IDialogService _dialogService;
+        private readonly HttpClient _httpClient;
+        //private readonly IDialogService _dialogService;
 
 
-        public ForgotPasswordViewModel(HttpClient httpClient, IDialogService dialogService)
+        public ForgotPasswordViewModel()
         {
-            _httpClient = httpClient;
-            _dialogService = dialogService;
+            _httpClient = new HttpClient();
+            SendCommand = new AsyncRelayCommand(SendingCommand);
+            ButtonSendIsEnabled = true;
+            ButtonSendOpacity = 1.0f;
+            //_dialogService = dialogService;
         }
 
+        public IAsyncRelayCommand SendCommand { get; set; }
 
 
-        [RelayCommand]
-        public async void SendCommand()
+        public async Task SendingCommand()
         {
-            string url = $"{DevTunnel.UrlDeborah}/User/forgot-password?email={Email}";
+            string url = $"{DevTunnel.UrlAdri}/User/forgot-password?email={Email}";
 
 
             if (Email == null)
@@ -58,12 +61,11 @@ namespace PTMobile.ViewModels
 
                 try
                 {
-                    HttpClient http = new HttpClient();
                     var requestData = new { email = email };
                     var json = JsonConvert.SerializeObject(requestData);
                     var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                    var response = await http.PostAsync(url, null);
+                    var response = await _httpClient.PostAsync(url, content);
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -72,18 +74,18 @@ namespace PTMobile.ViewModels
                     }
                     else
                     {
-                        await _dialogService.DisplayAlert("Error", "Failed to send password reset instructions. Please try again later.", null, "OK");
+                        await Shell.Current.DisplayAlert("Error", "Failed to send password reset instructions. Please try again later.", null, "OK");
                     }
                 }
                 catch (Exception ex)
                 {
-                    await App.Current.MainPage.DisplayAlert("Error" + ex.Message, "An error occurred while processing your request. Please try again later.", "OK");
+                    await Shell.Current.DisplayAlert("Error" + ex.Message, "An error occurred while processing your request. Please try again later.", "OK");
 
                 }
             }
             else
             {
-                await _dialogService.DisplayAlert("Error", "Please enter your email address.", null, "OK");
+                await Shell.Current.DisplayAlert("Error", "Please enter your email address.", null, "OK");
             }
 
         }

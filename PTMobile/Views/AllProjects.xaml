@@ -42,18 +42,6 @@
                 </Image>
                 <Image
                     Grid.Column="2"
-                    Source="Resources/Images/addp.png"
-                    WidthRequest="30"
-                    HeightRequest="30"
-                    VerticalOptions="Center"
-                    HorizontalOptions="End"
-                    Margin="10">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding AddProjectCommand}" />
-                    </Image.GestureRecognizers>
-                </Image>
-                <Image
-                    Grid.Column="3"
                     Source="Resources/Images/adminmode.png"
                     WidthRequest="30"
                     x:Name="adminbutton"
@@ -70,7 +58,7 @@
             <!-- Row 1: Projects list -->
             <CollectionView Grid.Row="1" ItemsSource="{Binding Projects}">
                 <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Vertical" Span="1"/>
+                    <GridItemsLayout Orientation="Vertical" Span="{Binding Columns}"/>
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>

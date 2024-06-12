@@ -10,12 +10,8 @@ public partial class LoginView : ContentPage
     public LoginView()
     {
         InitializeComponent();
-
         BindingContext = new LoginViewModel();
-
         currentUser.Text = TokenManager.currentUser;
-
-        //CheckForm();
     }
 
     //private void OnInputTextChanged(object sender, TextChangedEventArgs e)

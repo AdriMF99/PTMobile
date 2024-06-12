@@ -8,11 +8,11 @@ namespace PTMobile.Views;
 
 public partial class EntryCodeForgotPassword : ContentPage
 {
-	public EntryCodeForgotPassword(HttpClient httpClient, IDialogService dialogService)
+	public EntryCodeForgotPassword()
 	{
 		InitializeComponent();
 
-        BindingContext = new EntryCodeForgotPasswordViewModel(httpClient, dialogService);
+        BindingContext = new EntryCodeForgotPasswordViewModel();
         //CheckForm();
     }
 

@@ -19,12 +19,16 @@ namespace PTMobile.ViewModels
         private string currentUser;
 
         [ObservableProperty]
+        private int _columns = 1;
+
+        [ObservableProperty]
         private bool isAdmin;
 
         public AllProjectsViewModel()
         {
             _httpClient = new HttpClient();
             LoadProjectsCommand = new AsyncRelayCommand(LoadProjectsAsync);
+            AdminCommand = new AsyncRelayCommand(AdminButton);
             SearchProjectsCommand = new AsyncRelayCommand<string>(SearchProjectsAsync);
             ChangeViewCommand = new RelayCommand(ChangeView);
             ShowConfirmationCommand = new AsyncRelayCommand<Project>(ShowConfirmationAsync);
@@ -32,6 +36,7 @@ namespace PTMobile.ViewModels
         }
 
         public IAsyncRelayCommand LoadProjectsCommand { get; }
+        public IAsyncRelayCommand AdminCommand { get; }
         public IAsyncRelayCommand<string> SearchProjectsCommand { get; }
         public IRelayCommand ChangeViewCommand { get; }
         public IAsyncRelayCommand<Project> ShowConfirmationCommand { get; }
@@ -50,6 +55,11 @@ namespace PTMobile.ViewModels
                     Projects.Add(project);
                 }
             }
+        }
+
+        private async Task AdminButton()
+        {
+            await Shell.Current.GoToAsync(nameof(AllUsersView));
         }
 
         private async Task<List<Project>> GetProjectsAsync(string username)
@@ -86,9 +96,9 @@ namespace PTMobile.ViewModels
             }
         }
 
-        private async void ChangeView()
+        private void ChangeView()
         {
-            await Shell.Current.GoToAsync(nameof(LoginView));
+            Columns = (Columns == 1) ? 2 : 1;
         }
 
         private async Task ShowConfirmationAsync(Project project)

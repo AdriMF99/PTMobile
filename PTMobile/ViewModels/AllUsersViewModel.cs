@@ -1,10 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Newtonsoft.Json;
-using PTMobile.Interfaces;
 using PTMobile.Models;
 using PTMobile.Views;
 using System.Collections.ObjectModel;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace PTMobile.ViewModels
 {
@@ -14,57 +15,37 @@ namespace PTMobile.ViewModels
         private string userListLabel;
 
         [ObservableProperty]
-        private string userName;
-
-        [ObservableProperty]
-        private string email;
-
-        [ObservableProperty]
-        private string id;
-
-        [ObservableProperty]
         private ObservableCollection<User> users;
 
+        private readonly HttpClient _httpClient;
 
-        private readonly HttpClient _httpClient = new();
-        private readonly IDialogService _dialogService;
-
-
-        public AllUsersViewModel(HttpClient httpClient, IDialogService dialogService)
+        public AllUsersViewModel()
         {
-            _httpClient = httpClient;
-            _dialogService = dialogService;
-
+            _httpClient = new HttpClient();
             Users = new ObservableCollection<User>();
-            AnimateLabelCommand = new AsyncRelayCommand<Label>(AnimateLabelAsync);
+            //AnimateLabelCommand = new AsyncRelayCommand<Label>(AnimateLabelAsync);
             LoadUsersCommand = new AsyncRelayCommand(LoadUsersAsync);
             UserTappedCommand = new AsyncRelayCommand<User>(OnUserTappedAsync);
             ImageTappedCommand = new AsyncRelayCommand<string>(OnImageTappedAsync);
             GodTappedCommand = new AsyncRelayCommand<string>(OnGodTappedAsync);
+            CreatePDFCommand = new RelayCommand(CreatePDF);
         }
 
-
-
-        public IAsyncRelayCommand<Label> AnimateLabelCommand { get; }
+        //public IAsyncRelayCommand<Label> AnimateLabelCommand { get; }
         public IAsyncRelayCommand LoadUsersCommand { get; }
         public IAsyncRelayCommand<User> UserTappedCommand { get; }
         public IAsyncRelayCommand<string> ImageTappedCommand { get; }
         public IAsyncRelayCommand<string> GodTappedCommand { get; }
+        public IRelayCommand CreatePDFCommand { get; }
 
-
-
-        private async Task AnimateLabelAsync(Label label)
+        /*private async Task AnimateLabelAsync(Label label)
         {
             if (label == null)
                 return;
 
-            // Inicializa la posición fuera de la pantalla a la izquierda
             label.TranslationX = -label.Width;
-
-            // Anima la etiqueta para deslizarse desde la izquierda
             await label.TranslateTo(0, 0, 1000, Easing.Linear);
-        }
-
+        }*/
 
         private async Task LoadUsersAsync()
         {
@@ -80,7 +61,7 @@ namespace PTMobile.ViewModels
             }
             else
             {
-                await _dialogService.DisplayAlert("Error", "No se pudo obtener la lista de usuarios.", null, "OK");
+                await Shell.Current.DisplayAlert("Error", "No se pudo obtener la lista de usuarios.", "OK");
             }
         }
 
@@ -90,8 +71,8 @@ namespace PTMobile.ViewModels
 
             foreach (var user in users)
             {
-                string isAdminUrl = $"{DevTunnel.UrlDeborah}/User/is-admin?username={user.UserName}";
-                string isGodUrl = $"{DevTunnel.UrlDeborah}/User/is-god?username={user.UserName}";
+                string isAdminUrl = $"{DevTunnel.UrlFran}/User/is-admin?username={user.UserName}";
+                string isGodUrl = $"{DevTunnel.UrlFran}/User/is-god?username={user.UserName}";
 
                 tasks.Add(SetUserAdminStatus(user, isAdminUrl, isGodUrl));
             }
@@ -124,13 +105,11 @@ namespace PTMobile.ViewModels
             }
         }
 
-
-
         private async Task OnUserTappedAsync(User user)
         {
             if (user != null)
             {
-                bool answer = await _dialogService.DisplayAlert("Añadir Proyectos",
+                bool answer = await Shell.Current.DisplayAlert("Añadir Proyectos",
                                                                 $"¿Desea añadir proyectos a {user.UserName}?",
                                                                 "Sí", "No");
                 if (answer)
@@ -142,20 +121,20 @@ namespace PTMobile.ViewModels
             }
         }
 
-        private async Task OnImageTappedAsync(string UserName)
+        private async Task OnImageTappedAsync(string userName)
         {
-            if (!string.IsNullOrWhiteSpace(UserName))
+            if (!string.IsNullOrWhiteSpace(userName))
             {
-                bool answer = await _dialogService.DisplayAlert("Cambiar Rol", $"¿Deseas que '{UserName}' cambie de Rol?", "Sí", "No");
+                bool answer = await Shell.Current.DisplayAlert("Cambiar Rol", $"¿Deseas que '{userName}' cambie de Rol?", "Sí", "No");
 
                 if (answer)
                 {
-                    string urlSetAdmin = $"{DevTunnel.UrlDeborah}/User/set-admin?username={UserName}";
+                    string urlSetAdmin = $"{DevTunnel.UrlFran}/User/set-admin?username={userName}&userLoged={TokenManager.currentUser}";
                     var response = await _httpClient.PutAsync(urlSetAdmin, null);
 
                     if (response.IsSuccessStatusCode)
                     {
-                        var userToUpdate = Users.FirstOrDefault(u => u.UserName == UserName);
+                        var userToUpdate = Users.FirstOrDefault(u => u.UserName == userName);
                         if (userToUpdate != null)
                         {
                             userToUpdate.IsAdmin = !userToUpdate.IsAdmin;
@@ -167,27 +146,26 @@ namespace PTMobile.ViewModels
                     }
                     else
                     {
-                        await _dialogService.DisplayAlert("Info", $"¡{UserName} tuvo problemas al cambiar de rol :(", null, "OK!");
+                        await Shell.Current.DisplayAlert("Info", $"{userName} tuvo problemas al cambiar de rol :(", "OK");
                     }
                 }
             }
         }
 
-
         private async Task OnGodTappedAsync(string userName)
         {
             if (!string.IsNullOrWhiteSpace(userName))
             {
-                bool answer = await _dialogService.DisplayAlert("Cambiar Rol", $"¿Deseas que '{UserName}' cambie de Rol? (SP)", "Sí", "No");
+                bool answer = await Shell.Current.DisplayAlert("Cambiar Rol", $"¿Deseas que '{userName}' cambie de Rol? (SP)", "Sí", "No");
 
                 if (answer)
                 {
-                    string urlSetAdmin = $"{DevTunnel.UrlDeborah}/User/set-god?username={UserName}";
+                    string urlSetAdmin = $"{DevTunnel.UrlFran}/User/set-admin?username={userName}&userLoged={TokenManager.currentUser}";
                     var response = await _httpClient.PutAsync(urlSetAdmin, null);
 
                     if (response.IsSuccessStatusCode)
                     {
-                        var userToUpdate = Users.FirstOrDefault(u => u.UserName == UserName);
+                        var userToUpdate = Users.FirstOrDefault(u => u.UserName == userName);
                         if (userToUpdate != null)
                         {
                             if (userToUpdate.IsAdmin)
@@ -206,17 +184,15 @@ namespace PTMobile.ViewModels
                     }
                     else
                     {
-                        await _dialogService.DisplayAlert("Info", $"¡{UserName} tuvo problemas al cambiar de rol :( (SP)!", null,  "OK!");
+                        await Shell.Current.DisplayAlert("Info", $"{userName} tuvo problemas al cambiar de rol :( (SP)!", "OK");
                     }
                 }
             }
         }
 
-
-        [RelayCommand]
-        public async void CreatePDFCommand()
+        private async void CreatePDF()
         {
-            string urlPdf = $"{DevTunnel.UrlDeborah}/reportPdfQuest";
+            string urlPdf = $"{DevTunnel.UrlFran}/reportPdfQuest";
             var response = await _httpClient.GetAsync(urlPdf);
 
             if (response.IsSuccessStatusCode)
@@ -225,14 +201,13 @@ namespace PTMobile.ViewModels
                 string fileName = Path.Combine(FileSystem.CacheDirectory, "report.pdf");
 
                 File.WriteAllBytes(fileName, pdfBytes);
-                await _dialogService.DisplayAlert("Error", "The PDF has been downloaded", null, "OK");
+                await Shell.Current.DisplayAlert("Éxito", "El PDF se ha descargado correctamente", "OK");
 
-                // Abre el PDF
                 await OpenPdf(fileName);
             }
             else
             {
-                await _dialogService.DisplayAlert("Error", "The PDF has been downloaded", null, "OK");
+                await Shell.Current.DisplayAlert("Error", "No se pudo descargar el PDF", "OK");
             }
         }
 
@@ -247,10 +222,8 @@ namespace PTMobile.ViewModels
             }
             catch (Exception ex)
             {
-                await _dialogService.DisplayAlert("Error", $"Error: {ex.Message}", null, "OK");
+                await Shell.Current.DisplayAlert("Error", $"Error: {ex.Message}", "OK");
             }
         }
-
-
     }
 }

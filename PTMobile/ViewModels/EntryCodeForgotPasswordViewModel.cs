@@ -26,7 +26,7 @@ namespace PTMobile.ViewModels
         private float buttonSendCodeOpacity = 0.5f;
 
         [ObservableProperty]
-        private bool buttonSendCodeIsEnabled = true;
+        private bool buttonSendCodeIsEnabled = false;
 
         [ObservableProperty]
         private string errorText;
@@ -34,42 +34,46 @@ namespace PTMobile.ViewModels
         [ObservableProperty]
         private bool errorTextIsEnable = false;
 
-        private readonly HttpClient _httpClient = new();
-        private readonly IDialogService _dialogService;
+        private readonly HttpClient _httpClient;
+        //private readonly IDialogService _dialogService;
 
-
-        public EntryCodeForgotPasswordViewModel(HttpClient httpClient, IDialogService dialogService)
+        public EntryCodeForgotPasswordViewModel()
         {
-            _httpClient = httpClient;
-            _dialogService = dialogService;
+            _httpClient = new HttpClient();
+            SendCodeCommand = new AsyncRelayCommand(SendCodeAsync, CanSendCode);
+            PropertyChanged += OnPropertyChanged;
         }
 
+        public IAsyncRelayCommand SendCodeCommand { get; }
 
-
-
-        [RelayCommand]
-        public async void SendCodeCommand()
+        private void OnPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            string url = $"{DevTunnel.UrlDeborah}/User/change-password";
+            if (e.PropertyName == nameof(Username) || e.PropertyName == nameof(Password) || e.PropertyName == nameof(Code))
+            {
+                SendCodeCommand.NotifyCanExecuteChanged();
+                UpdateButtonState();
+            }
+        }
 
-            if (Username == null)
-                ButtonSendCodeIsEnabled = true;
-            ErrorText = "User cannot be empty.";
-            ButtonSendCodeOpacity = 0.5f;
-            ErrorTextIsEnable = true;
+        private bool CanSendCode()
+        {
+            return !string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(Password) && !string.IsNullOrEmpty(Code);
+        }
 
-            if (Password == null)
-                ButtonSendCodeIsEnabled = true;
-            ErrorText = "Password cannot be empty.";
-            ButtonSendCodeOpacity = 0.5f;
-            ErrorTextIsEnable = true;
+        private void UpdateButtonState()
+        {
+            ButtonSendCodeIsEnabled = CanSendCode();
+            ButtonSendCodeOpacity = ButtonSendCodeIsEnabled ? 1.0f : 0.5f;
+        }
 
-            if (Code == null)
-                ButtonSendCodeIsEnabled = true;
-            ErrorText = "Code cannot be empty.";
-            ButtonSendCodeOpacity = 0.5f;
-            ErrorTextIsEnable = true;
+        public async Task SendCodeAsync()
+        {
+            if (!CanSendCode())
+            {
+                return;
+            }
 
+            string url = $"{DevTunnel.UrlAdri}/User/change-password?username={Username}&newPassword={Password}&code={Code}";
 
             try
             {
@@ -83,33 +87,22 @@ namespace PTMobile.ViewModels
                 var json = JsonConvert.SerializeObject(requestData);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                var response = await _httpClient.PostAsync(url, content);
+                var response = await _httpClient.PostAsync(url, null);
 
                 if (response.IsSuccessStatusCode)
                 {
                     var isSend = await response.Content.ReadAsStringAsync();
-
                     await Shell.Current.GoToAsync(nameof(LoginView));
                 }
                 else
                 {
-                    await _dialogService.DisplayAlert("Error", "Failed to save the new password. Please try again later.", null, "OK");
+                    await Shell.Current.DisplayAlert("Error", "Failed to save the new password. Please try again later.", null, "OK");
                 }
             }
             catch (Exception ex)
             {
-                await App.Current.MainPage.DisplayAlert("Error" + ex.Message, "An error occurred while processing your request. Please try again later.", "OK");
-
+                await App.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
             }
-
         }
-        // else
-        //{
-        //                await _dialogService.DisplayAlert("Error", "Please enter username, email and the code send to your mail.", null, "OK");
-
-        // }
-
-
     }
-
 }

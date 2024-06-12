@@ -76,7 +76,6 @@ namespace PTMobile.ViewModels
         }
 
 
-        [RelayCommand]
         private async Task AddProject(Project project)
         {
             if (project != null)
@@ -106,7 +105,6 @@ namespace PTMobile.ViewModels
             }
         }
 
-        [RelayCommand]
         private async Task DeleteProject(Project project)
         {
             if (project != null)
