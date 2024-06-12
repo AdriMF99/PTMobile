@@ -394,7 +394,7 @@ namespace PTMobile.ViewModels
                 };
                 var json = JsonConvert.SerializeObject(requestData);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-                var response = await _httpClient.PostAsync($"{DevTunnel.UrlDeborah}/User/create-user", content);
+                var response = await _httpClient.PostAsync($"{DevTunnel.UrlFran}/User/create-user", content);
 
                 if (response.IsSuccessStatusCode)
                 {

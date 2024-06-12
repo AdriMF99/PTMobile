@@ -65,7 +65,7 @@ namespace PTMobile.ViewModels
                     var json = JsonConvert.SerializeObject(requestData);
                     var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                    var response = await _httpClient.PostAsync(url, content);
+                    var response = await _httpClient.PostAsync(url, null);
 
                     if (response.IsSuccessStatusCode)
                     {

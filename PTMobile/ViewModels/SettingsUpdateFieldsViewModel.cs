@@ -64,7 +64,7 @@ namespace PTMobile.ViewModels
 
         private async void LoadDataUser()
         {
-            string url = $"{DevTunnel.UrlDeborah}/User/getuser?username={CurrentUser}";
+            string url = $"{DevTunnel.UrlFran}/User/getuser?username={CurrentUser}";
 
             HttpResponseMessage response = await _httpClient.GetAsync(url);
             //var response = await _httpClient.GetAsync(url);
@@ -90,7 +90,7 @@ namespace PTMobile.ViewModels
         [RelayCommand]
         public async void UpdateFieldsCommand()
         {
-            string url = $"{DevTunnel.UrlDeborah}/User/getuser?username={CurrentUser}";
+            string url = $"{DevTunnel.UrlFran}/User/getuser?username={CurrentUser}";
 
             bool passwordsMatch = Password == RepeatPassword;
             if (!passwordsMatch)

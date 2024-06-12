@@ -48,7 +48,7 @@ namespace PTMobile.ViewModels
        // [RelayCommand]
         public async Task SendCodeAsync()
         {
-            string url = $"{DevTunnel.UrlDeborah}/User/verify-account?code={Code}&email={Email}";
+            string url = $"{DevTunnel.UrlFran}/User/verify-account?code={Code}&email={Email}";
 
             if (Code == null)
             {
