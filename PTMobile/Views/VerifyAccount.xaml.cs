@@ -5,10 +5,10 @@ namespace PTMobile.Views;
 
 public partial class VerifyAccount : ContentPage
 {
-    public VerifyAccount(HttpClient httpClient, IDialogService dialogService)
+    public VerifyAccount()
     {
         InitializeComponent();
-        BindingContext = new VerifyAccountViewModel(httpClient, dialogService);
+        BindingContext = new VerifyAccountViewModel();
         //CheckForm();
     }
 

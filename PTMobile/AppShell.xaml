@@ -21,20 +21,21 @@
     <ShellContent Title="All Projects" ContentTemplate="{DataTemplate views:AllProjects}" Route="AllProjects" />
 
 
-    <ShellContent Title="All Projects to add" ContentTemplate="{DataTemplate local:AllProjectsToAdd}" Route="AllProjectsToAdd" />
+    <ShellContent Title="All Projects to add" ContentTemplate="{DataTemplate views:AllProjectsToAdd}" Route="AllProjectsToAdd" />
 
-    <ShellContent Title="All Users" ContentTemplate="{DataTemplate local:AllUsersView}" Route="AllUsersView" />
+    <ShellContent Title="All Users" ContentTemplate="{DataTemplate views:AllUsersView}" Route="AllUsersView" />
 
-    <ShellContent Title="Code Validation" ContentTemplate="{DataTemplate local:CodeValidationView}" Route="CodeValidationView" />
+    <ShellContent Title="Code Validation" ContentTemplate="{DataTemplate views:CodeValidationView}" Route="CodeValidationView" />
 
-    <ShellContent Title="Create Account" ContentTemplate="{DataTemplate local:CreateAccountView}" Route="CreateAccountView" />
+    <ShellContent Title="Create Account" ContentTemplate="{DataTemplate views:CreateAccountView}" Route="CreateAccountView" />
 
-    <ShellContent Title="Entry Code Forgot Password" ContentTemplate="{DataTemplate local:EntryCodeForgotPassword}" Route="EntryCodeForgotPassword" />
+    <ShellContent Title="Entry Code Forgot Password" ContentTemplate="{DataTemplate views:EntryCodeForgotPassword}" Route="EntryCodeForgotPassword" />
 
-    <ShellContent Title="Forgot Password" ContentTemplate="{DataTemplate local:ForgotPasswordView}" Route="ForgotPasswordView" />
+    <ShellContent Title="Forgot Password" ContentTemplate="{DataTemplate views:ForgotPasswordView}" Route="ForgotPasswordView" />
 
-    <ShellContent Title="Password Add Project" ContentTemplate="{DataTemplate local:PasswordAddProject}" Route="PasswordAddProject" />
+    <ShellContent Title="Password Add Project" ContentTemplate="{DataTemplate views:PasswordAddProject}" Route="PasswordAddProject" />
 
-    <ShellContent Title="Verify Account" ContentTemplate="{DataTemplate local:VerifyAccount}" Route="VerifyAccount" />
+    <ShellContent Title="Verify Account" ContentTemplate="{DataTemplate views:VerifyAccount}" Route="VerifyAccount" />
 
 </Shell>
+ 
