@@ -110,3 +110,6 @@
         </StackLayout>
     </Frame>
 </ContentPage>
+    
+    
+    <!--//Este no se usa, es la vista la de EntryCode la que está en uso-->

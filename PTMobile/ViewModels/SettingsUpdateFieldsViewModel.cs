@@ -11,6 +11,10 @@ namespace PTMobile.ViewModels
 { 
     public partial class SettingsUpdateFieldsViewModel: ObservableObject
     {
+
+        private readonly HttpClient _httpClient;
+
+
         [ObservableProperty]
         private string currentUser;
 
@@ -49,15 +53,21 @@ namespace PTMobile.ViewModels
 
 
 
-        private readonly HttpClient _httpClient = new();
+        //private readonly HttpClient _httpClient = new();
         //private readonly IDialogService _dialogService;
 
         public SettingsUpdateFieldsViewModel()
         {
             _httpClient = new HttpClient();
             //_dialogService = dialogService;
+            UpdateFieldsCommand = new AsyncRelayCommand(UpdateFields);
+            TogglePasswordVisibilityCommand = new AsyncRelayCommand(TogglePasswordVisibility);
+            ToggleRepeatPasswordVisibilityCommand = new AsyncRelayCommand(ToggleRepeatPasswordVisibility);
         }
 
+        public IAsyncRelayCommand UpdateFieldsCommand { get; }
+        public IRelayCommand TogglePasswordVisibilityCommand { get; }
+        public IRelayCommand ToggleRepeatPasswordVisibilityCommand { get; }
 
 
         string id = string.Empty;
@@ -87,8 +97,8 @@ namespace PTMobile.ViewModels
 
 
 
-        [RelayCommand]
-        public async void UpdateFieldsCommand()
+        //[RelayCommand]
+        public async Task UpdateFields()
         {
             string url = $"{DevTunnel.UrlFran}/User/getuser?username={CurrentUser}";
 
@@ -135,8 +145,8 @@ namespace PTMobile.ViewModels
         }
 
 
-        [RelayCommand]
-        public async void TogglePasswordVisibilityCommand()
+        //[RelayCommand]
+        public async Task TogglePasswordVisibility()
         {
             if (Password != null)
             {
@@ -144,8 +154,8 @@ namespace PTMobile.ViewModels
             }
         }
 
-        [RelayCommand]
-        private async void ToggleRepeatPasswordVisibilityCommand()
+        //[RelayCommand]
+        private async Task ToggleRepeatPasswordVisibility()
         {
             if (RepeatPassword != null)
             {

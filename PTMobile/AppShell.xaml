@@ -6,36 +6,47 @@
     xmlns:local="clr-namespace:PTMobile.Views"
     xmlns:settings="clr-namespace:PTMobile.Views"
     xmlns:views="clr-namespace:PTMobile.Views"
-    Title="PTMobile">
+    Title="PTMobile"
+    >
+    <!--FlyoutBehavior="Flyout"
+    >-->
     <!--Shell.FlyoutBehavior="Disabled"  (esto es para que el menu este disabled)-->
 
-
     <FlyoutItem Title="Settings" Icon="config.svg">
-        <ShellContent Title="Update Fields" ContentTemplate="{DataTemplate views:LoginView}" />
+        <ShellContent Title="Update Fields" ContentTemplate="{DataTemplate views:LoginView}" Route="SettingsUpdateFields"/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="Login">
+        <ShellContent Title="Login" ContentTemplate="{DataTemplate views:LoginView}" Route="MainPage" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="All Projects">
+        <ShellContent Title="All Projects" ContentTemplate="{DataTemplate views:AllProjects}" Route="AllProjects" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="All Projects to Add">
+        <ShellContent Title="All Projects to Add" ContentTemplate="{DataTemplate views:AllProjectsToAdd}" Route="AllProjectsToAdd" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="All Users">
+        <ShellContent Title="All Users" ContentTemplate="{DataTemplate views:AllUsersView}" Route="AllUsersView" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Create Account">
+        <ShellContent Title="Create Account" ContentTemplate="{DataTemplate views:CreateAccountView}" Route="CreateAccountView" />
     </FlyoutItem>
     
-    <ShellContent Title="Login" ContentTemplate="{DataTemplate views:LoginView}" Route="MainPage" />
+   
 
-    <!--<ShellContent Title="Main Page" ContentTemplate="{DataTemplate views:MainPage}" />-->
+    <!--<ShellContent Title="Code Validation" ContentTemplate="{DataTemplate views:CodeValidationView}" Route="CodeValidationView" />-->
 
-    <ShellContent Title="All Projects" ContentTemplate="{DataTemplate views:AllProjects}" Route="AllProjects" />
-
-
-    <ShellContent Title="All Projects to add" ContentTemplate="{DataTemplate views:AllProjectsToAdd}" Route="AllProjectsToAdd" />
-
-    <ShellContent Title="All Users" ContentTemplate="{DataTemplate views:AllUsersView}" Route="AllUsersView" />
-
-    <ShellContent Title="Code Validation" ContentTemplate="{DataTemplate views:CodeValidationView}" Route="CodeValidationView" />
-
-    <ShellContent Title="Create Account" ContentTemplate="{DataTemplate views:CreateAccountView}" Route="CreateAccountView" />
-
-    <ShellContent Title="Entry Code Forgot Password" ContentTemplate="{DataTemplate views:EntryCodeForgotPassword}" Route="EntryCodeForgotPassword" />
+    <!--<ShellContent Title="Entry Code Forgot Password" ContentTemplate="{DataTemplate views:EntryCodeForgotPassword}" Route="EntryCodeForgotPassword" />
 
     <ShellContent Title="Forgot Password" ContentTemplate="{DataTemplate views:ForgotPasswordView}" Route="ForgotPasswordView" />
 
     <ShellContent Title="Password Add Project" ContentTemplate="{DataTemplate views:PasswordAddProject}" Route="PasswordAddProject" />
 
-    <ShellContent Title="Verify Account" ContentTemplate="{DataTemplate views:VerifyAccount}" Route="VerifyAccount" />
+    <ShellContent Title="Verify Account" ContentTemplate="{DataTemplate views:VerifyAccount}" Route="VerifyAccount" />-->
 
 </Shell>
  

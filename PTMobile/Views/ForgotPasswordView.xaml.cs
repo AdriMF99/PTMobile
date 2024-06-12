@@ -16,6 +16,14 @@ public partial class ForgotPasswordView : ContentPage
         BindingContext = new ForgotPasswordViewModel();
     }
 
+    //private async void OnMoreClicked(object sender, EventArgs e)
+    //{
+    //    var action = await DisplayActionSheet("Options", "Cancel", null, "Option 1", "Option 2", "Option 3");
+    //    // Manejar la selección de las opciones aquí
+    //}
+
+
+
     //private async void ForgotPasswordButton_Clicked(object sender, EventArgs e)
     //{
     //    string email = emailEntry.Text;

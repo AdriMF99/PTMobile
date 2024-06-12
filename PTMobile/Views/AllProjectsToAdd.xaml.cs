@@ -265,6 +265,14 @@ public partial class AllProjectsToAdd : ContentPage
         viewModel?.SearchProjects(e.NewTextValue);
     }
 
+
+    //private async void OnMoreClicked(object sender, EventArgs e)
+    //{
+    //    var action = await DisplayActionSheet("Options", "Cancel", null, "Option 1", "Option 2", "Option 3");
+    //    // Manejar la selección de las opciones aquí
+    //}
+
+
     //protected override async void OnAppearing()
     //{
     //    base.OnAppearing();

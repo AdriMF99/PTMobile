@@ -345,7 +345,7 @@ namespace PTMobile.ViewModels
 
             if (string.IsNullOrEmpty(Username))
             {
-                ErrorText = "User cannot be empty.";
+                ErrorText = "Username cannot be empty.";
                 ErrorTextIsEnable = true;
                 ButtonCreateAccountIsEnabled = false;
                 ButtonCreateAccountOpacity = 0.5f;
@@ -368,10 +368,8 @@ namespace PTMobile.ViewModels
 
         public async Task CreateAccountAsync()
         {
-            // Primero valida los inputs
             ValidateInputs();
 
-            // Si hay errores, no continúa
             if (ErrorTextIsEnable)
             {
                 return;
@@ -428,3 +426,6 @@ namespace PTMobile.ViewModels
         }
     }
 }
+
+
+

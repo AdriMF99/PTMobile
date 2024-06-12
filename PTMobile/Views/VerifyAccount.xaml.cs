@@ -12,7 +12,6 @@ public partial class VerifyAccount : ContentPage
         //CheckForm();
     }
 
-
     //private void OnInputTextChanged(object sender, TextChangedEventArgs e)
     //{
     //    CheckForm();
@@ -75,5 +74,5 @@ public partial class VerifyAccount : ContentPage
     //    {
     //        await DisplayAlert("Error", "Please entry an email and the code send to your mail", "OK");
     //    }
-//}
+    //}
 }

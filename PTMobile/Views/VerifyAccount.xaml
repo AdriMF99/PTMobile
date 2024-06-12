@@ -5,7 +5,15 @@
              x:Class="PTMobile.Views.VerifyAccount"
              Title="VerifyAccount">
 
+    <!--<ContentPage.ToolbarItems>
+        <ToolbarItem Text="More"
+                     Order="Primary"
+                     IconImageSource="three_dots_icon.png"
+                     Clicked="OnMoreClicked" />
+    </ContentPage.ToolbarItems>-->
 
+    
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -102,7 +110,12 @@
                     Opacity="{Binding ButtonSendCodeOpacity}"
                     IsEnabled="{Binding ButtonSendCodeIsEnabled}"
                     Command="{Binding SendCodeCommand}"/>
-            <Label Text="{Binding ErrorText}" IsEnabled="{Binding ErrorTextIsEnable}"></Label>
+            <Label Text="{Binding ErrorText}"
+                FontSize="14"
+                TextColor="DarkRed"
+                IsVisible="{Binding ErrorTextIsEnable}"
+                VerticalOptions="Center"
+                HorizontalOptions="Center" />
 
         </VerticalStackLayout>
     </Grid>

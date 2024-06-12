@@ -28,13 +28,15 @@ namespace PTMobile.ViewModels
         private bool errorTextIsEnable = false;
 
         [ObservableProperty]
-        private bool buttonLoginIsEnabled = true;
+        private bool passwordIsEnabled = false;
 
         [ObservableProperty]
-        private float buttonLoginOpacity = 1.0f;
+        private bool buttonLoginIsEnabled = false;
 
         [ObservableProperty]
-        private bool passwordIsEnabled = true;
+        private float buttonLoginOpacity = 0.5f;
+
+      
 
         [ObservableProperty]
         private string errorTextLogin;
@@ -49,6 +51,8 @@ namespace PTMobile.ViewModels
             ForgotPasswordCommand = new AsyncRelayCommand(ForgotPasswordAsync);
             TogglePasswordVisibilityCommand = new RelayCommand(TogglePasswordVisibility);
             CreateAccountCommand = new AsyncRelayCommand(CreateAccountAsync);
+
+            ValidateInputs();
         }
 
         public IAsyncRelayCommand LoginFormCommand { get; }
@@ -56,21 +60,60 @@ namespace PTMobile.ViewModels
         public IRelayCommand TogglePasswordVisibilityCommand { get; }
         public IAsyncRelayCommand CreateAccountCommand { get; }
 
-        private async Task LoginFormAsync()
+
+
+        private void ValidateInputs()
         {
+            ErrorText = string.Empty;
+            ErrorTextIsEnable = false;
+            ButtonLoginIsEnabled = false;
+            ButtonLoginOpacity = 1.0f;
+
             if (string.IsNullOrEmpty(Username))
             {
-                ErrorText = "El usuario no puede estar vacío";
+                ErrorText = "Username cannot be empty.";
                 ErrorTextIsEnable = true;
+                ButtonLoginIsEnabled = false;
                 ButtonLoginOpacity = 0.5f;
-                return;
             }
 
             if (string.IsNullOrEmpty(Password))
             {
-                ErrorText = "La contraseña no puede estar vacía";
+                ErrorText = "Password cannot be empty.";
                 ErrorTextIsEnable = true;
+                ButtonLoginIsEnabled = false;
                 ButtonLoginOpacity = 0.5f;
+            }
+        }
+
+        partial void OnUsernameChanged(string value) => ValidateInputs();
+        partial void OnPasswordChanged(string value) => ValidateInputs();
+
+
+
+        private async Task LoginFormAsync()
+        {
+            //if (string.IsNullOrEmpty(Username))
+            //{
+            //    ErrorText = "User cannot be empty.";
+            //    ErrorTextIsEnable = true;
+            //    ButtonLoginOpacity = 0.5f;
+            //    return;
+            //}
+
+            //if (string.IsNullOrEmpty(Password))
+            //{
+            //    ErrorText = "La contraseña no puede estar vacía";
+            //    ErrorTextIsEnable = true;
+            //    ButtonLoginOpacity = 0.5f;
+            //    return;
+            //}
+
+
+            ValidateInputs();
+
+            if (ErrorTextIsEnable)
+            {
                 return;
             }
 

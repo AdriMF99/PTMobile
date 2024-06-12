@@ -3,7 +3,7 @@ using Microsoft.Maui.Graphics;
 using Xamarin.Essentials;
 using PTMobile.Views;
 
-namespace PTMobile
+namespace PTMobile.Views
 {
     public partial class CodeVerification : ContentPage
     {
@@ -12,6 +12,14 @@ namespace PTMobile
             InitializeComponent();
             currentUser.Text = TokenManager.currentUser;
         }
+
+
+        //private async void OnMoreClicked(object sender, EventArgs e)
+        //{
+        //    var action = await DisplayActionSheet("Options", "Cancel", null, "Option 1", "Option 2", "Option 3");
+        //    // Manejar la selección de las opciones aquí
+        //}
+
 
         public async void OnVerifyCodeClicked(object sender, EventArgs e)
         {

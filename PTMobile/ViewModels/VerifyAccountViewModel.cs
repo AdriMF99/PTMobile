@@ -53,14 +53,14 @@ namespace PTMobile.ViewModels
             if (Code == null)
             {
                 ButtonSendCodeIsEnabled = true;
-                ErrorText = "La contraseña no puede estar vacia";
+                ErrorText = "Code cannot be empty.";
                 ButtonSendCodeOpacity = 0.5f;
                 ErrorTextIsEnable = true;
             }
 
             if (Email == null)
                 ButtonSendCodeIsEnabled = true;
-                ErrorText = "El usuario no puede estar vacio";
+                ErrorText = "Email cannot be empty.";
                 ButtonSendCodeOpacity = 0.5f;
                 ErrorTextIsEnable = true;
 

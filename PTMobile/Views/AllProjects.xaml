@@ -6,6 +6,16 @@
     <ContentPage.BindingContext>
         <vm:AllProjectsViewModel />
     </ContentPage.BindingContext>
+
+    <!--<ContentPage.ToolbarItems>
+        <ToolbarItem Text="More"
+                     Order="Primary"
+                     IconImageSource="three_dots_icon.png"
+                     Clicked="OnMoreClicked" />
+    </ContentPage.ToolbarItems>-->
+
+    
+    
     <NavigationPage.TitleView>
         <StackLayout Orientation="Horizontal" HorizontalOptions="End">
             <Button Text="Go to Shared Page"  />
@@ -14,6 +24,7 @@
         </StackLayout>
     </NavigationPage.TitleView>
     <ContentPage.Content>
+        
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
