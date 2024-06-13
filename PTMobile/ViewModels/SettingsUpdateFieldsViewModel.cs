@@ -8,12 +8,10 @@ using PTMobile.Views;
 using System.Text;
 
 namespace PTMobile.ViewModels
-{ 
-    public partial class SettingsUpdateFieldsViewModel: ObservableObject
+{
+    public partial class SettingsUpdateFieldsViewModel : ObservableObject
     {
-
         private readonly HttpClient _httpClient;
-
 
         [ObservableProperty]
         private string currentUser;
@@ -51,118 +49,90 @@ namespace PTMobile.ViewModels
         [ObservableProperty]
         private bool errorTextUpdateFieldsIsEnable = false;
 
-
-
-        //private readonly HttpClient _httpClient = new();
-        //private readonly IDialogService _dialogService;
-
         public SettingsUpdateFieldsViewModel()
         {
             _httpClient = new HttpClient();
-            //_dialogService = dialogService;
             UpdateFieldsCommand = new AsyncRelayCommand(UpdateFields);
-            TogglePasswordVisibilityCommand = new AsyncRelayCommand(TogglePasswordVisibility);
-            ToggleRepeatPasswordVisibilityCommand = new AsyncRelayCommand(ToggleRepeatPasswordVisibility);
+            TogglePasswordVisibilityCommand = new RelayCommand(TogglePasswordVisibility);
+            ToggleRepeatPasswordVisibilityCommand = new RelayCommand(ToggleRepeatPasswordVisibility);
+            LoadDataUser();
         }
 
         public IAsyncRelayCommand UpdateFieldsCommand { get; }
         public IRelayCommand TogglePasswordVisibilityCommand { get; }
         public IRelayCommand ToggleRepeatPasswordVisibilityCommand { get; }
 
-
-        string id = string.Empty;
+        private string id = string.Empty;
 
         private async void LoadDataUser()
         {
-            string url = $"{DevTunnel.UrlFran}/User/getuser?username={CurrentUser}";
-
+            string url = $"{DevTunnel.UrlFran}/User/getuser?username={TokenManager.currentUser}";
             HttpResponseMessage response = await _httpClient.GetAsync(url);
-            //var response = await _httpClient.GetAsync(url);
 
             if (response.IsSuccessStatusCode)
             {
-
-                var content = await response.Content
-                    .ReadAsStringAsync();
+                var content = await response.Content.ReadAsStringAsync();
                 User user = JsonConvert.DeserializeObject<User>(content);
+                CurrentUser = user.UserName;
                 CurrentEmail = user.Email;
                 id = user.Id;
             }
-
             else
             {
-                await Shell.Current.DisplayAlert("Error", "Unavailable user data.", null, "OK");
+                await Shell.Current.DisplayAlert("Error", "Unavailable user data.", "OK");
             }
         }
 
-
-
-        //[RelayCommand]
-        public async Task UpdateFields()
+        private async Task UpdateFields()
         {
-            string url = $"{DevTunnel.UrlFran}/User/getuser?username={CurrentUser}";
-
-            bool passwordsMatch = Password == RepeatPassword;
-            if (!passwordsMatch)
-                ButtonUpdateFieldsIsEnabled = true;
+            if (Password != RepeatPassword)
+            {
                 ErrorText = "Passwords do not match";
-                ButtonUpdateFieldsOpacity = 0.5f;
                 ErrorTextIsEnable = true;
+                ButtonUpdateFieldsOpacity = 0.5f;
+                ButtonUpdateFieldsIsEnabled = false;
+                return;
+            }
 
+            string url = $"{DevTunnel.UrlFran}/User/update-user?userId={id}";
+            var requestData = new
+            {
+                UserName = CurrentUser,
+                Email = CurrentEmail,
+                Password = Password
+            };
 
             try
             {
-                var requestData = new
-                {
-                    UserName = CurrentUser,
-                    Email = CurrentEmail,
-                    Password = Password
-
-                };
                 var json = JsonConvert.SerializeObject(requestData);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-                var response = await _httpClient.PostAsync(url, content);
+                var response = await _httpClient.PutAsync(url, content);
 
                 if (response.IsSuccessStatusCode)
                 {
-                    var isUpdated = await response.Content.ReadAsStringAsync();
-                    JObject responseData = JObject.Parse(isUpdated);
-
                     await Shell.Current.GoToAsync(nameof(LoginView));
                 }
-
-
                 else
                 {
                     ErrorTextUpdateFieldsIsEnable = true;
-                    ErrorTextUpdateFields = "Error creating account. Please try again.";
+                    ErrorTextUpdateFields = "Error updating account. Please try again.";
                 }
             }
             catch (Exception ex)
             {
+                ErrorTextUpdateFieldsIsEnable = true;
                 ErrorTextUpdateFields = $"Error: {ex.Message}";
             }
         }
 
-
-        //[RelayCommand]
-        public async Task TogglePasswordVisibility()
+        private void TogglePasswordVisibility()
         {
-            if (Password != null)
-            {
-                PasswordIsEnabled = !PasswordIsEnabled;
-            }
+            PasswordIsEnabled = !PasswordIsEnabled;
         }
 
-        //[RelayCommand]
-        private async Task ToggleRepeatPasswordVisibility()
+        private void ToggleRepeatPasswordVisibility()
         {
-            if (RepeatPassword != null)
-            {
-                RepeatPasswordIsEnabled = !RepeatPasswordIsEnabled;
-            }
+            RepeatPasswordIsEnabled = !RepeatPasswordIsEnabled;
         }
-
-
     }
 }

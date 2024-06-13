@@ -10,6 +10,7 @@ public partial class LoginView : ContentPage
     public LoginView()
     {
         InitializeComponent();
+        Shell.SetFlyoutBehavior(this, FlyoutBehavior.Disabled);
         BindingContext = new LoginViewModel();
         currentUser.Text = TokenManager.currentUser;
     }

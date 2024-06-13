@@ -1,5 +1,4 @@
 ﻿
-using PTMobile.View;
 using PTMobile.ViewModels;
 using PTMobile.Views;
 

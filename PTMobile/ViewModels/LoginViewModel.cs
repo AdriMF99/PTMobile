@@ -66,7 +66,7 @@ namespace PTMobile.ViewModels
         {
             ErrorText = string.Empty;
             ErrorTextIsEnable = false;
-            ButtonLoginIsEnabled = false;
+            ButtonLoginIsEnabled = true;
             ButtonLoginOpacity = 1.0f;
 
             if (string.IsNullOrEmpty(Username))
@@ -153,7 +153,7 @@ namespace PTMobile.ViewModels
                             bool answer = await Shell.Current.DisplayAlert("Admin", "Eres un administrador. ¿Qué quieres hacer?", "AdminMode", "VerCode");
                             if (answer)
                             {
-                                await Shell.Current.GoToAsync(nameof(AllUsersView));
+                                await Shell.Current.GoToAsync("//AllUsersView");
                             }
                             else
                             {
@@ -211,7 +211,7 @@ namespace PTMobile.ViewModels
 
         private async Task ForgotPasswordAsync()
         {
-            await Shell.Current.GoToAsync(nameof(ForgotPasswordView));
+            await Shell.Current.GoToAsync("//ForgotPasswordView");
         }
 
         private void TogglePasswordVisibility()

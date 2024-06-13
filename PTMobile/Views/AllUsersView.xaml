@@ -12,14 +12,12 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <!--<ContentPage.ToolbarItems>
+    <ContentPage.ToolbarItems>
         <ToolbarItem Text="More"
-                     Order="Primary"
-                     IconImageSource="three_dots_icon.png"
-                     Clicked="OnMoreClicked" />
-    </ContentPage.ToolbarItems>-->
-
-
+                    Order="Primary"
+                    IconImageSource="three_dots_icon.png"
+                    Clicked="OnMoreClicked" />
+    </ContentPage.ToolbarItems>
 
     <NavigationPage.TitleView>
         <StackLayout Orientation="Horizontal" HorizontalOptions="End">

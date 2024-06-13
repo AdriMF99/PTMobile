@@ -4,7 +4,8 @@ using Newtonsoft.Json.Linq;
 using PTMobile.Models;
 using PTMobile.ViewModels;
 using System.Text;
-namespace PTMobile.View;
+
+namespace PTMobile.Views;
 
 public partial class SettingsUpdateFields : ContentPage
 {
@@ -13,7 +14,7 @@ public partial class SettingsUpdateFields : ContentPage
     {
         InitializeComponent();
 
-        currentUser.Text = TokenManager.currentUser;
+        //currentUser.Text = TokenManager.currentUser;
 
         BindingContext = new SettingsUpdateFieldsViewModel();
 

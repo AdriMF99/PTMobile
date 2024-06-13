@@ -2,7 +2,6 @@
 using CommunityToolkit.Mvvm.Input;
 using Newtonsoft.Json;
 using PTMobile.Models;
-using PTMobile.View;
 using PTMobile.Views;
 using System.Collections.ObjectModel;
 using System.Net.Http;

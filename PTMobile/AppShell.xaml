@@ -6,22 +6,21 @@
     xmlns:local="clr-namespace:PTMobile.Views"
     xmlns:settings="clr-namespace:PTMobile.Views"
     xmlns:views="clr-namespace:PTMobile.Views"
-    Title="PTMobile"
-    >
-    <!--FlyoutBehavior="Flyout"
-    >-->
-    <!--Shell.FlyoutBehavior="Disabled"  (esto es para que el menu este disabled)-->
+    Title="PTMobile"   
+    FlyoutBehavior="Flyout">
+
+
+    <ShellContent
+        Title="Login"
+        ContentTemplate="{DataTemplate local:LoginView}"
+        Route="LoginView" />
 
     <FlyoutItem Title="Settings" Icon="config.svg">
-        <ShellContent Title="Update Fields" ContentTemplate="{DataTemplate views:LoginView}" Route="SettingsUpdateFields"/>
-    </FlyoutItem>
-
-    <FlyoutItem Title="Login">
-        <ShellContent Title="Login" ContentTemplate="{DataTemplate views:LoginView}" Route="MainPage" />
+        <ShellContent Title="Update Fields" ContentTemplate="{DataTemplate views:SettingsUpdateFields}" Route="SettingsUpdateFields"/>
     </FlyoutItem>
 
     <FlyoutItem Title="All Projects">
-        <ShellContent Title="All Projects" ContentTemplate="{DataTemplate views:AllProjects}" Route="AllProjects" />
+        <ShellContent Title="All Projects" ContentTemplate="{DataTemplate views:AllProjects}" Route="AllProjects"/>
     </FlyoutItem>
 
     <FlyoutItem Title="All Projects to Add">
@@ -35,8 +34,8 @@
     <FlyoutItem Title="Create Account">
         <ShellContent Title="Create Account" ContentTemplate="{DataTemplate views:CreateAccountView}" Route="CreateAccountView" />
     </FlyoutItem>
-    
-   
+
+    <ShellContent Title="Forgot Password" ContentTemplate="{DataTemplate views:ForgotPasswordView}" Route="ForgotPasswordView" />
 
     <!--<ShellContent Title="Code Validation" ContentTemplate="{DataTemplate views:CodeValidationView}" Route="CodeValidationView" />-->
 
