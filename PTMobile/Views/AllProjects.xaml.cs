@@ -11,6 +11,7 @@ public partial class AllProjects : ContentPage
     public AllProjects()
     {
         InitializeComponent();
+        BindingContext = new AllProjectsViewModel();
     }
 
     protected override bool OnBackButtonPressed() => true;
@@ -25,17 +26,20 @@ public partial class AllProjects : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
+        var viewModel = BindingContext as AllProjectsViewModel;
+        if (viewModel != null)
         {
+            await viewModel.LoadProjectsCommand.ExecuteAsync(null);
         }
-        else
-        {
-            adminbutton.IsVisible = false;
     }
 
+    private async void OnSearchTextChanged(object sender, TextChangedEventArgs e)
     {
+        var viewModel = BindingContext as AllProjectsViewModel;
+        if (viewModel != null)
+        {
+            await viewModel.SearchProjectsCommand.ExecuteAsync(e.NewTextValue);
         }
-
-        ShowSwipeAnimation();
     }
 
     //protected override async void OnAppearing()
@@ -45,46 +49,46 @@ public partial class AllProjects : ContentPage
 
 
 
-    public async void OnShowConfirmation(object sender, EventArgs e)
-    {
-        var button = sender as SwipeItem;
-        var project = button?.BindingContext as Project;
+    //public async void OnShowConfirmation(object sender, EventArgs e)
+    //{
+    //    var button = sender as SwipeItem;
+    //    var project = button?.BindingContext as Project;
 
 
 
 
-            if (answer)
-            {
-                using (var httpClient = new HttpClient())
-                {
-                    string urlDelete = $"{DevTunnel.UrlDeborah}/api/Project/deleteProject?projectId={project.Id}";
-                    HttpResponseMessage response = await httpClient.DeleteAsync(urlDelete);
-                    if (response.IsSuccessStatusCode)
-                    {
-                        await DisplayAlert("Info", $"¡{project.ProjectName}' está borrado!", "OK!");
-                        List<Project> projects = await GetProjectsAsync(TokenManager.currentUser);
-                        TokenManager.Allprojects = projects;
-                        if (projects != null)
-                        {
-                            projectsList.ItemsSource = projects;
-                        }
-                    }
-                    else
-                    {
-                        await DisplayAlert("Info", $"¡{project.ProjectName}' tuvo problemas al borrar!", "OK!");
-                    }
-                }
-            }
-            else
-            {
-                // Acción si se pulsa "NO"
-            }
-        }
-        else
-        {
-            await DisplayAlert("Error", "No se pudo obtener la información del proyecto", "OK");
-        }
-    }
+    //        if (answer)
+    //        {
+    //            using (var httpClient = new HttpClient())
+    //            {
+    //                string urlDelete = $"{DevTunnel.UrlDeborah}/api/Project/deleteProject?projectId={project.Id}";
+    //                HttpResponseMessage response = await httpClient.DeleteAsync(urlDelete);
+    //                if (response.IsSuccessStatusCode)
+    //                {
+    //                    await DisplayAlert("Info", $"¡{project.ProjectName}' está borrado!", "OK!");
+    //                    List<Project> projects = await GetProjectsAsync(TokenManager.currentUser);
+    //                    TokenManager.Allprojects = projects;
+    //                    if (projects != null)
+    //                    {
+    //                        projectsList.ItemsSource = projects;
+    //                    }
+    //                }
+    //                else
+    //                {
+    //                    await DisplayAlert("Info", $"¡{project.ProjectName}' tuvo problemas al borrar!", "OK!");
+    //                }
+    //            }
+    //        }
+    //        else
+    //        {
+    //            // Acción si se pulsa "NO"
+    //        }
+    //    }
+    //    else
+    //    {
+    //        await DisplayAlert("Error", "No se pudo obtener la información del proyecto", "OK");
+    //    }
+    //}
 
 
 

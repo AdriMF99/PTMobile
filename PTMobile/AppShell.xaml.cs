@@ -59,13 +59,10 @@ namespace PTMobile
                     }
                 }
             };
-
-            // Hide the items initially by not adding them to the Shell.Items
         }
 
         public void ShowAdminFlyoutItems()
         {
-            // Show the admin flyout items by adding them to the Shell.Items
             if (!Shell.Current.Items.Contains(_allUsersFlyout))
                 Shell.Current.Items.Add(_allUsersFlyout);
 
@@ -75,9 +72,11 @@ namespace PTMobile
 
         public void HideAdminFlyoutItems()
         {
-            // Hide the admin flyout items by removing them from the Shell.Items
-            Shell.Current.Items.Remove(_allUsersFlyout);
-            Shell.Current.Items.Remove(_allProjectsToAddFlyout);
+            if (Shell.Current.Items.Contains(_allUsersFlyout))
+                Shell.Current.Items.Remove(_allUsersFlyout);
+
+            if (Shell.Current.Items.Contains(_allProjectsToAddFlyout))
+                Shell.Current.Items.Remove(_allProjectsToAddFlyout);
         }
     }
 }

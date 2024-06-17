@@ -4,9 +4,9 @@ namespace PTMobile.Views;
 
 public partial class PasswordAddProject : ContentPage
 {
-	public PasswordAddProject()
-	{
-		InitializeComponent();
+    public PasswordAddProject()
+    {
+        InitializeComponent();
         currentUser.Text = TokenManager.currentUser;
     }
 
@@ -17,14 +17,14 @@ public partial class PasswordAddProject : ContentPage
     //}
 
     private async void checkButtonClicked(object sender, EventArgs e)
-	{
+    {
         if (passEntry.Text == "1234a")
-		{
+        {
             await Navigation.PushAsync(new AllProjectsToAdd());
         }
-		else
-		{
-			await DisplayAlert("Error", "Contraseña Incorrecta!", "Ok");
-		}
+        else
+        {
+            await DisplayAlert("Error", "Contraseña Incorrecta!", "Ok");
+        }
     }
 }

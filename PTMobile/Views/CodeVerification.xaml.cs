@@ -1,9 +1,6 @@
 using PTMobile.Models;
-using Microsoft.Maui.Graphics;
-using Xamarin.Essentials;
-using PTMobile.Views;
 
-namespace PTMobile
+namespace PTMobile.Views
 {
     public partial class CodeVerification : ContentPage
     {
@@ -29,16 +26,14 @@ namespace PTMobile
             {
                 var code = codeEntry.Text;
                 var token = TokenManager.Token;
-                string url = $"{DevTunnel.UrlAdri}/api/Code/VerifyCodeMobile?code={code}&token={token}";
+                string url = $"{DevTunnel.UrlFran}/api/Code/VerifyCodeMobile?code={code}&token={token}";
 
-                try
-                {
-                    HttpResponseMessage response = await httpClient.GetAsync(url);
+                HttpResponseMessage response = await httpClient.GetAsync(url);
 
                 if (response.IsSuccessStatusCode)
                 {
                     TokenManager.TvCode = code;
-                    await Navigation.PushAsync(new AllProjects());
+                    await Shell.Current.GoToAsync("//AllProjects");
                 }
             }
 
@@ -66,7 +61,7 @@ namespace PTMobile
                     }
 
                     var token = TokenManager.Token;
-                    string url = $"{DevTunnel.UrlAdri}/api/Code/VerifyCodeMobile?code={first.Value}&token={token}";
+                    string url = $"{DevTunnel.UrlFran}/api/Code/VerifyCodeMobile?code={first.Value}&token={token}";
 
                     HttpResponseMessage response = await httpClient.GetAsync(url);
 
@@ -89,6 +84,6 @@ namespace PTMobile
         {
             barcodeReader.IsVisible = true;
         }
-        
+
     }
 }

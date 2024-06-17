@@ -201,6 +201,7 @@ namespace PTMobile.ViewModels
                                         {
                                             TokenManager.isGod = false;
                                             TokenManager.isAdmin = false;
+                                            (Shell.Current as AppShell)?.HideAdminFlyoutItems();
                                             await Shell.Current.GoToAsync("//CodeVerification");
                                         }
                                     }

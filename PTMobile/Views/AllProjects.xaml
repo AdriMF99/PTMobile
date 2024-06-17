@@ -14,16 +14,17 @@
                      Clicked="OnMoreClicked" />
     </ContentPage.ToolbarItems>-->
 
-    
-    
+
+
     <NavigationPage.TitleView>
         <StackLayout Orientation="Horizontal" HorizontalOptions="End">
             <Button Text="Go to Shared Page"  />
             <Image Source="logo.png" WidthRequest="40" HeightRequest="40" Margin="10" />
+            <Label Text="{Binding CurrentUser}" VerticalOptions="Center" Margin="0,10,10,10" HorizontalTextAlignment="End" />
         </StackLayout>
     </NavigationPage.TitleView>
     <ContentPage.Content>
-        
+
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -47,56 +48,40 @@
                     HorizontalOptions="End"
                     Margin="10">
                     <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ChangeViewCommand}" />
                     </Image.GestureRecognizers>
                 </Image>
-                    Grid.Column="2"
-                    WidthRequest="30"
-                    HeightRequest="30"
-                    VerticalOptions="Center"
-                    HorizontalOptions="End"
-                    Margin="10">
-                    <Image.GestureRecognizers>
-                    </Image.GestureRecognizers>
                 <Image
                     Grid.Column="2"
+                    Source="Resources/Images/adminmode.png"
                     WidthRequest="30"
-                    HeightRequest="30"
                     x:Name="adminbutton"
                     VerticalOptions="Center"
                     HorizontalOptions="End"
-                    Margin="10">
+                    Margin="10"
+                    IsVisible="{Binding IsAdmin}">
                     <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding AdminCommand}" />
                     </Image.GestureRecognizers>
                 </Image>
-
-                <Image
-                    Grid.Column="3"
-                    WidthRequest="30"
-                    HeightRequest="30"
-                    x:Name="adminbutton"
-                    VerticalOptions="Center"
-                    HorizontalOptions="End"
-                    Margin="10">
-                    <Image.GestureRecognizers>
-                    </Image.GestureRecognizers>
-                </Image>
-                
             </Grid>
 
-            <CollectionView Grid.Row="1" x:Name="projectsList" ItemsSource="{Binding FilteredProjects}">
+            <!-- Row 1: Projects list -->
+            <CollectionView Grid.Row="1" ItemsSource="{Binding Projects}">
                 <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Vertical" Span="1"/>
+                    <GridItemsLayout Orientation="Vertical" Span="{Binding Columns}"/>
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <SwipeView>
                             <SwipeView.LeftItems>
                                 <SwipeItems>
+                                    <SwipeItem Text="Delete" BackgroundColor="PaleVioletRed" IconImageSource="trash.png" Command="{Binding Source={RelativeSource AncestorType={x:Type vm:AllProjectsViewModel}}, Path=UpdateProjectCommand}" CommandParameter="{Binding .}" />
                                 </SwipeItems>
                             </SwipeView.LeftItems>
                             <SwipeView.RightItems>
                                 <SwipeItems>
-                                    <SwipeItem Text="Cast" BackgroundColor="LightGreen" IconImageSource="sending.png" Clicked="OnShowConfirmation" CommandParameter="{Binding .}" />
+                                    <SwipeItem Text="Cast" BackgroundColor="LightGreen" IconImageSource="sending.png" Command="{Binding Source={RelativeSource AncestorType={x:Type vm:AllProjectsViewModel}}, Path=ShowConfirmationCommand}" CommandParameter="{Binding .}" />
                                 </SwipeItems>
                             </SwipeView.RightItems>
                             <SwipeView.Content>
@@ -114,3 +99,4 @@
             </CollectionView>
         </Grid>
     </ContentPage.Content>
+</ContentPage>
