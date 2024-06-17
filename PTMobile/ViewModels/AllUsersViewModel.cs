@@ -49,7 +49,7 @@ namespace PTMobile.ViewModels
 
         private async Task LoadUsersAsync()
         {
-            string apiUrl = $"{DevTunnel.UrlFran}/User/all-users";
+            string apiUrl = $"{DevTunnel.UrlAdri}/User/all-users";
             var response = await _httpClient.GetAsync(apiUrl);
 
             if (response.IsSuccessStatusCode)
@@ -71,8 +71,8 @@ namespace PTMobile.ViewModels
 
             foreach (var user in users)
             {
-                string isAdminUrl = $"{DevTunnel.UrlFran}/User/is-admin?username={user.UserName}";
-                string isGodUrl = $"{DevTunnel.UrlFran}/User/is-god?username={user.UserName}";
+                string isAdminUrl = $"{DevTunnel.UrlAdri}/User/is-admin?username={user.UserName}";
+                string isGodUrl = $"{DevTunnel.UrlAdri}/User/is-god?username={user.UserName}";
 
                 tasks.Add(SetUserAdminStatus(user, isAdminUrl, isGodUrl));
             }
@@ -129,7 +129,7 @@ namespace PTMobile.ViewModels
 
                 if (answer)
                 {
-                    string urlSetAdmin = $"{DevTunnel.UrlFran}/User/set-admin?username={userName}&userLoged={TokenManager.currentUser}";
+                    string urlSetAdmin = $"{DevTunnel.UrlAdri}/User/set-admin?username={userName}&userLoged={TokenManager.currentUser}";
                     var response = await _httpClient.PutAsync(urlSetAdmin, null);
 
                     if (response.IsSuccessStatusCode)
@@ -160,7 +160,7 @@ namespace PTMobile.ViewModels
 
                 if (answer)
                 {
-                    string urlSetAdmin = $"{DevTunnel.UrlFran}/User/set-admin?username={userName}&userLoged={TokenManager.currentUser}";
+                    string urlSetAdmin = $"{DevTunnel.UrlAdri}/User/set-admin?username={userName}&userLoged={TokenManager.currentUser}";
                     var response = await _httpClient.PutAsync(urlSetAdmin, null);
 
                     if (response.IsSuccessStatusCode)
@@ -192,7 +192,7 @@ namespace PTMobile.ViewModels
 
         private async void CreatePDF()
         {
-            string urlPdf = $"{DevTunnel.UrlFran}/reportPdfQuest";
+            string urlPdf = $"{DevTunnel.UrlAdri}/reportPdfQuest";
             var response = await _httpClient.GetAsync(urlPdf);
 
             if (response.IsSuccessStatusCode)

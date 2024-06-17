@@ -73,7 +73,7 @@ namespace PTMobile.ViewModels
                 return;
             }
 
-            string url = $"{DevTunnel.UrlFran}/User/change-password?username={Username}&newPassword={Password}&code={Code}";
+            string url = $"{DevTunnel.UrlAdri}/User/change-password?username={Username}&newPassword={Password}&code={Code}";
 
             try
             {

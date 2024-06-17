@@ -50,14 +50,20 @@
 	<ItemGroup>
 	  <None Remove="Platforms\Android\Resources\xml\network_security_config.xml" />
 	  <None Remove="Resources\Images\adminmode.png" />
+	  <None Remove="Resources\Images\allprojectsbarra.svg" />
+	  <None Remove="Resources\Images\allusersbarra.svg" />
 	  <None Remove="Resources\Images\backtoprojects.png" />
 	  <None Remove="Resources\Images\change_view.png" />
+	  <None Remove="Resources\Images\codebarra.svg" />
 	  <None Remove="Resources\Images\corona_conrelleno.svg" />
 	  <None Remove="Resources\Images\corona.svg" />
+	  <None Remove="Resources\Images\createbarra.svg" />
 	  <None Remove="Resources\Images\email.svg" />
 	  <None Remove="Resources\Images\fondillo.jpg" />
 	  <None Remove="Resources\Images\fondo.jpg" />
+	  <None Remove="Resources\Images\forgotbarra.svg" />
 	  <None Remove="Resources\Images\left_arrow.png" />
+	  <None Remove="Resources\Images\loginbarra.svg" />
 	  <None Remove="Resources\Images\logo.png" />
 	  <None Remove="Resources\Images\logout.png" />
 	  <None Remove="Resources\Images\password.svg" />
@@ -65,6 +71,7 @@
 	  <None Remove="Resources\Images\sending.png" />
 	  <None Remove="Resources\Images\sliders.svg" />
 	  <None Remove="Resources\Images\three_dots_icon.svg" />
+	  <None Remove="Resources\Images\touserbarra.svg" />
 	  <None Remove="Resources\Images\trash.svg" />
 	  <None Remove="Resources\Images\user_solid.svg" />
 	  <None Remove="Resources\Images\zeusconrelleno.png" />

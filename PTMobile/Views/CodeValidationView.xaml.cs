@@ -25,7 +25,7 @@ public partial class CodeValidationView : ContentPage
         string code = codigoEntry.Text;
         string username = usernameEntry.Text;
         string newpass = newPasswordEntry.Text;
-        string url = $"{DevTunnel.UrlFran}/User/change-password?username={username}&newPassword={newpass}&code={code}";
+        string url = $"{DevTunnel.UrlAdri}/User/change-password?username={username}&newPassword={newpass}&code={code}";
 
         if (!string.IsNullOrEmpty(code) && !string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(newpass))
         {

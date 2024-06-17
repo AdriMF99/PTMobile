@@ -34,6 +34,7 @@ namespace PTMobile
         {
             _allUsersFlyout = new FlyoutItem()
             {
+                Icon = "allusersbarra.svg",
                 Title = "All Users",
                 Route = "AllUsersView",
                 Items =
@@ -48,6 +49,7 @@ namespace PTMobile
 
             _allProjectsToAddFlyout = new FlyoutItem()
             {
+                Icon = "touserbarra.svg",
                 Title = "All Projects to Add",
                 Route = "AllProjectsToAdd",
                 Items =

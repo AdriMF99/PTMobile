@@ -66,7 +66,7 @@ namespace PTMobile.ViewModels
 
         private async void LoadDataUser()
         {
-            string url = $"{DevTunnel.UrlFran}/User/getuser?username={TokenManager.currentUser}";
+            string url = $"{DevTunnel.UrlAdri}/User/getuser?username={TokenManager.currentUser}";
             HttpResponseMessage response = await _httpClient.GetAsync(url);
 
             if (response.IsSuccessStatusCode)
@@ -94,7 +94,7 @@ namespace PTMobile.ViewModels
                 return;
             }
 
-            string url = $"{DevTunnel.UrlFran}/User/update-user?userId={id}";
+            string url = $"{DevTunnel.UrlAdri}/User/update-user?userId={id}";
             var requestData = new
             {
                 UserName = CurrentUser,

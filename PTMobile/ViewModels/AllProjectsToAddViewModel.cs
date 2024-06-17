@@ -50,7 +50,7 @@ namespace PTMobile.ViewModels
         {
             using (var httpClient = new HttpClient())
             {
-                string apiUrl = $"{DevTunnel.UrlFran}/api/Project/getProjects";
+                string apiUrl = $"{DevTunnel.UrlAdri}/api/Project/getProjects";
                 HttpResponseMessage response = await httpClient.GetAsync(apiUrl);
 
                 if (response.IsSuccessStatusCode)
@@ -72,7 +72,7 @@ namespace PTMobile.ViewModels
 
         private async Task Back()
         {
-            await Application.Current.MainPage.Navigation.PushAsync(new AllProjects());
+            await Shell.Current.GoToAsync("//AllProjects");
         }
 
 
@@ -88,8 +88,8 @@ namespace PTMobile.ViewModels
                         string projectName = project.ProjectName;
                         string usuarcillo = TokenManager.currentUser;
                         string userAdmin = TokenManager.selectedUserAdmin;
-                        string urlAdd = $"{DevTunnel.UrlFran}/api/Project/add-project-user?projectName={projectName}&userName={usuarcillo}";
-                        string urlAddAdmin = $"{DevTunnel.UrlFran}/api/Project/add-project-user?projectName={projectName}&userName={usuarcillo}";
+                        string urlAdd = $"{DevTunnel.UrlAdri}/api/Project/add-project-user?projectName={projectName}&userName={usuarcillo}";
+                        string urlAddAdmin = $"{DevTunnel.UrlAdri}/api/Project/add-project-user?projectName={projectName}&userName={TokenManager.selectedUserAdmin}";
 
                         HttpResponseMessage response = TokenManager.isFromAdmin ? await httpClient.PutAsync(urlAddAdmin, null) : await httpClient.PutAsync(urlAdd, null);
                         if (response.IsSuccessStatusCode)
@@ -114,8 +114,8 @@ namespace PTMobile.ViewModels
                 {
                     using (var httpClient = new HttpClient())
                     {
-                        string urlDelete = $"{DevTunnel.UrlFran}/api/Project/delete-project-user?projectName={project.ProjectName}&userName={TokenManager.currentUser}";
-                        string urlDeleteAdmin = $"{DevTunnel.UrlFran}/api/Project/delete-project-user?projectName={project.ProjectName}&userName={TokenManager.selectedUserAdmin}";
+                        string urlDelete = $"{DevTunnel.UrlAdri}/api/Project/delete-project-user?projectName={project.ProjectName}&userName={TokenManager.currentUser}";
+                        string urlDeleteAdmin = $"{DevTunnel.UrlAdri}/api/Project/delete-project-user?projectName={project.ProjectName}&userName={TokenManager.selectedUserAdmin}";
 
                         HttpResponseMessage response = TokenManager.isFromAdmin ? await httpClient.DeleteAsync(urlDeleteAdmin) : await httpClient.DeleteAsync(urlDelete);
                         if (response.IsSuccessStatusCode)

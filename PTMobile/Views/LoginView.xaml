@@ -100,7 +100,7 @@
                            PlaceholderColor="#706e6d"
                         Grid.Column="1"
                         Placeholder="Password"
-                        IsPassword="True"
+                        IsPassword="{Binding PasswordIsEnabled}"
                         VerticalOptions="Center"
                          />
 
