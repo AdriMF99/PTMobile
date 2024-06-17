@@ -259,6 +259,8 @@ public partial class AllProjectsToAdd : ContentPage
         BindingContext = new AllProjectsToAddViewModel();
     }
 
+    protected override bool OnBackButtonPressed() => true;
+
     private void OnSearchTextChanged(object sender, TextChangedEventArgs e)
     {
         var viewModel = BindingContext as AllProjectsToAddViewModel;

@@ -21,6 +21,8 @@ public partial class SettingsUpdateFields : ContentPage
         // LoadDataUser();
     }
 
+    protected override bool OnBackButtonPressed() => true;
+
     //private async void OnMoreClicked(object sender, EventArgs e)
     //{
     //    var action = await DisplayActionSheet("Options", "Cancel", null, "Option 1", "Option 2", "Option 3");

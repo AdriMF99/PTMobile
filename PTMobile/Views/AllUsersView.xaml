@@ -12,13 +12,6 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="More"
-                    Order="Primary"
-                    IconImageSource="three_dots_icon.png"
-                    Clicked="OnMoreClicked" />
-    </ContentPage.ToolbarItems>
-
     <NavigationPage.TitleView>
         <StackLayout Orientation="Horizontal" HorizontalOptions="End">
             <Image Source="logo.png" WidthRequest="40" HeightRequest="40" Margin="10" />

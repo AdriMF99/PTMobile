@@ -2,12 +2,9 @@
 using CommunityToolkit.Mvvm.Input;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using PTMobile.Interfaces;
 using PTMobile.Models;
 using PTMobile.Views;
-using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace PTMobile.ViewModels
 {
@@ -36,7 +33,7 @@ namespace PTMobile.ViewModels
         [ObservableProperty]
         private float buttonLoginOpacity = 0.5f;
 
-      
+
 
         [ObservableProperty]
         private string errorTextLogin;
@@ -139,62 +136,85 @@ namespace PTMobile.ViewModels
                     TokenManager.Token = token;
                     TokenManager.currentUser = Username;
 
-                    string urlAdmin = $"{DevTunnel.UrlFran}/User/is-admin?username={Username}";
-                    var responseAdmin = await _httpClient.GetAsync(urlAdmin);
-                    if (responseAdmin.IsSuccessStatusCode)
-                    {
-                        var isAdmin = await responseAdmin.Content.ReadAsStringAsync();
-                        bool isAdminUser = bool.Parse(isAdmin);
+                    string urlDeleted = $"{DevTunnel.UrlFran}/User/is-deleted?username={Username}";
+                    var responseDelete = await _httpClient.GetAsync(urlDeleted);
 
-                        if (isAdminUser)
+                    if (responseDelete.IsSuccessStatusCode)
+                    {
+                        var isDeleted = await responseDelete.Content.ReadAsStringAsync();
+                        bool isDeletedUser = bool.Parse(isDeleted);
+
+                        if (isDeletedUser)
                         {
-                            TokenManager.isAdmin = true;
-                            TokenManager.isGod = false;
-                            bool answer = await Shell.Current.DisplayAlert("Admin", "Eres un administrador. ¿Qué quieres hacer?", "AdminMode", "VerCode");
-                            if (answer)
-                            {
-                                await Shell.Current.GoToAsync("//AllUsersView");
-                            }
-                            else
-                            {
-                                //await Shell.Current.GoToAsync(nameof(CodeVerification));
-                                await Application.Current.MainPage.Navigation.PushAsync(new CodeVerification());
-                            }
+                            await Shell.Current.DisplayAlert("Deleted", "This user is deleted!", "OK");
                         }
                         else
                         {
-                            string urlGod = $"{DevTunnel.UrlFran}/User/is-god?username={Username}";
-                            var responseGod = await _httpClient.GetAsync(urlGod);
-                            if (responseGod.IsSuccessStatusCode)
+                            string urlAdmin = $"{DevTunnel.UrlFran}/User/is-admin?username={Username}";
+                            var responseAdmin = await _httpClient.GetAsync(urlAdmin);
+                            if (responseAdmin.IsSuccessStatusCode)
                             {
-                                var isGod = await responseGod.Content.ReadAsStringAsync();
-                                bool isGodUser = bool.Parse(isGod);
-                                if (isGodUser)
+                                var isAdmin = await responseAdmin.Content.ReadAsStringAsync();
+                                bool isAdminUser = bool.Parse(isAdmin);
+
+                                if (isAdminUser)
                                 {
-                                    TokenManager.isGod = true;
                                     TokenManager.isAdmin = true;
-                                    bool answer2 = await Shell.Current.DisplayAlert("AdminSupremo", "Eres un Admin Supremo. ¿Qué quieres hacer?", "AdminMode", "VerCode");
-                                    if (answer2)
+                                    TokenManager.isGod = false;
+                                    bool answer = await Shell.Current.DisplayAlert("Admin", "Eres un administrador. ¿Qué quieres hacer?", "AdminMode", "VerCode");
+                                    if (answer)
                                     {
-                                        await Shell.Current.GoToAsync(nameof(AllUsersView));
+                                        (Shell.Current as AppShell)?.ShowAdminFlyoutItems();
+                                        await Shell.Current.GoToAsync("//AllUsersView");
                                     }
                                     else
                                     {
-                                        await Application.Current.MainPage.Navigation.PushAsync(new CodeVerification());
+                                        (Shell.Current as AppShell)?.ShowAdminFlyoutItems();
+                                        await Shell.Current.GoToAsync("//CodeVerification");
                                     }
                                 }
                                 else
                                 {
-                                    TokenManager.isGod = false;
-                                    TokenManager.isAdmin = false;
-                                    await Shell.Current.GoToAsync(nameof(CodeVerification));
+                                    string urlGod = $"{DevTunnel.UrlFran}/User/is-god?username={Username}";
+                                    var responseGod = await _httpClient.GetAsync(urlGod);
+                                    if (responseGod.IsSuccessStatusCode)
+                                    {
+                                        var isGod = await responseGod.Content.ReadAsStringAsync();
+                                        bool isGodUser = bool.Parse(isGod);
+                                        if (isGodUser)
+                                        {
+                                            TokenManager.isGod = true;
+                                            TokenManager.isAdmin = true;
+                                            bool answer2 = await Shell.Current.DisplayAlert("AdminSupremo", "Eres un Admin Supremo. ¿Qué quieres hacer?", "AdminMode", "VerCode");
+                                            if (answer2)
+                                            {
+                                                (Shell.Current as AppShell)?.ShowAdminFlyoutItems();
+                                                await Shell.Current.GoToAsync("//AllUsersView");
+                                            }
+                                            else
+                                            {
+                                                (Shell.Current as AppShell)?.ShowAdminFlyoutItems();
+                                                await Shell.Current.GoToAsync("//CodeVerification");
+                                            }
+                                        }
+                                        else
+                                        {
+                                            TokenManager.isGod = false;
+                                            TokenManager.isAdmin = false;
+                                            await Shell.Current.GoToAsync("//CodeVerification");
+                                        }
+                                    }
                                 }
+                            }
+                            else
+                            {
+                                await Shell.Current.DisplayAlert("Error", "No se pudo verificar si el usuario es admin.", "OK");
                             }
                         }
                     }
                     else
                     {
-                        await Shell.Current.DisplayAlert("Error", "No se pudo verificar si el usuario es admin.", "OK");
+                        await Shell.Current.DisplayAlert("Deleted", "ERROR EN GET DELETED", "OK");
                     }
                 }
                 else
@@ -211,7 +231,7 @@ namespace PTMobile.ViewModels
 
         private async Task ForgotPasswordAsync()
         {
-            await Shell.Current.GoToAsync("//ForgotPasswordView");
+            await Shell.Current.GoToAsync(nameof(ForgotPasswordView));
         }
 
         private void TogglePasswordVisibility()

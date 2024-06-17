@@ -79,7 +79,7 @@ namespace PTMobile.ViewModels
                 {
                     var isSend = await response.Content.ReadAsStringAsync();
 
-                    await Shell.Current.GoToAsync(nameof(LoginView));
+                    await Shell.Current.GoToAsync("//LoginView");
                 }
                 else
                 {

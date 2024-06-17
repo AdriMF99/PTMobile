@@ -110,7 +110,7 @@ namespace PTMobile.ViewModels
 
                 if (response.IsSuccessStatusCode)
                 {
-                    await Shell.Current.GoToAsync(nameof(LoginView));
+                    await Shell.Current.GoToAsync("//LoginView");
                 }
                 else
                 {

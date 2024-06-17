@@ -66,7 +66,7 @@ namespace PTMobile.ViewModels
 
         private async Task AdminButton()
         {
-            await Shell.Current.GoToAsync(nameof(AllUsersView));
+            await Shell.Current.GoToAsync("//AllUsersView");
         }
 
         private async Task<List<Project>> GetProjectsAsync(string username)

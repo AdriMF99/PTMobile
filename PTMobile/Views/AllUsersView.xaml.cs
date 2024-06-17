@@ -12,16 +12,11 @@ public partial class AllUsersView : ContentPage
     public AllUsersView()
     {
         InitializeComponent();
-        Shell.SetFlyoutBehavior(this, FlyoutBehavior.Flyout);
         currentUser.Text = TokenManager.currentUser;
         BindingContext = new AllUsersViewModel();
     }
 
-
-    private async void OnMoreClicked(object sender, EventArgs e)
-    {
-        Shell.Current.FlyoutIsPresented = true;
-    }
+    protected override bool OnBackButtonPressed() => true;
 
 
     protected override async void OnAppearing()

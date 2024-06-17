@@ -15,6 +15,8 @@ public partial class LoginView : ContentPage
         currentUser.Text = TokenManager.currentUser;
     }
 
+    protected override bool OnBackButtonPressed() => true;
+
 
     //private async void OnMoreClicked(object sender, EventArgs e)
     //{

@@ -44,7 +44,7 @@ namespace PTMobile.ViewModels
 
         public async Task SendingCommand()
         {
-            string url = $"{DevTunnel.UrlAdri}/User/forgot-password?email={Email}";
+            string url = $"{DevTunnel.UrlFran}/User/forgot-password?email={Email}";
 
 
             if (Email == null)

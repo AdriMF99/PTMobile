@@ -73,7 +73,7 @@ namespace PTMobile.ViewModels
                 return;
             }
 
-            string url = $"{DevTunnel.UrlAdri}/User/change-password?username={Username}&newPassword={Password}&code={Code}";
+            string url = $"{DevTunnel.UrlFran}/User/change-password?username={Username}&newPassword={Password}&code={Code}";
 
             try
             {
@@ -92,7 +92,7 @@ namespace PTMobile.ViewModels
                 if (response.IsSuccessStatusCode)
                 {
                     var isSend = await response.Content.ReadAsStringAsync();
-                    await Shell.Current.GoToAsync(nameof(LoginView));
+                    await Shell.Current.GoToAsync("//LoginView");
                 }
                 else
                 {

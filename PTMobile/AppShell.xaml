@@ -23,19 +23,23 @@
         <ShellContent Title="All Projects" ContentTemplate="{DataTemplate views:AllProjects}" Route="AllProjects"/>
     </FlyoutItem>
 
-    <FlyoutItem Title="All Projects to Add">
+    <!--<FlyoutItem Title="All Projects to Add">
         <ShellContent Title="All Projects to Add" ContentTemplate="{DataTemplate views:AllProjectsToAdd}" Route="AllProjectsToAdd" />
     </FlyoutItem>
 
     <FlyoutItem Title="All Users">
         <ShellContent Title="All Users" ContentTemplate="{DataTemplate views:AllUsersView}" Route="AllUsersView" />
-    </FlyoutItem>
+    </FlyoutItem>-->
 
     <FlyoutItem Title="Create Account">
         <ShellContent Title="Create Account" ContentTemplate="{DataTemplate views:CreateAccountView}" Route="CreateAccountView" />
     </FlyoutItem>
 
     <ShellContent Title="Forgot Password" ContentTemplate="{DataTemplate views:ForgotPasswordView}" Route="ForgotPasswordView" />
+    <ShellContent Title="Code Verification" ContentTemplate="{DataTemplate views:CodeVerification}" Route="CodeVerification" />
+    
+    <!--<ShellContent Route="AllProjectsToAdd" ContentTemplate="{DataTemplate views:AllProjectsToAdd}" />
+    <ShellContent Route="AllUsersView" ContentTemplate="{DataTemplate views:AllUsersView}" />-->
 
     <!--<ShellContent Title="Code Validation" ContentTemplate="{DataTemplate views:CodeValidationView}" Route="CodeValidationView" />-->
 

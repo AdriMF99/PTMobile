@@ -116,7 +116,7 @@ namespace PTMobile.ViewModels
                 {
                     TokenManager.selectedUserAdmin = user.UserName;
                     TokenManager.isFromAdmin = true;
-                    await Shell.Current.GoToAsync(nameof(AllProjectsToAdd));
+                    await Shell.Current.GoToAsync("//AllProjectsToAdd");
                 }
             }
         }

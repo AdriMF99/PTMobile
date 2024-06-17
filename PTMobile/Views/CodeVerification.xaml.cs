@@ -13,6 +13,8 @@ namespace PTMobile.Views
             currentUser.Text = TokenManager.currentUser;
         }
 
+        protected override bool OnBackButtonPressed() => true;
+
 
         //private async void OnMoreClicked(object sender, EventArgs e)
         //{
@@ -34,7 +36,7 @@ namespace PTMobile.Views
                 if (response.IsSuccessStatusCode)
                 {
                     TokenManager.TvCode = code;
-                    await Navigation.PushAsync(new AllProjects());
+                    await Shell.Current.GoToAsync("//AllProjects");
                 }
             }
 
@@ -69,7 +71,7 @@ namespace PTMobile.Views
                     if (response.IsSuccessStatusCode)
                     {
                         TokenManager.TvCode = first.Value;
-                        await Navigation.PushAsync(new AllProjects());
+                        await Shell.Current.GoToAsync("//AllProjects");
                     }
                 }
 
