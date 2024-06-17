@@ -58,17 +58,16 @@
 
 	  <None Remove="Resources\Images\delete.svg" />
 	  <None Remove="Resources\Images\email.svg" />
-	  <None Remove="Resources\Images\background.jpg" />
 	  <None Remove="Resources\Images\fondo.jpg" />
 
 	  <None Remove="Resources\Images\logo.png" />
 	  <None Remove="Resources\Images\password.svg" />
-
-	  <None Remove="Resources\Images\arrow_left.svg" />
+=======
+	  <None Remove="Resources\Images\left_arrow.png" />
 	  <None Remove="Resources\Images\logo.png" />
 	  <None Remove="Resources\Images\password.svg" />
-	  <None Remove="Resources\Images\arrow_right.svg" />
-
+	  <None Remove="Resources\Images\right_arrow.png" />
+>>>>>>> jijijiAMF
 	  <None Remove="Resources\Images\sending.png" />
 	  <None Remove="Resources\Images\user_solid.svg" />
 	  <None Remove="Resources\Splash\splashicon.svg" />
@@ -109,8 +108,8 @@
 	  <MauiXaml Update="View\CreateAccountView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-		<MauiXaml Update="View\EntryCodeForgotPassword.xaml">
-		</MauiXaml>
+	  <MauiXaml Update="View\EntryCodeForgotPassword.xaml">
+=======
 	  <MauiXaml Update="AllProjectsToAdd.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -118,6 +117,7 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="PasswordAddProject.xaml">
+>>>>>>> jijijiAMF
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

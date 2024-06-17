@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="PTMobile.Views.CreateAccountView"
+             Title="CreateAccountView">
+
+    <!--<ContentPage.ToolbarItems>
+        <ToolbarItem Text="More"
+                     Order="Primary"
+                     IconImageSource="three_dots_icon.png"
+                     Clicked="OnMoreClicked" />
+    </ContentPage.ToolbarItems>-->
+
+    
+    
+    <Grid Grid.Row="1">
+        <Image Aspect="AspectFill" Source="background.jpg"/>
+        <VerticalStackLayout Margin="60,160,60,0">
+            <Label FontAttributes="Bold"
+     FontFamily="bold"
+     FontSize="Large"
+     Text="Create your account"
+     HorizontalOptions="Center"
+     TextColor="#3d3d3f"/>
+            
+            
+            <Grid Margin="0,30,0,0" ColumnDefinitions=".2*,.8*">
+                <RoundRectangle
+                     BackgroundColor="Transparent"
+                     CornerRadius="10"
+                     HeightRequest="60"
+                     HorizontalOptions="Center"
+                     VerticalOptions="Center"
+                     WidthRequest="60"/>
+
+                <Image 
+                    HorizontalOptions="Center"
+                    Source="user_solid.svg"
+                    HeightRequest="40">
+
+                    <Image.Behaviors>
+                        <toolkit:IconTintColorBehavior TintColor="#4f3f9B" />
+                    </Image.Behaviors>
+                </Image>
+
+                <Entry
+                    Text="{Binding Username}"
+                    Grid.Column="1"
+                    Placeholder="Username"
+                    PlaceholderColor="#706e6d"
+                    VerticalOptions="Center"
+                    />
+            </Grid>
+
+            <Grid Margin="0,20,0,0" ColumnDefinitions=".2*,.8*">
+                <RoundRectangle
+                 BackgroundColor="Transparent"
+                 CornerRadius="10"
+                 HeightRequest="60"
+                 HorizontalOptions="Center"
+                 VerticalOptions="Center"
+                 WidthRequest="60"/>
+
+                <Image 
+                HorizontalOptions="Center"
+                Source="email.svg"
+                HeightRequest="40">
+
+                    <Image.Behaviors>
+                        <toolkit:IconTintColorBehavior TintColor="#4f3f9B" />
+                    </Image.Behaviors>
+                </Image>
+
+                <Entry
+                 Text="{Binding Email}"
+                Grid.Column="1"
+                Placeholder="Email"
+                PlaceholderColor="#706e6d"
+                VerticalOptions="Center"
+                />
+            </Grid>
+
+
+
+            <Grid Margin="0,20,0,0" ColumnDefinitions=".2*,.8*">
+                <RoundRectangle
+                 BackgroundColor="Transparent"
+                 CornerRadius="10"
+                 HeightRequest="60"
+                 HorizontalOptions="Center"
+                 VerticalOptions="Center"
+                 WidthRequest="60"/>
+
+                <Image 
+                HorizontalOptions="Center"
+                Source="password.svg"
+                HeightRequest="40">
+
+                    <Image.Behaviors>
+                        <toolkit:IconTintColorBehavior TintColor="#4f3f9B" />
+                    </Image.Behaviors>
+                </Image>
+
+                <Entry
+                       Text="{Binding Password}"
+                     Grid.Column="1"
+                     Placeholder="Password"
+                       IsPassword="{Binding PasswordIsEnabled}"
+                     PlaceholderColor="#706e6d"
+                     VerticalOptions="Center"
+					  />
+
+                <Button x:Name="TogglePasswordButton1"
+                    Text="👁"
+                    WidthRequest="60"
+                    HeightRequest="60"
+                    BackgroundColor="Transparent"
+                    Command="{Binding TogglePasswordVisibilityCommand}"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center"
+                    Grid.Column="1"
+                />
+
+            </Grid>
+
+            <Grid Margin="0,20,0,0" ColumnDefinitions=".2*,.8*">
+                <RoundRectangle
+                     BackgroundColor="Transparent"
+                     CornerRadius="10"
+                     HeightRequest="60"
+                     HorizontalOptions="Center"
+                     VerticalOptions="Center"
+                     WidthRequest="60"/>
+
+                <Image 
+      HorizontalOptions="Center"
+      Source="password.svg"
+      HeightRequest="40">
+
+                    <Image.Behaviors>
+                        <toolkit:IconTintColorBehavior TintColor="#4f3f9B" />
+                    </Image.Behaviors>
+                </Image>
+
+                <Entry
+                     Text="{Binding RepeatPassword}"
+                     IsPassword="{Binding RepeatPasswordIsEnabled}"
+                    Grid.Column="1"
+                    Placeholder="Repeat Password"
+                    PlaceholderColor="#706e6d"
+                    VerticalOptions="Center"
+				    />
+
+                <Button x:Name="TogglePasswordButton2"
+                    Text="👁"
+                    WidthRequest="60"
+                    HeightRequest="60"
+                    BackgroundColor="Transparent"
+                    Command="{Binding ToggleRepeatPasswordVisibilityCommand}"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center"
+                    Grid.Column="1"
+   />
+            </Grid>
+            <Button
+                 x:Name="createAccountButton"
+                  Margin="0, 30, 0, 0"
+                  HeightRequest="60"
+                  Text="Create Account"
+                  TextColor="#FBF6FD"
+                  BackgroundColor="#6f9f9b"
+				  Opacity="{Binding ButtonCreateAccountOpacity}"
+                  IsEnabled="{Binding ButtonCreateAccountIsEnabled}"
+                  Command="{Binding CreateAccountCommand}"/>
+            <Label Text="{Binding ErrorText}" IsEnabled="{Binding ErrorTextIsEnable}"></Label>
+
+
+
+            <Label Text="{Binding ErrorTextCreateAccount}" IsEnabled="{Binding ErrorTextCreateAccountIsEnable}"
+                x:Name="createAccountResultLabel"
+                FontSize="14"
+                TextColor="DarkRed"
+                HorizontalOptions="Center"
+                IsVisible="True" />
+            
+         
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>
+

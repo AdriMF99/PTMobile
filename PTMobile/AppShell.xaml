@@ -3,14 +3,53 @@
     x:Class="PTMobile.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:PTMobile"
-    xmlns:views="clr-namespace:PTMobile.View"
-    Shell.FlyoutBehavior="Disabled"
-    Title="PTMobile">
+    xmlns:local="clr-namespace:PTMobile.Views"
+    xmlns:settings="clr-namespace:PTMobile.Views"
+    xmlns:views="clr-namespace:PTMobile.Views"
+    Title="PTMobile"   
+    FlyoutBehavior="Flyout">
+
 
     <ShellContent
         Title="Login"
-        ContentTemplate="{DataTemplate views:LoginView}"
-        Route="MainPage" />
+        ContentTemplate="{DataTemplate local:LoginView}"
+        Route="LoginView" />
+
+    <FlyoutItem Title="Settings" Icon="config.svg">
+        <ShellContent Title="Update Fields" ContentTemplate="{DataTemplate views:SettingsUpdateFields}" Route="SettingsUpdateFields"/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="All Projects">
+        <ShellContent Title="All Projects" ContentTemplate="{DataTemplate views:AllProjects}" Route="AllProjects"/>
+    </FlyoutItem>
+
+    <!--<FlyoutItem Title="All Projects to Add">
+        <ShellContent Title="All Projects to Add" ContentTemplate="{DataTemplate views:AllProjectsToAdd}" Route="AllProjectsToAdd" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="All Users">
+        <ShellContent Title="All Users" ContentTemplate="{DataTemplate views:AllUsersView}" Route="AllUsersView" />
+    </FlyoutItem>-->
+
+    <FlyoutItem Title="Create Account">
+        <ShellContent Title="Create Account" ContentTemplate="{DataTemplate views:CreateAccountView}" Route="CreateAccountView" />
+    </FlyoutItem>
+
+    <ShellContent Title="Forgot Password" ContentTemplate="{DataTemplate views:ForgotPasswordView}" Route="ForgotPasswordView" />
+    <ShellContent Title="Code Verification" ContentTemplate="{DataTemplate views:CodeVerification}" Route="CodeVerification" />
+    
+    <!--<ShellContent Route="AllProjectsToAdd" ContentTemplate="{DataTemplate views:AllProjectsToAdd}" />
+    <ShellContent Route="AllUsersView" ContentTemplate="{DataTemplate views:AllUsersView}" />-->
+
+    <!--<ShellContent Title="Code Validation" ContentTemplate="{DataTemplate views:CodeValidationView}" Route="CodeValidationView" />-->
+
+    <!--<ShellContent Title="Entry Code Forgot Password" ContentTemplate="{DataTemplate views:EntryCodeForgotPassword}" Route="EntryCodeForgotPassword" />
+
+    <ShellContent Title="Forgot Password" ContentTemplate="{DataTemplate views:ForgotPasswordView}" Route="ForgotPasswordView" />
+
+    <ShellContent Title="Password Add Project" ContentTemplate="{DataTemplate views:PasswordAddProject}" Route="PasswordAddProject" />
+
+    <ShellContent Title="Verify Account" ContentTemplate="{DataTemplate views:VerifyAccount}" Route="VerifyAccount" />-->
 
 </Shell>
+ 

@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
 	<PropertyGroup>
 		<TargetFrameworks>net7.0-android;net7.0-ios;net7.0-maccatalyst</TargetFrameworks>
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks>
@@ -53,21 +52,23 @@
 	  <None Remove="Resources\Images\adminmode.png" />
 	  <None Remove="Resources\Images\backtoprojects.png" />
 	  <None Remove="Resources\Images\change_view.png" />
-	  <None Remove="Resources\Images\crownyellow.svg" />
-	  <None Remove="Resources\Images\crown.svg" />
-	  <None Remove="Resources\Images\delete.svg" />
+	  <None Remove="Resources\Images\corona_conrelleno.svg" />
+	  <None Remove="Resources\Images\corona.svg" />
 	  <None Remove="Resources\Images\email.svg" />
-	  <None Remove="Resources\Images\background.jpg" />
+	  <None Remove="Resources\Images\fondillo.jpg" />
 	  <None Remove="Resources\Images\fondo.jpg" />
-	  <None Remove="Resources\Images\arrow_left.svg" />
+	  <None Remove="Resources\Images\left_arrow.png" />
 	  <None Remove="Resources\Images\logo.png" />
 	  <None Remove="Resources\Images\logout.png" />
 	  <None Remove="Resources\Images\password.svg" />
-	  <None Remove="Resources\Images\arrow_right.svg" />
+	  <None Remove="Resources\Images\right_arrow.png" />
 	  <None Remove="Resources\Images\sending.png" />
+	  <None Remove="Resources\Images\sliders.svg" />
+	  <None Remove="Resources\Images\three_dots_icon.svg" />
+	  <None Remove="Resources\Images\trash.svg" />
 	  <None Remove="Resources\Images\user_solid.svg" />
-	  <None Remove="Resources\Images\crownsuperadminyellow.svg" />
-	  <None Remove="Resources\Images\crownsuperadmin.svg" />
+	  <None Remove="Resources\Images\zeusconrelleno.png" />
+	  <None Remove="Resources\Images\zeussinrelleno.png" />
 	  <None Remove="Resources\Splash\splashicon.svg" />
 	</ItemGroup>
 
@@ -85,8 +86,11 @@
 	  <Compile Update="View\AllProjects.xaml.cs">
 	    <DependentUpon>AllProjects.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="View\CodeVerification.xaml.cs">
+	  <Compile Update="CodeVerification.xaml.cs">
 	    <DependentUpon>CodeVerification.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\SettingsUpdateFields.xaml.cs">
+	    <DependentUpon>SettingsUpdateFields.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="View\ForgotPasswordView.xaml.cs">
 	    <DependentUpon>ForgotPasswordView.xaml</DependentUpon>
@@ -97,7 +101,7 @@
 	  <MauiXaml Update="View\AllProjects.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\CodeVerification.xaml">
+	  <MauiXaml Update="CodeVerification.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\AllUsersView.xaml">
@@ -112,10 +116,6 @@
 	  <MauiXaml Update="View\VerifyAccount.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Services\" />
 	</ItemGroup>
 
 </Project>

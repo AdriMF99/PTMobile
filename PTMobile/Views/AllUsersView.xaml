@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:PTMobile.Converters"
+             xmlns:models="clr-namespace:PTMobile.Models"
+             x:Class="PTMobile.Views.AllUsersView"
+             Title="Lista de Usuarios">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:AdminImageConverter x:Key="AdminImageConverter" />
+            <converters:GodImageConverter x:Key="GodImageConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal" HorizontalOptions="End">
+            <Image Source="logo.png" WidthRequest="40" HeightRequest="40" Margin="10" />
+            <Label Text="Nombre de Usuario" VerticalOptions="Center" Margin="0,10,10,10" x:Name="currentUser" HorizontalTextAlignment="End" />
+        </StackLayout>
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <Grid>
+            <!-- Imagen de fondo -->
+            <Image Source="background.jpg" Aspect="AspectFill" Grid.Row="0" Grid.Column="0" />
+            <Grid BackgroundColor="#6f9f9b" Opacity=".1"/>
+            <!-- Contenido principal -->
+            <StackLayout Grid.Row="0" Grid.Column="0">
+                <Label 
+                    x:Name="usersListLabel"
+                    Text="Users List"
+                       FontSize="Large" 
+                       HorizontalOptions="Center" 
+                          Margin="0,60,0,20"
+                        TextColor="#4f3f9B"
+                    FontAttributes="Bold"
+                    Opacity=".7"
+                    />
+                <Button
+                    Text="Ver PDF"
+                    HorizontalOptions="Center"
+                    BackgroundColor="#6f9f9b"
+                      Opacity=".7"
+                     TextColor="#FBF6FD"
+                    Margin="10"
+                      Command="{Binding CreatePDFCommand}"
+                    />
+                <CollectionView x:Name="usersList" 
+                                  ItemsSource="{Binding Users}"
+                                VerticalOptions="FillAndExpand">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame CornerRadius="10" HasShadow="True" Margin="10" Padding="10" BorderColor="Gray">
+                              
+                                <StackLayout Orientation="Horizontal">
+                                    <StackLayout HorizontalOptions="StartAndExpand">
+                                        <Label Text="{Binding UserName}" 
+                                               FontSize="Medium" 
+                                               FontAttributes="Bold" 
+                                               HorizontalOptions="Center"/>
+                                        <Label Text="{Binding Email}" 
+                                               TextColor="Gray" 
+                                               LineBreakMode="WordWrap" 
+                                               MaxLines="2" 
+                                               HorizontalOptions="Center"/>
+                                        <Label Text="{Binding Id}" 
+                                               TextColor="DarkRed" 
+                                               LineBreakMode="TailTruncation" 
+                                               VerticalOptions="End"
+                                               FontSize="Small" 
+                                               HorizontalOptions="Center">
+                                            <!--<Label.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="OnUserTapped"/>
+                                            </Label.GestureRecognizers>-->
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Source={x:Reference usersList}, Path=BindingContext.UserTappedCommand}"
+                                                      CommandParameter="{Binding .}" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                    </StackLayout>
+                                    <Image Source="{Binding IsGod, Converter={StaticResource GodImageConverter}}"
+                                           WidthRequest="34" 
+                                           HeightRequest="34" 
+                                           Margin="20"
+                                           VerticalOptions="Center" 
+                                           IsVisible="{x:Static models:TokenManager.isGod}"
+                                           HorizontalOptions="End">
+                                        <!--<Image.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="OnGodTapped" CommandParameter="{Binding UserName}" />
+                                        </Image.GestureRecognizers>-->
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={x:Reference usersList}, Path=BindingContext.GodTappedCommand}"
+                                                  CommandParameter="{Binding UserName}" />
+                                        </Image.GestureRecognizers>
+                                    </Image>
+                                    <Image Source="{Binding IsAdmin, Converter={StaticResource AdminImageConverter}}"
+                                           WidthRequest="34" 
+                                           HeightRequest="34"
+                                           VerticalOptions="Center" 
+                                           HorizontalOptions="End">
+                                        <!--<Image.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="OnImageTapped" CommandParameter="{Binding UserName}" />
+                                        </Image.GestureRecognizers>-->
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={x:Reference usersList}, Path=BindingContext.ImageTappedCommand}"
+                                                  CommandParameter="{Binding UserName}" />
+                                        </Image.GestureRecognizers>
+                                    </Image>
+                                </StackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

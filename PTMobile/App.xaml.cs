@@ -1,4 +1,6 @@
-﻿using PTMobile.View;
+﻿
+using PTMobile.Interfaces;
+using PTMobile.Services;
 
 namespace PTMobile
 {
@@ -8,8 +10,9 @@ namespace PTMobile
         public App()
         {
             InitializeComponent();
+            MainPage = new AppShell();
 
-            MainPage = new NavigationPage(new LoginView());
+            DependencyService.Register<IDialogService, DialogService>();
         }
     }
 }
