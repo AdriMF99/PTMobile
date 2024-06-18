@@ -2,8 +2,8 @@
 {
     public static class DevTunnel
     {
-        public static string UrlAdri { get; } = "https://ml263fsb-5250.uks1.devtunnels.ms";
-        public static string UrlFran { get; } = "https://5t50clbs-5250.uks1.devtunnels.ms";
+        public static string UrlAdri { get; } = "https://081lvzzs-5250.uks1.devtunnels.ms";
+        public static string UrlFran { get; } = "https://zlcwzbvk-5250.uks1.devtunnels.ms";
 
     }
 }

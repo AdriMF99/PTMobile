@@ -71,7 +71,7 @@ namespace PTMobile.ViewModels
 
         private async Task<List<Project>> GetProjectsAsync(string username)
         {
-            string apiUrl = $"{DevTunnel.UrlAdri}/api/Project/get-user-projects?userName={username}";
+            string apiUrl = $"{DevTunnel.UrlFran}/api/Project/get-user-projects?userName={username}";
             HttpResponseMessage response = await _httpClient.GetAsync(apiUrl);
             if (response.IsSuccessStatusCode)
             {
@@ -115,7 +115,7 @@ namespace PTMobile.ViewModels
                 bool answer = await Shell.Current.DisplayAlert("Cast", $"¿Quieres conectar '{project.ProjectName}'?", "SÍ", "NO");
                 if (answer)
                 {
-                    string url = $"{DevTunnel.UrlAdri}/api/Project/select-project?projectData={project.ProjectName}&tvCode={TokenManager.TvCode}";
+                    string url = $"{DevTunnel.UrlFran}/api/Project/select-project?projectData={project.ProjectName}&tvCode={TokenManager.TvCode}";
                     HttpResponseMessage response = await _httpClient.GetAsync(url);
                     if (response.IsSuccessStatusCode)
                     {
@@ -136,7 +136,7 @@ namespace PTMobile.ViewModels
                 bool answer = await Shell.Current.DisplayAlert("Delete", $"¿Quieres borrar '{project.ProjectName}'?", "SÍ", "NO");
                 if (answer)
                 {
-                    string urlDelete = $"{DevTunnel.UrlAdri}/api/Project/deleteProject?projectId={Uri.EscapeDataString(project.Id.ToString())}";
+                    string urlDelete = $"{DevTunnel.UrlFran}/api/Project/deleteProject?projectId={Uri.EscapeDataString(project.Id.ToString())}";
                     HttpResponseMessage response = await _httpClient.DeleteAsync(urlDelete);
                     if (response.IsSuccessStatusCode)
                     {

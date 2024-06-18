@@ -114,7 +114,7 @@ namespace PTMobile.ViewModels
                 return;
             }
 
-            string url = $"{DevTunnel.UrlAdri}/User/login?username={Username}&password={Password}";
+            string url = $"{DevTunnel.UrlFran}/User/login?username={Username}&password={Password}";
 
             try
             {
@@ -136,7 +136,7 @@ namespace PTMobile.ViewModels
                     TokenManager.Token = token;
                     TokenManager.currentUser = Username;
 
-                    string urlDeleted = $"{DevTunnel.UrlAdri}/User/is-deleted?username={Username}";
+                    string urlDeleted = $"{DevTunnel.UrlFran}/User/is-deleted?username={Username}";
                     var responseDelete = await _httpClient.GetAsync(urlDeleted);
 
                     if (responseDelete.IsSuccessStatusCode)
@@ -150,7 +150,7 @@ namespace PTMobile.ViewModels
                         }
                         else
                         {
-                            string urlAdmin = $"{DevTunnel.UrlAdri}/User/is-admin?username={Username}";
+                            string urlAdmin = $"{DevTunnel.UrlFran}/User/is-admin?username={Username}";
                             var responseAdmin = await _httpClient.GetAsync(urlAdmin);
                             if (responseAdmin.IsSuccessStatusCode)
                             {
@@ -175,7 +175,7 @@ namespace PTMobile.ViewModels
                                 }
                                 else
                                 {
-                                    string urlGod = $"{DevTunnel.UrlAdri}/User/is-god?username={Username}";
+                                    string urlGod = $"{DevTunnel.UrlFran}/User/is-god?username={Username}";
                                     var responseGod = await _httpClient.GetAsync(urlGod);
                                     if (responseGod.IsSuccessStatusCode)
                                     {
